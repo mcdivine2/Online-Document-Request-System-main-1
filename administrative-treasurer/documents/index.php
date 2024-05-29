@@ -37,7 +37,7 @@
         <!-- ============================================================== -->
         <div class="row justify-content-center">
             <!-- metric -->
-            <!-- Number of clients card -->
+            <!-- NumberOfClients card -->
             <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
@@ -110,34 +110,33 @@
                 </div>
             </div>
             <!-- /. metric -->
-            <!-- metric -->
 
-            <!-- /. metric -->
             <!-- metric -->
-            <!-- Releasing card -->
+            <!-- releasing card -->
             <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <?php
-                        $conn = new class_model();
-                        $cstudent = $conn->count_numberofreleased();
-                        ?>
-                        <?php foreach ($cstudent as $row): ?>
-                            <div class="d-inline-block">
-                                <h5 class="text-muted"><b>Releasing</b></h5>
-                                <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                        <div class="card">
+                            <div class="card-body">
+                               <?php
+                               $conn = new class_model();
+                               $cstudent = $conn->count_numberofreleased();
+                               ?>
+                               <?php foreach ($cstudent as $row): ?>
+                                <div class="d-inline-block">
+                                    <h5 class="text-muted"><b>Releasing</b></h5>
+                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                                </div>
+                                <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
+                                    <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
+                                </div>
+                                 <?php endforeach; ?>
                             </div>
-                            <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
-                                <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <a href="releasing.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
-                </div>
-            </div> -->
+                            <a href="releasing.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                        </div>
+                    </div> -->
             <!-- /. metric -->
+
             <!-- metric -->
-            <!-- Released card -->
+            <!-- released card -->
             <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">

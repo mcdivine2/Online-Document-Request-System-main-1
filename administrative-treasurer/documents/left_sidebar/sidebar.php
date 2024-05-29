@@ -22,8 +22,8 @@
                            
                             <!-- <li class="nav-item ">
                                 <a class="nav-link" href="client-verification.php"><i class="fa fa-fw fa-file"></i>Client Verification  <span class="badge badge-success">6</span></a>
-                            </li>
-                            <li class="nav-item ">
+                            </li> -->
+                            <!-- <li class="nav-item ">
                                 <a class="nav-link" href="users.php"><i class="fa fa-fw fa-user-lock"></i>Users <span class="badge badge-success">6</span></a>
                             </li>      -->
                             
