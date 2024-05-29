@@ -91,7 +91,7 @@
                     <div class="form-group">
                         <label class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" id="remember" onclick="myFunction()"><span class="custom-control-label">Show Password</span>
-                            <a href="http://localhost/Online-Document-Request-System-main/registration/" class="register">Register</a>
+                            <a href="http://localhost:8080/Online-Document-Request-System-main/registration/" class="register">Register</a>
                         </label>
                     </div>
                    <div class="form-group">

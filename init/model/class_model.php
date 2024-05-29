@@ -25,7 +25,7 @@
 		}
 
 		public function login_student($username, $password, $status){
-			$stmt = $this->conn->prepare("SELECT * FROM `tbl_student` WHERE `username` = ? AND `password` = ? AND `account_status` = ?") or die($this->conn->error);
+			$stmt = $this->conn->prepare("SELECT * FROM `tbl_students` WHERE `username` = ? AND `password` = ? AND `account_status` = ?") or die($this->conn->error);
 			$stmt->bind_param("sss", $username, $password, $status);
 			if($stmt->execute()){
 				$result = $stmt->get_result();
