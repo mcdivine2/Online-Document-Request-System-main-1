@@ -53,10 +53,10 @@
 
                     <div class="dropdown-menu container-fluid" aria-labelledby="dropdownMenuLink" >
                         
-                        <a class="dropdown-item container-fluid" href="#">Administrative Treasurer</a>
-                        <a class="dropdown-item container-fluid" href="#" >Administrative Library</a>
-                        <a class="dropdown-item container-fluid" href="#" >Administrative Custudian</a>
-                        <a class="dropdown-item container-fluid" href="#" >Administrative Dean</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-treasurer/">Administrative Treasurer</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-library/" >Administrative Library</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-custodian" >Administrative Custodian</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-dean/" >Administrative Dean</a>
                     </div>
                     </div>
                     </div>

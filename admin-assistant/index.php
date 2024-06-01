@@ -50,8 +50,8 @@
                         </a>
 
                     <div class="dropdown-menu container-fluid" aria-labelledby="dropdownMenuLink" >
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/admin/" >Admin</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/admin-aide/" >Administrative Aide</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/admin/" >Admin</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/admin-aide/" >Administrative Aide</a>
                     </div>
                     </div>
                     </div>
