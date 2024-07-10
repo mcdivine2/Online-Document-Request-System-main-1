@@ -122,18 +122,18 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
     <!-- jquery 3.3.1 js-->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- bootstrap bundle js-->
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../asset/vendor/slimscroll/jquery.slimscroll.js"></script>
     <!-- chartjs js-->
-    <script src="../assets/vendor/charts/charts-bundle/Chart.bundle.js"></script>
-    <script src="../assets/vendor/charts/charts-bundle/chartjs.js"></script>
+    <script src="../asset/vendor/charts/charts-bundle/Chart.bundle.js"></script>
+    <script src="../asset/vendor/charts/charts-bundle/chartjs.js"></script>
    
     <!-- main js-->
-    <script src="../assets/libs/js/main-js.js"></script>
+    <script src="../asset/libs/js/main-js.js"></script>
      <!-- dashboard sales js-->
-    <script src="../assets/libs/js/dashboard-sales.js"></script>
+    <script src="../asset/libs/js/dashboard-sales.js"></script>
      <script type="text/javascript">
         $(document).ready(function(){
           var firstName = $('#firstName').text();

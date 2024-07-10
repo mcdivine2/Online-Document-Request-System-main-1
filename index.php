@@ -7,15 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="asset/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="asset/libs/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         html,
         body {
-            height: 110%;
+            height: 100%;
             min-height: 110%;
-            background: linear-gradient(0deg, rgba(2, 115, 0), rgba(35, 152, 228, 0.4)), url("assets/images/scc-bg2.png");
+            background: linear-gradient(0deg, rgba(2, 115, 0), rgba(35, 152, 228, 0.4)), url("asset/images/scc-bg2.png");
             background-size: cover;
 
 
@@ -72,7 +72,7 @@
     <!-- As a heading -->
     <nav class="navbar navbar-dark bg-primary" style="background: rgb(17,10,134);
             background: linear-gradient(90deg, rgba(1,68,33) 0%, rgba(18,53,36) 28%, rgba(0,102,0) 100%);">
-        <span class="navbar-brand mb-0 h1">Student</span>
+        <span class="navbar-brand mb-0 h1 ">Student</span>
     </nav>
 
 
@@ -81,8 +81,8 @@
     <!-- ============================================================== -->
     <div class="splash-container" style="margin-top: 50px">
         <div class="card ">
-            <div class="card-header text-center"><a href="index.html"><img class="scc_logo"
-                        src="assets/images/scc_logo.png" alt="SCC_logo" height="200px"></a></div>
+            <div class="card-header text-center"><img class="scc_logo"
+                        src="asset/images/scc_logo.png" alt="SCC_logo" height="200px"></div>
             <div class="card-body">
                 <form method="post" name="login_sform">
                     <div class="form-group">
@@ -97,7 +97,7 @@
                         <label class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" id="remember"
                                 onclick="myFunction()"><span class="custom-control-label">Show Password</span>
-                            <a href="http://localhost:8080/Online-Document-Request-System-main/registration/"
+                            <a href="http://localhost/Online-Document-Request-System-main/registration/"
                                 class="register">Register</a>
                         </label>
                     </div>
@@ -116,9 +116,9 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="asset/js/jquery.min.js"></script>
+    <script src="asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script type="text/javascript">
         document.oncontextmenu = document.body.oncontextmenu = function () { return false; }//disable right click
     </script>
@@ -150,7 +150,7 @@
                             if (t == 0) {
                                 $('#alert-msg').html('<div class="alert alert-danger">Incorrect username or password!</div>');
                             } else {
-                                $("#btn-student").html('<img src="assets/images/loading.gif" /> &nbsp; Signing In ...');
+                                $("#btn-student").html('<img src="asset/images/loading.gif" /> &nbsp; Signing In ...');
                                 setTimeout(' window.location.href = "student/index.php"; ', 2000);
                             }
                         });

@@ -65,7 +65,7 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(18,53,36)" >
-                <a class="navbar-brand" href="index.php"><p style="color: #FDC741;font-size: 100%;size: 3em"><img class="logo-prmsu" src="../assets/images/scc_logo.png" alt ="logo" width="70px" height="50px">Online Request of Document</p></a>
+                <a class="navbar-brand" href="index.php"><p style="color: #FDC741;font-size: 100%;size: 3em"><img class="logo-scc" src="../assets/images/scc_logo.png" alt ="logo" width="70px" height="50px">Online Request of Document</p></a>
                 
                 
             </nav>

@@ -39,7 +39,7 @@
 		}
  
 		public function student_account($student_id){
-			$stmt = $this->conn->prepare("SELECT * FROM `tbl_student` WHERE `student_id` = ?") or die($this->conn->error);
+			$stmt = $this->conn->prepare("SELECT * FROM `tbl_students` WHERE `student_id` = ?") or die($this->conn->error);
 		    $stmt->bind_param("i", $student_id);
 			if($stmt->execute()){
 				$result = $stmt->get_result();
@@ -53,7 +53,7 @@
 		}
 
 		public function student_profile($student_id){
-			$stmt = $this->conn->prepare("SELECT * FROM `tbl_student` WHERE `student_id` = ?") or die($this->conn->error);
+			$stmt = $this->conn->prepare("SELECT * FROM `tbl_students` WHERE `student_id` = ?") or die($this->conn->error);
 		    $stmt->bind_param("i", $student_id);
 			if($stmt->execute()){
 				$result = $stmt->get_result();
@@ -64,9 +64,6 @@
 					'first_name'=> $fetch['first_name'],
 					'middle_name'=>$fetch['middle_name'],
 					'last_name'=>$fetch['last_name'],
-					'course'=>$fetch['course'],
-					'gender'=>$fetch['gender'],
-					'year_level'=>$fetch['year_level'],
 					'email_address'=>$fetch['email_address'],
 					'complete_address'=>$fetch['complete_address'],
 					'mobile_number'=>$fetch['mobile_number'],

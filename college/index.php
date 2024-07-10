@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Login</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/libs/css/style.css">
+    <link rel="stylesheet" href="asset/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="asset/libs/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
     html,
@@ -16,7 +16,7 @@
         height: 100%;
         min-height:100%;
         
-        background:linear-gradient(0deg, rgba(2, 4, 124, 0.8), rgba(35, 152, 228, 0.4)), url("assets/images/prmsu-bg.jpg");
+        background:linear-gradient(0deg, rgba(2, 4, 124, 0.8), rgba(35, 152, 228, 0.4)), url("asset/images/prmsu-bg.jpg");
         background-size:cover;
         
        
@@ -80,7 +80,7 @@
     <!-- ============================================================== -->
     <div class="splash-container" style="margin-top: 50px">
         <div class="card ">
-            <div class="card-header text-center"><a href="index.html"><img class="prmsu_logo" src="assets/images/prmsu_logo.jpg" alt="prmsu_logo" height="200px"></a></div>
+            <div class="card-header text-center"><a href="index.html"><img class="prmsu_logo" src="asset/images/prmsu_logo.jpg" alt="prmsu_logo" height="200px"></a></div>
             <div class="card-body">
                 <form method="post" name="login_sform">
 
@@ -124,9 +124,9 @@
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="asset/js/jquery.min.js"></script>
+    <script src="asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script type="text/javascript">
       document.oncontextmenu = document.body.oncontextmenu = function() {return false;}//disable right click
     </script>
@@ -158,7 +158,7 @@
                             if (t == 0){
                                 $('#alert-msg').html('<div class="alert alert-danger">Incorrect username or password!</div>');
                             }else{
-                                $("#btn-student").html('<img src="assets/images/loading.gif" /> &nbsp; Signing In ...');
+                                $("#btn-student").html('<img src="asset/images/loading.gif" /> &nbsp; Signing In ...');
                                 setTimeout(' window.location.href = "student/index.php"; ',2000);
                             }
                         });

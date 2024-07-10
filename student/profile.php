@@ -48,7 +48,7 @@
                                                 <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
                                                     <div class="text-center">
                                                         <div id="profileImage_2"></div>
-                                                     <!--    <img src="../assets/images/256-128.webp" alt="User Avatar" class="rounded-circle user-avatar-xxl"> -->
+                                                     <!--    <img src="../asset/images/256-128.webp" alt="User Avatar" class="rounded-circle user-avatar-xxl"> -->
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-10 col-lg-8 col-md-8 col-sm-8 col-12">
@@ -63,13 +63,13 @@
                                                                 <p class="border-bottom pb-3">
                                                                     <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-map-marker-alt mr-2 text-primary "></i><?= ucfirst($user['complete_address']); ?></span>
                                                                     <span class="mb-2 ml-xl-4 d-xl-inline-block d-block">Joined date: <?= date("M d, Y",strtotime($user['date_created'])); ?> </span>
-                                                                    <span class=" mb-2 d-xl-inline-block d-block ml-xl-4"><?= ucfirst($user['gender']); ?> 
+                                                                   
                                                                             </span>
                                                                   <!--   <span class=" mb-2 d-xl-inline-block d-block ml-xl-4">29 Year Old </span> -->
                                                                 </p>
                                                                 <p class="border-bottom pb-3">
-                                                                    <span class="d-xl-inline-block d-block mb-2"><i class="fa fa-certificate mr-2 text-primary "></i><?= ucfirst($user['course']); ?></span>
-                                                                    <span class="mb-2 ml-xl-4 d-xl-inline-block d-block"><?= ucfirst($user['year_level']); ?> </span>
+                                                                   
+                                                                   
                                                                 </p>
                                                                 <div class="mt-3">
                                                                     <a href="#" class="badge badge-light mr-1"><i class="fa fa-fw fa-envelope"></i> <?= ucfirst($user['email_address']); ?></a> <a href="#" class="badge badge-light mr-1"><i class="fa fa-fw fa-phone"></i> <?= ucfirst($user['mobile_number']); ?></a>
@@ -134,10 +134,10 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/parsley/parsley.js"></script>
-    <script src="../assets/libs/js/main-js.js"></script>
+    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../asset/vendor/parsley/parsley.js"></script>
+    <script src="../asset/libs/js/main-js.js"></script>
     <script>
     $('#form').parsley();
     </script>

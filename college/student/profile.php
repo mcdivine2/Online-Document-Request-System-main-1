@@ -48,7 +48,7 @@
                                                 <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
                                                     <div class="text-center">
                                                         <div id="profileImage_2"></div>
-                                                     <!--    <img src="../assets/images/256-128.webp" alt="User Avatar" class="rounded-circle user-avatar-xxl"> -->
+                                                     <!--    <img src="../asset/images/256-128.webp" alt="User Avatar" class="rounded-circle user-avatar-xxl"> -->
                                                         </div>
                                                     </div>
                                                     <div class="col-xl-10 col-lg-8 col-md-8 col-sm-8 col-12">
@@ -134,10 +134,10 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/parsley/parsley.js"></script>
-    <script src="../assets/libs/js/main-js.js"></script>
+    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../asset/vendor/parsley/parsley.js"></script>
+    <script src="../asset/libs/js/main-js.js"></script>
     <script>
     $('#form').parsley();
     </script>

@@ -23,15 +23,7 @@
                     <h2 class="pageheader-title">
                         <center><i class="fa fa-fw fa-user-graduate"></i> <strong>Registration Form </strong></center>
                     </h2>
-                    <!-- use this div to toggle registration -->
-                    <!-- <div class="form-group">
-                    <label for="registerAs">Register as:</label>
-                    <select id="registerAs" class="form-control">
-                        <option value="">Select</option>
-                        <option value="student">Student</option>
-                        <option value="admin">Admin</option>
-                    </select> -->
-                </div>
+                   
                 <div class="page-breadcrumb">
 
                 </div>
@@ -70,7 +62,7 @@
 
                         <div class="form-group row">
                             <label class="col-12 col-sm-3 col-form-label text-sm-right">First Name</label>
-                            <div class="col-12 col-sm-8 col-lg-6">
+                            <div class="col-12 col-md-8 col-lg-6">
                                 <input data-parsley-type="alphanum" id="latinTextBox" type="text" name="first_name"
                                     required="" placeholder="" class="form-control">
                             </div>
@@ -114,7 +106,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-12 col-sm-3 col-form-label text-sm-right"><i class="fa fa-user-lock"></i>
-                                Account Info</label>
+                            Upload Valid ID</label>
                         </div>
                         <div class="form-group row">
                             <label class="col-12 col-sm-3 col-form-label text-sm-right">Upload Picture/Id</label>
@@ -254,10 +246,10 @@
         });
     });
 </script>
-<script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="../assets/vendor/parsley/parsley.js"></script>
-<script src="../assets/libs/js/main-js.js"></script>
+<script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../asset/vendor/parsley/parsley.js"></script>
+<script src="../asset/libs/js/main-js.js"></script>
 
 <script type="text/javascript">
     // Restricts input for the given textbox to the given inputFilter.

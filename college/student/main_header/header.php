@@ -18,13 +18,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/libs/css/style.css">
-    <link rel="stylesheet" href="../assets/vendor/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/buttons.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/select.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    <link rel="stylesheet" href="../asset/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../asset/libs/css/style.css">
+    <link rel="stylesheet" href="../asset/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/buttons.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/select.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/fixedHeader.bootstrap4.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>@import url('https://fonts.googleapis.com/css2?family=Diplomata+SC&family=Yanone+Kaffeesatz&display=swap');</style> 
     <title>Online-School-Documents-Processing</title>
@@ -205,7 +205,7 @@ span a {
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top" id="head-color" >
-            <a class="navbar-brand" href="index.php"><p id="title-style"><img class="logo-prmsu" src="../assets/images/logo.png" alt ="logo" width="50px" height="50px">&nbsp;&nbsp;Online Request of Document</p></a>
+            <a class="navbar-brand" href="index.php"><p id="title-style"><img class="logo-prmsu" src="../asset/images/logo.png" alt ="logo" width="50px" height="50px">&nbsp;&nbsp;Online Request of Document</p></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>

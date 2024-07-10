@@ -141,14 +141,14 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/custom-js/jquery.multi-select.html"></script>
-    <script src="../assets/libs/js/main-js.js"></script>
-    <script src="../assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="../assets/vendor/datatables/js/data-table.js"></script>
+    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
+    <script src="../asset/libs/js/main-js.js"></script>
+    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/datatables/js/data-table.js"></script>
      <script type="text/javascript">
         $(document).ready(function(){
           var firstName = $('#firstName').text();
