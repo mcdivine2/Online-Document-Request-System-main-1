@@ -89,10 +89,17 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
+
+                                                       if($row['registrar_status'] ==="Pending Request"){
+                                                        echo '<span class="badge bg-warning text-white">Pending Requests</span>';
+                                                      } else if($row['registrar_status'] ==="Processing"){
+                                                       echo '<span class="badge bg-info text-white">Processing</span>';
+
                                                        if($row['registrar_status'] ==="Pending"){
                                                         echo '<span class="badge bg-warning text-white">Pending</span>';
                                                       } else if($row['registrar_status'] ==="Waiting for Payment"){
                                                        echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+
                                                       }else if($row['registrar_status'] ==="Releasing"){
                                                          echo '<span class="badge bg-success text-white">Verified</span>';
                                                      }else if($row['registrar_status'] ==="Received"){
@@ -135,11 +142,19 @@ echo '"class= "text-secondary font-weight-bold text-xs" data-toggle-tooltip" dat
 
 
                                                         <a href="<?php 
+
+                                                       if($row['registrar_status'] ==='Pending Request'){
+                                                           echo 'email-form-p.php';
+                                                         } else if($row['registrar_status'] ==='Received'){
+                                                          echo 'email-form-r.php';
+                                                         }else if($row['registrar_status'] ==='Processing'){
+
                                                        if($row['registrar_status'] ==='Pending'){
                                                            echo 'email-form-p.php';
                                                          } else if($row['registrar_status'] ==='Received'){
                                                           echo 'email-form-r.php';
                                                          }else if($row['registrar_status'] ==='Waiting for Payment'){
+
                                                            echo 'email-form-wfp.php';
                                                         }else if($row['registrar_status'] ==='Releasing'){
                                                           echo 'email-form.php';

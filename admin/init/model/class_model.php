@@ -24,9 +24,9 @@
 			}
 		}
 
-		public function login($username, $password, $status){
-			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `username` = ? AND `password` = ? AND `status` = ?") or die($this->conn->error);
-			$stmt->bind_param("sss", $username, $password, $status);
+		public function login($username, $password, $status, $role){
+			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `username` = ? AND `password` = ? AND `status` = ? AND `role` = ?") or die($this->conn->error);
+			$stmt->bind_param("ssss", $username, $password, $status, $role);
 			if($stmt->execute()){
 				$result = $stmt->get_result();
 				$valid = $result->num_rows;

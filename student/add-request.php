@@ -194,23 +194,23 @@
                     </div>
 
                     <div class="form-group row" style="margin-top: -10px;">
-    <label class="col-form-label col-sm-2">Date Request:</label>
-    <div class="col-sm-6 col-lg-3">
-        <input type="text" name="date_request" required="" class="form-control" value="<?php echo date('M d Y');?>" readonly>
-    </div>
-</div>
+												<label class="col-form-label col-sm-2">Date Request:</label>
+												<div class="col-sm-6 col-lg-3">
+														<input type="text" name="date_request" required="" class="form-control" value="<?php echo date('M d Y');?>" readonly>
+												</div>
+										</div>
 
-<div class="form-group row" style="margin-top: -10px;">
-    <label class="col-form-label col-sm-2">Mode:</label>
-    <div class="col-sm-2.5">
-        <select name="mode_request" id="mode_request" required="" class="form-control">
-            <option value="">&larr; Select Mode &rarr;</option>
-            <option value="Pick Up">Pick-Up</option>
-            <option value="Delivery">Delivery</option>
-        </select>
-    </div>
-    <label class="col-form-label col-md-4" style="color: red; margin-left: 0;">Delivery Additional: ₱50</label>
-</div>
+										<div class="form-group row" style="margin-top: -10px;">
+												<label class="col-form-label col-sm-2">Mode:</label>
+												<div class="col-sm-2.5">
+														<select name="mode_request" id="mode_request" required="" class="form-control">
+																<option value="">&larr; Select Mode &rarr;</option>
+																<option value="Pick Up">Pick-Up</option>
+																<option value="Delivery">Delivery</option>
+														</select>
+												</div>
+												<label class="col-form-label col-md-4" style="color: red; margin-left: 0;">Delivery Additional: ₱50</label>
+										</div>
 
                     <!-- Purpose Section (Using Checkboxes) -->
                     <div class="form-group mt-4">
