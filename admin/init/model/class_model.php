@@ -38,17 +38,26 @@
 			}
 		}
  
-		public function user_account($user_id){
+		public function user_account($user_id) {
+			// Prepare SQL statement to fetch user account details by user ID
 			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `user_id` = ?") or die($this->conn->error);
-		    $stmt->bind_param("i", $user_id);
-			if($stmt->execute()){
+			$stmt->bind_param("i", $user_id);
+			
+			if ($stmt->execute()) {
 				$result = $stmt->get_result();
-				$fetch = $result->fetch_array();
-				return array(
-					'complete_name'=> $fetch['complete_name']
-					// 'last_name'=>$fetch['last_name']
-				);
-			}	
+				if ($fetch = $result->fetch_array()) {
+					// Return user details
+					return array(
+						'complete_name' => htmlentities($fetch['complete_name'])
+					);
+				} else {
+					// No user found with this ID
+					return null;
+				}
+			} else {
+				// SQL execution failed
+				return false;
+			}
 		}
 
 	    public function fetchAll_course(){ 
@@ -378,7 +387,7 @@
 			}
 		}
 
-		public function add_admin_aide($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+		public function add_admin_treasurer($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
 			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
 			 if($stmt->execute()){
@@ -388,7 +397,27 @@
 			 }
 		 }
 
-		 public function add_admin_assist($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+		 public function add_admin_library($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
+			 if($stmt->execute()){
+				 $stmt->close();
+				 $this->conn->close();
+				 return true;
+			 }
+		 }
+
+		 public function add_admin_custudian($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
+			 if($stmt->execute()){
+				 $stmt->close();
+				 $this->conn->close();
+				 return true;
+			 }
+		 }
+
+		 public function add_admin_dean($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
 			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
 			 if($stmt->execute()){

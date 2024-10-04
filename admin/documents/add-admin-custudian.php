@@ -20,14 +20,14 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                             <h2 class="pageheader-title"><i class="fa fa-fw fa-user-lock"></i> Add Administrative Aide </h2>
+                             <h2 class="pageheader-title"><i class="fa fa-fw fa-user-lock"></i> Add Administrative Custudian </h2>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         
                                     <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                     <li class="breadcrumb-item"><a href="select-designation.php" class="breadcrumb-link">Designation</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Administrative Aide</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Administrative Custudian</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -56,7 +56,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Designation</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                    <input data-parsley-type="alphanum" type="text" name="desgination" placeholder="Administrative Aide" value="Administrative Aide" class="form-control" readonly>
+                                                    <input data-parsley-type="alphanum" type="text" name="desgination" placeholder="Administrative Custudian" value="Administrative Custudian" class="form-control" readonly>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -160,7 +160,7 @@
           window.scrollTo(0, 0);
         }else{
         $.ajax({
-            url: '../init/controllers/add_admin_aide.php',
+            url: '../init/controllers/add_admin_custudian.php',
             method: 'post',
             data: {
               complete_name: a,

@@ -11,7 +11,7 @@
 		$password = trim($_POST['password']);
 		$status = "Active";
 
-		$user = $conn->add_admin_aide($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
+		$user = $conn->add_admin_dean($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
 		if($user == TRUE){
 		    echo '<div class="alert alert-success">Add User Successfully!</div><script> setTimeout(function() {  window.history.go(-1); }, 1000); </script>';
 

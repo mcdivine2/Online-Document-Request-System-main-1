@@ -55,10 +55,10 @@
 
                                                             <div class="dropdown-menu container-fluid" aria-labelledby="dropdownMenuLink" >
                                                             <a class="dropdown-item container-fluid" href="add-user.php">Administrator Registrar</a>
-                                                            <a class="dropdown-item container-fluid" href="#">Administrative Treasurer</a>
-                                                            <a class="dropdown-item container-fluid" href="#" >Administrative Library</a>
-                                                            <a class="dropdown-item container-fluid" href="#" >Administrative Custudian</a>
-                                                            <a class="dropdown-item container-fluid" href="#" >Administrative Dean</a>
+                                                            <a class="dropdown-item container-fluid" href="add-admin-treasurer.php">Administrative Treasurer</a>
+                                                            <a class="dropdown-item container-fluid" href="add-admin-library.php" >Administrative Library</a>
+                                                            <a class="dropdown-item container-fluid" href="add-admin-custudian.php" >Administrative Custudian</a>
+                                                            <a class="dropdown-item container-fluid" href="add-admin-dean.php" >Administrative Dean</a>
                                                         </div>
                                                         </div>
 
