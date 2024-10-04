@@ -24,9 +24,9 @@
 			}
 		}
 
-		public function login($username, $password, $status){
-			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `username` = ? AND `password` = ? AND `status` = ?") or die($this->conn->error);
-			$stmt->bind_param("sss", $username, $password, $status);
+		public function login($username, $password, $status, $role){
+			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `username` = ? AND `password` = ? AND `status` = ? AND `role` = ?") or die($this->conn->error);
+			$stmt->bind_param("ssss", $username, $password, $status, $role);
 			if($stmt->execute()){
 				$result = $stmt->get_result();
 				$valid = $result->num_rows;
@@ -151,7 +151,7 @@
 		
 
 		public function edit_student($studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id){
-			$sql = "UPDATE `tbl_student` SET   `studentID_no` = ?,   `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, `date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
+			$sql = "UPDATE `tbl_students` SET   `studentID_no` = ?,   `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, `date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
 			 $stmt = $this->conn->prepare($sql);
 			$stmt->bind_param("ssssssssssssssi", $studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id);
 			if($stmt->execute()){
@@ -174,7 +174,7 @@
 		
 
 		public function delete_student($student_id){
-				$sql = "DELETE FROM tbl_student WHERE student_id = ?";
+				$sql = "DELETE FROM tbl_students WHERE student_id = ?";
 				 $stmt = $this->conn->prepare($sql);
 				$stmt->bind_param("i", $student_id);
 				if($stmt->execute()){
@@ -311,10 +311,10 @@
 		  }
 
 
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `registrar_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id);
+			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -438,7 +438,7 @@
 			}
 
 	    public function count_numberofstudents(){ 
-            $sql = "SELECT COUNT(student_id) as count_students FROM tbl_student";
+            $sql = "SELECT COUNT(student_id) as count_students FROM tbl_students";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -453,7 +453,7 @@
 		  
 
 		  public function count_allstudents(){ 
-            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_student) as count_students";
+            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_students) as count_students";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -563,7 +563,7 @@
 
 
 	 public function count_groupbycourse(){ 
-            $sql = "SELECT count(course) as count_coursename,course FROM tbl_student GROUP BY course";
+            $sql = "SELECT count(course) as count_coursename,course FROM tbl_students GROUP BY course";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

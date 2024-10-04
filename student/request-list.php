@@ -84,17 +84,18 @@
                                                     </td>
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
+                                                        <!-- analyze here there is a bug hehe or here insert the eye icon to show the status of other departments-->
                                                      <?php 
-                                                       if($row['status'] ==="Pending"){
+                                                       if($row['registrar_status'] ==="Pending"){
                                                            echo '<span class="badge bg-warning text-white">Pending</span>';
-                                                         } else if($row['status'] ==="Waiting for Payment"){
+                                                         } else if($row['registrar_status'] ==="Waiting for Payment"){
                                                           echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
-                                                         }else if($row['status'] ==="Releasing"){
+                                                         }else if($row['registrar_status'] ==="Releasing"){
                                                             echo '<span class="badge bg-success text-white">Verified</span>';
-                                                        }else if($row['status'] ==="Received"){
+                                                        }else if($row['registrar_status'] ==="Received"){
                                                             echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                         }
-                                                        else if($row['status'] ==="Declined"){
+                                                        else if($row['registrar_status'] ==="Declined"){
                                                             echo '<span class="badge bg-danger text-white">Declined</span>';
                                                         }
                                                      ?> 
@@ -103,7 +104,7 @@
 
                                              <td class="align-right">
                                               <div class="box">
-                  <!--                                   <div class="one">
+                                                    <!-- <div class="one">
                                                         <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-download"></i>
                                                         </a> &nbsp;</div>

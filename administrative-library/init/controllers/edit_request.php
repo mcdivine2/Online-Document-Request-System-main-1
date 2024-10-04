@@ -10,12 +10,12 @@
 		$no_ofcopies = trim($_POST['no_ofcopies']);
 	    $date_request = trim($_POST['date_request']);
 		$date_releasing = trim($_POST['date_releasing']);
-	    $processing_officer = trim($_POST['processing_officer']);
+	    // $processing_officer = trim($_POST['processing_officer']);
 		$status = trim($_POST['status']);
 		$request_id = trim($_POST['request_id']);
 
 
-		$request = $conn->edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id);
+		$request = $conn->edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $status, $request_id);
 		if($request == TRUE){
 		    echo '<div class="alert alert-success">Edit Request Successfully!</div><script> setTimeout(function() {  window.history.go(-1); }, 1000); </script>';
 

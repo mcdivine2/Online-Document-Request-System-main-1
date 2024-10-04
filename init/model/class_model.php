@@ -171,7 +171,7 @@
 		  }
 
 		  public function fetchAll_pendingrequest($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Received' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Received' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -185,7 +185,7 @@
 		  }
 
 		  public function fetchAll_processing($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Processing' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Processing' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -199,7 +199,7 @@
 		  }
 
 		  public function fetchAll_paymentpending($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Waiting for Payment' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND accounting_status = 'Waiting for Payment' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -213,7 +213,7 @@
 		  }
 
 		  public function fetchAll_releaseddocument($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Releasing' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Released' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -276,7 +276,7 @@
 
 		  }
 
-	    public function count_numberoftotalrequest(){ 
+	    public function count_numberoftotalrequest($student_id){ 
             $sql = "SELECT COUNT(request_id) as count_request FROM tbl_documentrequest";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
@@ -290,7 +290,7 @@
 		  }
 
 		 public function count_numberoftotalpending($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND status = 'Waiting for Payment'";
+            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND accounting_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -304,7 +304,7 @@
 		  }
 
 		 public function count_numberoftotalreceived($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE student_id = ? AND status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -318,7 +318,7 @@
 		  }
 
 		  public function processing_status($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND status = 'Processing'";
+            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Processing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -332,7 +332,7 @@
 		  }
 
 		  public function count_numberofreleased($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Released'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -402,15 +402,37 @@
 		}
 
 
-		public function add_request($control_no, $studentID_no, $email_address, $document_name, $no_ofcopies, $date_request, $received,  $student_id, $mode_request){
-	       $stmt = $this->conn->prepare("INSERT INTO `tbl_documentrequest` (`control_no`, `studentID_no`, `document_name`, `no_ofcopies`, `date_request`, `status`, `student_id`, `mode_request`) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
-			$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $received, $student_id, $mode_request);
-			if($stmt->execute()){
-				$stmt->close();
-				$this->conn->close();
-				return true;
+		public function add_request($control_no, $studentID_no, $email_address, $document_name, $no_ofcopies, $date_request, $received, $student_id, $mode_request) {
+			// Ensure the connection is active
+			if ($this->conn->ping()) {
+				// Prepare the SQL statement
+				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest (control_no, studentID_no, document_name, no_ofcopies, date_request, registrar_status, student_id, mode_request) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+				
+				if ($stmt === false) {
+					die('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error);
+				}
+		
+				// Bind parameters
+				$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $received, $student_id, $mode_request);
+		
+				// Execute the statement
+				if ($stmt->execute()) {
+					$stmt->close();
+					return true;
+				} else {
+					// Log or handle errors as needed
+					error_log('Execute failed: (' . $stmt->errno . ') ' . $stmt->error);
+					$stmt->close();
+					return false;
+				}
+			} else {
+				// Handle lost connection
+				die('MySQL connection lost');
 			}
 		}
+		
+		
+		
 
 
 
@@ -439,12 +461,12 @@
 		public function delete_request($request_id){
 				$sql = "DELETE FROM tbl_documentrequest WHERE request_id = ?";
 				 $stmt = $this->conn->prepare($sql);
-				$stmt->bind_param("i", $document_id);
+				$stmt->bind_param("i", $request_id);
 				if($stmt->execute()){
 					$stmt->close();
 					$this->conn->close();
 					return true;
 				}
-			}
+		}
 	}	
 ?>

@@ -101,7 +101,7 @@
                                             <?php
 
                                                 if ($row['status'] === 'Received') {
-                                                    echo 'For inquiries please email us at prmsu.admin@gmail.com';
+                                                    echo 'For inquiries please email us at scc.admin@gmail.com';
                                                 }else
                                                 if ($row['status'] === 'Waiting for Payment') {
                                                     echo 'You can pay via GCASH to this Number ';
@@ -218,7 +218,7 @@
 
 
                        $.ajax({
-                        url: '../init/controllers/my_request.php',
+                        url: '../init/controllers/myrequest.php',
                           type: "POST",
                           data: data,
                           processData: false,

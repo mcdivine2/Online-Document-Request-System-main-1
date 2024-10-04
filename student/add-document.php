@@ -46,7 +46,7 @@
                                              <div class="" id="message"></div>
                                             <form id="validationform" name="docu_form" data-parsley-validate="" novalidate="" enctype="multipart/form-data" >
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right"><i class="material-icons">add_a_photo</i> Document Info</label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right"><i class="material-icons"></i> Document Info: </label>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Upload Document</label>

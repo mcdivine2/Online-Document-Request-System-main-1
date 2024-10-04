@@ -14,7 +14,7 @@
         html,
         body {
             height: 100%;
-            min-height: 110%;
+            min-height: 105%;
             background: linear-gradient(0deg, rgba(2, 115, 0), rgba(35, 152, 228, 0.4)), url("asset/images/scc-bg2.png");
             background-size: cover;
 
@@ -72,7 +72,7 @@
     <!-- As a heading -->
     <nav class="navbar navbar-dark bg-primary" style="background: rgb(17,10,134);
             background: linear-gradient(90deg, rgba(1,68,33) 0%, rgba(18,53,36) 28%, rgba(0,102,0) 100%);">
-        <span class="navbar-brand mb-0 h1 ">Student</span>
+       
     </nav>
 
 

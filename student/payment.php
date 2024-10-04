@@ -112,14 +112,14 @@
                                                         }
                                                      ?> </td>
                                                     
-             <!--                                        <td class="align-right">
+                                                    <td class="align-right">
                                                         <a href="edit-payment.php?payment=<?= $row['payment_id']; ?>&document-controlnumber=<?php echo $row['document_controlno']; ?>"  class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-edit"></i>
                                                         </a> |
                                                         <a href="javascript:;" data-id="<?= $row['payment_id']; ?>"  class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-trash-alt"></i>
                                                         </a>
-                                                      </td> -->
+                                                      </td>
                                                 </tr>
                                             <?php } ?>
                                             </tbody>

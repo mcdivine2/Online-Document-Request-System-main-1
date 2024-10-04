@@ -13,14 +13,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/libs/css/style.css">
-    <link rel="stylesheet" href="../assets/vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="../asset/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../asset/libs/css/style.css">
+    <link rel="stylesheet" href="../asset/vendor/fontawesome-free/css/all.min.css">
 <!--     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css"> -->
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/dataTables.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/buttons.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/select.bootstrap4.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/buttons.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/select.bootstrap4.css">
+    <link rel="stylesheet" type="text/css" href="../asset/vendor/datatables/css/fixedHeader.bootstrap4.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Online Request of Document</title>
     <style>
@@ -65,9 +65,15 @@
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(18,53,36)" >
-                <a class="navbar-brand" href="index.php"><p style="color: #FDC741;font-size: 100%;size: 3em"><img class="logo-scc" src="../assets/images/scc_logo.png" alt ="logo" width="70px" height="50px">Online Request of Document</p></a>
+                <a class="navbar-brand" href="index.php"><p style="color: #FDC741;font-size: 100%;size: 3em"><img class="logo-scc" src="../asset/images/scc_logo.png" alt ="logo" width="70px" height="50px">Online Request of Document</p></a>
                 
-                
+                <ul class="navbar-nav ml-auto navbar-right-top">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://localhost/Online-Document-Request-System-main/index.php">
+                            <i class="fa fa-fw fa-home"></i>Back <span class="badge badge-success"></span>
+                        </a>
+                    </li>
             </nav>
         </div>
   

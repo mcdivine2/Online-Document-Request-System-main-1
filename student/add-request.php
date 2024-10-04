@@ -1,4 +1,4 @@
-       <?php include('main_header/header.php');?>
+<?php include('main_header/header.php');?>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->
@@ -96,25 +96,60 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Document Name</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <select data-parsley-type="alphanum" type="text" name="document_name" id="document_name" required="" placeholder="" class="form-control">
-                                                        
-                                                           <option value="">&larr;Select Document &rarr;</option>
-                                                           <option value="Certified True Copy of Certificate of Registration">Certified True Copy of Certificate of Registration</option>
-                                                           <option value="Certificate of Registration">Certificate of Registration</option>
-                                                           <option value="Certificate of Enrollment">Certificate of Enrollment</option>
-                                                           <option value="Certificate of Grades">Certificate of Grades</option>
-                                                           <option value="Evaluation of Grades">Evaluation of Grades</option>
-                                                           <option value="Transcript of Records">Transcript of Records</option>
-                                                           <option value="Good Moral">Good Moral</option>
-                                                       </select>
+                                                        <label>Select Document</label> <br>
+
+                                                        <input type="checkbox" name="document_name[]" id="document_name1" value="Transcript of Records"> Transcript of Records <br>
+                                                        <div id="quantity1" class="hidden mt-1">
+                                                            <label for="Transcript of Records">Copies:</label>
+                                                            <div class="spinner colorful">
+                                                                <button class="btn btn-minus" type="button">-</button>
+                                                                <input type="text" name="no_ofcopies[]" value="1" class="form-control">
+                                                                <button class="btn btn-plus" type="button">+</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="checkbox" name="document_name[]" id="document_name2" value="Evaluation of Grades"> Evaluation of Grades <br>
+                                                        <div id="quantity2" class="hidden mt-1">
+                                                            <label for="Evaluation of Grades">Copies:</label>
+                                                            <div class="spinner colorful">
+                                                                <button class="btn btn-minus" type="button">-</button>
+                                                                <input type="text" name="no_ofcopies[]" value="1" class="form-control">
+                                                                <button class="btn btn-plus" type="button">+</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="checkbox" name="document_name[]" id="document_name3" value="Certificate of Grades"> Certificate of Grades <br>
+                                                        <div id="quantity3" class="hidden mt-1">
+                                                            <label for="Certificate of Grades">Copies:</label>
+                                                            <div class="spinner colorful">
+                                                                <button class="btn btn-minus" type="button">-</button>
+                                                                <input type="text" name="no_ofcopies[]" value="1" class="form-control">
+                                                                <button class="btn btn-plus" type="button">+</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="checkbox" name="document_name[]" id="document_name4" value="Certificate of Registration"> Certificate of Registration <br>
+                                                        <div id="quantity4" class="hidden mt-1">
+                                                            <label for="Certificate of Registration">Copies:</label>
+                                                            <div class="spinner colorful">
+                                                                <button class="btn btn-minus" type="button">-</button>
+                                                                <input type="text" name="no_ofcopies[]" value="1" class="form-control">
+                                                                <button class="btn btn-plus" type="button">+</button>
+                                                            </div>
+                                                        </div>
+
+                                                        <input type="checkbox" name="document_name[]" id="document_name5" value="Good Moral"> Good Moral <br>
+                                                        <div id="quantity5" class="hidden mt-1">
+                                                            <label for="Good Moral">Copies:</label>
+                                                            <div class="spinner colorful">
+                                                                <button class="btn btn-minus" type="button">-</button>
+                                                                <input type="text" name="no_ofcopies[]" value="1" class="form-control">
+                                                                <button class="btn btn-plus" type="button">+</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">No. of Copies</label>
-                                                    <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum"  type="text" name="no_ofcopies" required="" placeholder="" class="form-control">
-                                                    </div>
-                                                </div>
+
 
                                                  <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Date Request</label>
@@ -134,13 +169,7 @@
                                                        <label class="col-12 col-md-1 col-form-label text-sm-right" style="color: red;">Delivery Additional: ₱50</label>
                                                     </div>
 
-<!--                                                  <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Date Releasing</label>
-                                                    <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum"  type="date" name="date_releasing" required="" placeholder="" class="form-control">
-                                                    </div>
-                                                </div>
- -->
+
                                                 </div>
                                                 <div class="form-group row text-right">
                                                     <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
@@ -162,10 +191,10 @@
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../asset/vendor/parsley/parsley.js"></script>
-    <script src="../asset/libs/js/main-js.js"></script>
+    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/parsley/parsley.js"></script>
+    <script src="../assets/libs/js/main-js.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
           var firstName = $('#firstName').text();
@@ -174,84 +203,113 @@
           var profileImage = $('#profileImage').text(intials);
         });
     </script>
-      <script>
-          document.addEventListener('DOMContentLoaded', () => {
-              let btn = document.querySelector('#add-request');
-              btn.addEventListener('click', () => {
 
-                  const control_no = document.querySelector('input[name=control_no]').value;
-                  const studentID_no = document.querySelector('input[name=studentID_no]').value;
-                  const email_address = document.querySelector('input[name=email_address]').value;
-                  const document_name = $('#document_name option:selected').val();
-                  const no_ofcopies = document.querySelector('input[name=no_ofcopies]').value;
-                  const date_request = document.querySelector('input[name=date_request]').value;
-                  // const date_releasing = document.querySelector('input[name=date_releasing]').value;
-                  const student_id = document.querySelector('input[name=student_id]').value;
-                  const mode_request = $('#mode_request option:selected').val();
+<script>
+$(document).ready(function() {
+    // Increment/Decrement logic for copies
+    $('.btn-minus').click(function() {
+        var input = $(this).siblings('input');
+        var value = parseInt(input.val());
+        if (value > 1) {
+            input.val(value - 1);
+        }
+    });
 
-                  var data = new FormData(this.form);
+    $('.btn-plus').click(function() {
+        var input = $(this).siblings('input');
+        var value = parseInt(input.val());
+        input.val(value + 1);
+    });
 
-                  data.append('control_no', control_no);
-                  data.append('studentID_no', studentID_no);
-                  data.append('email_address', email_address);
-                  data.append('document_name', document_name);
-                  data.append('no_ofcopies', no_ofcopies);
-                  data.append('date_request', date_request);
-                  // data.append('date_releasing', date_releasing);
-                  data.append('student_id', student_id);
-                  data.append('mode_request', mode_request);
+    // Show or hide the number of copies based on the checkbox state
+    $('input[type="checkbox"][name="document_name[]"]').change(function() {
+        const quantityId = '#quantity' + this.id.replace('document_name', '');
+        if (this.checked) {
+            $(quantityId).removeClass('hidden');
+        } else {
+            $(quantityId).addClass('hidden');
+        }
+    });
 
+    // Handle form submission
+    $('#add-request').click(function(e) {
+        e.preventDefault(); // Prevent default form submission
 
-              if (control_no === '' ||  studentID_no ==='' ||  email_address ==='' ||  document_name ==='' ||  no_ofcopies ===''||  date_request ===''||  mode_request ===''){
-                      $('#message').html('<div class="alert alert-danger"> Required All Fields!</div>');
-                    }else{
-                       $.ajax({
-                        url: '../init/controllers/add_request.php',
-                          type: "POST",
-                          data: data,
-                          processData: false,
-                          contentType: false,
-                          async: false,
-                          cache: false,
-                        success: function(response) {
-                          $("#message").html(response);
-                           window.scrollTo(0, 0);
-                          },
-                          error: function(response) {
-                            console.log("Failed");
-                          }
-                      });
-                   }
+        // Create a new FormData object
+        var data = new FormData(document.querySelector('form[name="docu_forms"]'));
 
-              });
-          });
-      </script>
+        // Validate that at least one document is selected
+        let docNames = [];
+        let docCopies = [];
+        let isDocumentSelected = false;
 
+        $('input[type="checkbox"][name="document_name[]"]').each(function(index) {
+            if (this.checked) {
+                isDocumentSelected = true;
+                docNames.push(this.value); // Add selected document name
+                let no_ofcopies = $(this).closest('.form-group').find('input[name="no_ofcopies[]"]').val();
+                
+                // Ensure at least one copy is selected
+                no_ofcopies = no_ofcopies ? no_ofcopies : 1;
+                docCopies.push(no_ofcopies);
+            }
+        });
 
+        if (!isDocumentSelected) {
+            $('#message').html('<div class="alert alert-danger">Please select at least one document.</div>');
+            return;
+        }
 
-<!--     <script>
-    $('#form').parsley();
-    </script> -->
-    <script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-    </script>
+        // Clear previously appended values to avoid duplication
+        data.delete('document_name[]');
+        data.delete('no_ofcopies[]');
+
+        // Append document names and copies to FormData
+        docNames.forEach((doc, index) => {
+            data.append('document_name[]', doc);
+            data.append('no_ofcopies[]', docCopies[index]);
+        });
+
+        // AJAX form submission
+        $.ajax({
+            url: '../init/controllers/add_request.php',
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $("#message").html(response);
+                window.scrollTo(0, 0);
+            },
+            error: function(response) {
+                console.log("Failed to submit the form.");
+            }
+        });
+    });
+});
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+    'use strict';
+    window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    }, false);
+})();
+print_r($_POST); // This will help you inspect the incoming data
+exit;
+</script>
+
 
 </body>
  
