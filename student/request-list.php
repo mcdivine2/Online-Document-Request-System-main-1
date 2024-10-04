@@ -69,7 +69,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['first_name'] .' '.$row['last_name']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>
@@ -84,6 +84,7 @@
                                                     </td>
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
+                                                        <!-- analyze here there is a bug hehe or here insert the eye icon to show the status of other departments-->
                                                      <?php 
                                                        if($row['status'] ==="Pending"){
                                                            echo '<span class="badge bg-warning text-white">Pending</span>';
@@ -109,11 +110,11 @@
                                                         </a> &nbsp;</div>
                      -->
                                                         <div class="three">
-                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-edit"></i>
                                                         </a> &nbsp;</div>
                                                         <div class="four">
-                                                        <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-eye"></i>
                                                         </a></div>
                                                         </div> 

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2024 at 03:17 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Sep 30, 2024 at 03:12 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -78,6 +78,11 @@ CREATE TABLE `tbl_documentrequest` (
   `date_releasing` varchar(255) NOT NULL,
   `processing_officer` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
+  `library_status` varchar(255) NOT NULL,
+  `dean_status` varchar(255) NOT NULL,
+  `custodian_status` varchar(255) NOT NULL,
+  `accounting_status` varchar(255) NOT NULL,
+  `registrar_status` varchar(255) NOT NULL,
   `remarks` varchar(255) NOT NULL,
   `student_id` int(11) NOT NULL,
   `notif` int(11) NOT NULL,
@@ -88,8 +93,10 @@ CREATE TABLE `tbl_documentrequest` (
 -- Dumping data for table `tbl_documentrequest`
 --
 
-INSERT INTO `tbl_documentrequest` (`request_id`, `control_no`, `studentID_no`, `document_name`, `no_ofcopies`, `date_request`, `date_releasing`, `processing_officer`, `status`, `remarks`, `student_id`, `notif`, `mode_request`) VALUES
-(36, 'CTRL-333014', '10', 'Transcript of Records', '1', '2024-05-23', '2014-05-27', 'Admin admin', 'Releasing', '', 14, 1, 'Pick Up');
+INSERT INTO `tbl_documentrequest` (`request_id`, `control_no`, `studentID_no`, `document_name`, `no_ofcopies`, `date_request`, `date_releasing`, `processing_officer`, `status`, `library_status`, `dean_status`, `custodian_status`, `accounting_status`, `registrar_status`, `remarks`, `student_id`, `notif`, `mode_request`) VALUES
+(36, 'CTRL-333014', '10', 'Transcript of Records', '1', '2024-05-23', '2014-05-27', 'Dean', '', 'Pending', 'Declined', 'Declined', 'Waiting for Payment', 'Waiting for Payment', '', 14, 1, 'Pick Up'),
+(37, 'CTRL-245', '193976', 'Transcript of Records', '1', '2024-09-25', '2024-10-05', 'Junil toledo', '', 'Pending', 'Waiting for Payment', 'Declined', 'Waiting for Payment', 'Releasing', '', 5, 1, 'Pick Up'),
+(38, 'CTRL-23285', '193976', 'Transcript of Records', '1', '2024-09-25', '', 'Junil toledo', '', 'Pending', 'Declined', 'Declined', 'Waiting for Payment', 'Releasing', '', 5, 1, 'Pick Up');
 
 -- --------------------------------------------------------
 
@@ -183,7 +190,8 @@ CREATE TABLE `tbl_students` (
 --
 
 INSERT INTO `tbl_students` (`student_id`, `studentID_no`, `first_name`, `middle_name`, `last_name`, `complete_address`, `email_address`, `mobile_number`, `username`, `password`, `account_status`, `date_created`) VALUES
-(4, '194549', 'shane', 'caldeo', 'yape', 'Lumbia District Pagadian City', 'shaneeduard5@gmail.com', '0992292992', 'eduard', 'eduard', 'Active', '2024-05-23');
+(4, '194549', 'shane', 'caldeo', 'yape', 'Lumbia District Pagadian City', 'shaneeduard5@gmail.com', '0992292992', 'eduard', 'eduard', 'Active', '2024-05-23'),
+(5, '193976', 'MarkDave', 'Rabanos', 'Canoy', 'Purok, Santan, Barangay Balangasan, Pagadian City, ZDS.', 'Markdavecanoy1@gmail.com', '09515332633', 'dave', 'dave', 'Active', '2024-09-25');
 
 -- --------------------------------------------------------
 
@@ -208,9 +216,12 @@ CREATE TABLE `tbl_usermanagement` (
 --
 
 INSERT INTO `tbl_usermanagement` (`user_id`, `complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`, `role`) VALUES
-(1, 'admin admin', 'programmer', 'admin@gmail.com', '09978978999', 'admin', 'admin', 'Active', 'Administrator'),
-(2, 'junil toledo', 'programmer', 'nel@gmail.com', '09686787888', 'nel', 'nel123', 'Active', 'Administrator'),
-(4, 'mc vincent almandares', 'admin', 'mc@gmail.com', '0987653224', 'admin', 'admin', 'Active', '');
+(1, 'admin admin', 'programmer', 'admin@gmail.com', '09978978999', 'library', '123', 'Active', 'Library'),
+(2, 'junil toledo', 'programmer', 'nel@gmail.com', '09686787888', 'registrar', '123', 'Active', 'Administrator'),
+(3, 'dean', 'dean', 'dean@gmail.com', '090909009', 'dean', '123', 'Active', 'Dean'),
+(4, 'mc vincent almandares', 'admin', 'mc@gmail.com', '0987653224', 'admin', 'admin', 'Active', ''),
+(5, 'custodian', 'custodian', 'custodian@gmail.com', '090909090909', 'custodian', '123', 'Active', 'Custodian'),
+(6, 'accounting', 'accounting', 'accounting@gmail.com', '0909090909', '123', '123', 'Active', 'Accounting');
 
 -- --------------------------------------------------------
 
@@ -237,7 +248,8 @@ CREATE TABLE `tbl_verification` (
 --
 
 INSERT INTO `tbl_verification` (`student_id`, `studentID_no`, `first_name`, `middle_name`, `last_name`, `complete_address`, `email_address`, `mobile_number`, `id_upload`, `account_status`, `date_created`) VALUES
-(7, '194549', 'shane', 'caldeo', 'yape', 'Lumbia District Pagadian City', 'shaneeduard5@gmail.com', '0992292992', 'student_uploads/shaneme1.0.jpeg', 'Active', '2024-05-23');
+(7, '194549', 'shane', 'caldeo', 'yape', 'Lumbia District Pagadian City', 'shaneeduard5@gmail.com', '0992292992', 'student_uploads/shaneme1.0.jpeg', 'Active', '2024-05-23'),
+(8, '193976', 'MarkDave', 'Rabanos', 'Canoy', 'Purok, Santan, Barangay Balangasan, Pagadian City, ZDS.', 'Markdavecanoy1@gmail.com', '09515332633', 'student_uploads/ScreenShot_2024.06.29-00.38.4800000.png', 'Active', '2024-09-25');
 
 --
 -- Indexes for dumped tables
@@ -311,7 +323,7 @@ ALTER TABLE `tbl_document`
 -- AUTO_INCREMENT for table `tbl_documentrequest`
 --
 ALTER TABLE `tbl_documentrequest`
-  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `request_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `tbl_payment`
@@ -329,7 +341,7 @@ ALTER TABLE `tbl_student`
 -- AUTO_INCREMENT for table `tbl_students`
 --
 ALTER TABLE `tbl_students`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_usermanagement`
@@ -341,7 +353,7 @@ ALTER TABLE `tbl_usermanagement`
 -- AUTO_INCREMENT for table `tbl_verification`
 --
 ALTER TABLE `tbl_verification`
-  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

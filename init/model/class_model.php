@@ -402,19 +402,37 @@
 		}
 
 
-		public function add_request($control_no, $studentID_no, $email_address, $document_name, $no_ofcopies, $date_request, $received,  $student_id, $mode_request){
-	       $stmt = $this->conn->prepare("INSERT INTO `tbl_documentrequest` (`control_no`, `studentID_no`, `document_name`, `no_ofcopies`, `date_request`, `status`, `student_id`, `mode_request`) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
-			$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $received, $student_id, $mode_request);
-			if($stmt->execute()){
-				$stmt->close();
-				$this->conn->close();
-				return true;
+		public function add_request($first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $received, $purpose, $mode_request, $student_id) {
+			// Ensure the connection is active
+			if ($this->conn->ping()) {
+				// Prepare the SQL statement
+				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest (first_name, last_name, complete_address, birthdate, course, email_address, control_no, document_name, no_ofcopies, date_request, status, purpose, mode_request, student_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				
+				if ($stmt === false) {
+					die('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error);
+				}
+		
+				// Bind parameters (Fixed parameter type count and double dollar sign issue)
+				$stmt->bind_param("sssssssssssssi", $first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $received, $purpose, $mode_request, $student_id);
+		
+				// Execute the statement
+				if ($stmt->execute()) {
+					$stmt->close();
+					return true;
+				} else {
+					// Log or handle errors as needed
+					error_log('Execute failed: (' . $stmt->errno . ') ' . $stmt->error);
+					$stmt->close();
+					return false;
+				}
+			} else {
+				// Handle lost connection
+				die('MySQL connection lost');
 			}
 		}
-
-
-
-
+		
+		
+		
 		public function add_myrequest($control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified){
 	       $stmt = $this->conn->prepare("INSERT INTO `tbl_payment` (`control_no`, `studentID_no`, `document_name`, `date_releasing`, `ref_number`, `proof_ofpayment`, `student_id`,`status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified);

@@ -30,6 +30,43 @@
     <style>@import url('https://fonts.googleapis.com/css2?family=Diplomata+SC&family=Yanone+Kaffeesatz&display=swap');</style> 
     <title>Online-School-Documents-Processing</title>
     <style>
+
+ /* ======================Add-request========================== */
+    .hidden {
+      display: none;
+    }
+
+    .spinner {
+      display: flex;
+      align-items: center;
+    }
+    
+    .spinner input {
+      text-align: center;
+      max-width: 50px;
+      height: 25px;
+      font-size: 14px;
+     
+    }
+    .spinner button {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      font-size: 14px;
+    }
+    .colorful .btn-minus {
+      background-color: red;
+      color: white;
+    }
+    .colorful .btn-plus {
+      background-color: green;
+      color: white;
+    }
+
+   /* ================================================ */
         ul.navbar-nav li a{
             color: rgb(207, 214, 200) !important;
         }

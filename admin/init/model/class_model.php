@@ -38,17 +38,26 @@
 			}
 		}
  
-		public function user_account($user_id){
+		public function user_account($user_id) {
+			// Prepare SQL statement to fetch user account details by user ID
 			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `user_id` = ?") or die($this->conn->error);
-		    $stmt->bind_param("i", $user_id);
-			if($stmt->execute()){
+			$stmt->bind_param("i", $user_id);
+			
+			if ($stmt->execute()) {
 				$result = $stmt->get_result();
-				$fetch = $result->fetch_array();
-				return array(
-					'complete_name'=> $fetch['complete_name']
-					// 'last_name'=>$fetch['last_name']
-				);
-			}	
+				if ($fetch = $result->fetch_array()) {
+					// Return user details
+					return array(
+						'complete_name' => htmlentities($fetch['complete_name'])
+					);
+				} else {
+					// No user found with this ID
+					return null;
+				}
+			} else {
+				// SQL execution failed
+				return false;
+			}
 		}
 
 	    public function fetchAll_course(){ 
@@ -151,7 +160,7 @@
 		
 
 		public function edit_student($studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id){
-			$sql = "UPDATE `tbl_student` SET   `studentID_no` = ?,   `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, `date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
+			$sql = "UPDATE `tbl_students` SET   `studentID_no` = ?,   `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, `date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
 			 $stmt = $this->conn->prepare($sql);
 			$stmt->bind_param("ssssssssssssssi", $studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id);
 			if($stmt->execute()){
@@ -174,7 +183,7 @@
 		
 
 		public function delete_student($student_id){
-				$sql = "DELETE FROM tbl_student WHERE student_id = ?";
+				$sql = "DELETE FROM tbl_students WHERE student_id = ?";
 				 $stmt = $this->conn->prepare($sql);
 				$stmt->bind_param("i", $student_id);
 				if($stmt->execute()){
@@ -311,10 +320,10 @@
 		  }
 
 
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `registrar_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id);
+			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -378,7 +387,7 @@
 			}
 		}
 
-		public function add_admin_aide($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+		public function add_admin_treasurer($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
 			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
 			 if($stmt->execute()){
@@ -388,7 +397,27 @@
 			 }
 		 }
 
-		 public function add_admin_assist($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+		 public function add_admin_library($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
+			 if($stmt->execute()){
+				 $stmt->close();
+				 $this->conn->close();
+				 return true;
+			 }
+		 }
+
+		 public function add_admin_custudian($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
+			 if($stmt->execute()){
+				 $stmt->close();
+				 $this->conn->close();
+				 return true;
+			 }
+		 }
+
+		 public function add_admin_dean($complete_name, $desgination, $email_address, $phone_number, $username, $password, $status){
 			$stmt = $this->conn->prepare("INSERT INTO `tbl_usermanagement` (`complete_name`, `desgination`, `email_address`, `phone_number`, `username`, `password`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			 $stmt->bind_param("sssssss", $complete_name, $desgination, $email_address, $phone_number, $username, $password, $status);
 			 if($stmt->execute()){
@@ -438,7 +467,7 @@
 			}
 
 	    public function count_numberofstudents(){ 
-            $sql = "SELECT COUNT(student_id) as count_students FROM tbl_student";
+            $sql = "SELECT COUNT(student_id) as count_students FROM tbl_students";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -453,7 +482,7 @@
 		  
 
 		  public function count_allstudents(){ 
-            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_student) as count_students";
+            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_students) as count_students";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -563,7 +592,7 @@
 
 
 	 public function count_groupbycourse(){ 
-            $sql = "SELECT count(course) as count_coursename,course FROM tbl_student GROUP BY course";
+            $sql = "SELECT count(course) as count_coursename,course FROM tbl_students GROUP BY course";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

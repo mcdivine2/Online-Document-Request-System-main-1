@@ -55,7 +55,11 @@
                             <div class="col-12 col-sm-8 col-lg-6">
                                 <input data-parsley-type="alphanum" type="text" name="studentID_no" required=""
                                     placeholder="" class="form-control">
+                                    <footer style="font-size: 11px"><p>*Optional</p>
+                                    
+                                </footer>
                             </div>
+                            
                         </div>
 
 

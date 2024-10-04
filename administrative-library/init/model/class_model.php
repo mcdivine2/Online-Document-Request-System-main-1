@@ -24,9 +24,9 @@
 			}
 		}
 
-		public function login($username, $password, $status){
-			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `username` = ? AND `password` = ? AND `status` = ?") or die($this->conn->error);
-			$stmt->bind_param("sss", $username, $password, $status);
+		public function login($username, $password, $status, $role){
+			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `username` = ? AND `password` = ? AND `status` = ? AND `role` = ?") or die($this->conn->error);
+			$stmt->bind_param("ssss", $username, $password, $status, $role);
 			if($stmt->execute()){
 				$result = $stmt->get_result();
 				$valid = $result->num_rows;
@@ -38,17 +38,26 @@
 			}
 		}
  
-		public function user_account($user_id){
+		public function user_account($user_id) {
+			// Prepare SQL statement to fetch user account details by user ID
 			$stmt = $this->conn->prepare("SELECT * FROM `tbl_usermanagement` WHERE `user_id` = ?") or die($this->conn->error);
-		    $stmt->bind_param("i", $user_id);
-			if($stmt->execute()){
+			$stmt->bind_param("i", $user_id);
+			
+			if ($stmt->execute()) {
 				$result = $stmt->get_result();
-				$fetch = $result->fetch_array();
-				return array(
-					'complete_name'=> $fetch['complete_name']
-					// 'last_name'=>$fetch['last_name']
-				);
-			}	
+				if ($fetch = $result->fetch_array()) {
+					// Return user details
+					return array(
+						'complete_name' => htmlentities($fetch['complete_name'])
+					);
+				} else {
+					// No user found with this ID
+					return null;
+				}
+			} else {
+				// SQL execution failed
+				return false;
+			}
 		}
 
 	    public function fetchAll_course(){ 
@@ -311,10 +320,10 @@
 		  }
 
 
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $library_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `library_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id);
+			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $library_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();

@@ -53,11 +53,11 @@
 
                     <div class="dropdown-menu container-fluid" aria-labelledby="dropdownMenuLink" >
                         
-                    <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-treasurer/">Administrative Treasurer</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-library/" >Administrative Library</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-custodian" >Administrative Custodian</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/administrative-dean/" >Administrative Dean</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost:8080/Online-Document-Request-System-main/admin-aide/" >Admin-Aide</a>
+                    <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-treasurer/">Administrative Accounting</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-library/" >Administrative Library</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-custodian" >Administrative Custodian</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-dean/" >Administrative Dean</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/admin-aide/" >Admin-Aide</a>
                     </div>
                     </div>
                     </div>
@@ -105,7 +105,7 @@
 
                     var u_username = $(this).find('input[alt="username"]').val();
                     var p_password = $(this).find('input[alt="password"]').val();
-                   // var s_status = 1;
+                    var s_status = 1;
 
                     if (u_username === '' && p_password ===''){
                         $('#alert-msg').html('<div class="alert alert-danger"> Required Username and Password!</div>');
@@ -115,8 +115,8 @@
                             url: 'init/controllers/login_process.php',
                             data: {
                                 username: u_username,
-                                password: p_password
-                               // status: s_status
+                                password: p_password,
+                                status: s_status
                             },
                             beforeSend:  function(){
                                 $('#alert-msg').html('');

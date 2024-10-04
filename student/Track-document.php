@@ -61,6 +61,20 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-2 col-form-label text-sm-left">LIBRARY:</label>
                                                     <div class="col-12 col-form-label col-sm-1 col-sm-1">
+                                                    <?php 
+                                                       if($row['library_status'] ==="Pending"){
+                                                           echo '<span class="badge bg-warning text-white">Pending</span>';
+                                                         } else if($row['library_status'] ==="Waiting for Payment"){
+                                                          echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+                                                         }else if($row['library_status'] ==="Releasing"){
+                                                            echo '<span class="badge bg-success text-white">Verified</span>';
+                                                        }else if($row['library_status'] ==="Received"){
+                                                            echo '<span class="badge bg-warning text-white">Pending Request</span>';
+                                                        }
+                                                        else if($row['library_status'] ==="Declined"){
+                                                            echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                        }
+                                                     ?> 
                                                     </div>
                                                      <div class="col-12 col-sm-6 ml-5">
                                                     <input data-parsley-type="alphanum" type="text" value="Your request for <?= $row['document_name']; ?> is pending please comply." name="subject" required="" placeholder="" class="form-control" readonly>
@@ -68,8 +82,22 @@
                                                 </div>
                                                      
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-2 col-form-label text-sm-left">CUSTUDIAN:</label>
+                                                    <label class="col-12 col-sm-2 col-form-label text-sm-left">CUSTODIAN:</label>
                                                     <div class="col-12 col-form-label col-sm-1 col-sm-1">
+                                                    <?php 
+                                                       if($row['custodian_status'] ==="Pending"){
+                                                           echo '<span class="badge bg-warning text-white">Pending</span>';
+                                                         } else if($row['custodian_status'] ==="Waiting for Payment"){
+                                                          echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+                                                         }else if($row['custodian_status'] ==="Releasing"){
+                                                            echo '<span class="badge bg-success text-white">Verified</span>';
+                                                        }else if($row['custodian_status'] ==="Received"){
+                                                            echo '<span class="badge bg-warning text-white">Pending Request</span>';
+                                                        }
+                                                        else if($row['custodian_status'] ==="Declined"){
+                                                            echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                        }
+                                                     ?> 
                                                     </div>
                                                      <div class="col-12 col-sm-6 ml-5">
                                                     <input data-parsley-type="alphanum" type="text" value="Your request for <?= $row['document_name']; ?> is pending please comply." name="subject" required="" placeholder="" class="form-control" readonly>
@@ -79,14 +107,42 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-2 col-form-label text-sm-left">DEAN:</label>
                                                     <div class="col-12 col-form-label col-sm-1 col-sm-1">
+                                                    <?php 
+                                                       if($row['dean_status'] ==="Pending"){
+                                                           echo '<span class="badge bg-warning text-white">Pending</span>';
+                                                         } else if($row['dean_status'] ==="Waiting for Payment"){
+                                                          echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+                                                         }else if($row['dean_status'] ==="Releasing"){
+                                                            echo '<span class="badge bg-success text-white">Verified</span>';
+                                                        }else if($row['dean_status'] ==="Received"){
+                                                            echo '<span class="badge bg-warning text-white">Pending Request</span>';
+                                                        }
+                                                        else if($row['dean_status'] ==="Declined"){
+                                                            echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                        }
+                                                     ?> 
                                                     </div>
                                                      <div class="col-12 col-sm-6 ml-5">
                                                     <input data-parsley-type="alphanum" type="text" value="Your request for <?= $row['document_name']; ?> is pending please comply." name="subject" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
                                                  <div class="form-group row">
-                                                    <label class="col-12 col-sm-2 col-form-label text-sm-left">TREASURER:</label>
+                                                    <label class="col-12 col-sm-2 col-form-label text-sm-left">ACCOUNTING:</label>
                                                     <div class="col-12 col-form-label col-sm-1 col-sm-1">
+                                                    <?php 
+                                                       if($row['accounting_status'] ==="Pending"){
+                                                           echo '<span class="badge bg-warning text-white">Pending</span>';
+                                                         } else if($row['accounting_status'] ==="Waiting for Payment"){
+                                                          echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+                                                         }else if($row['accounting_status'] ==="Releasing"){
+                                                            echo '<span class="badge bg-success text-white">Verified</span>';
+                                                        }else if($row['accounting_status'] ==="Received"){
+                                                            echo '<span class="badge bg-warning text-white">Pending Request</span>';
+                                                        }
+                                                        else if($row['accounting_status'] ==="Declined"){
+                                                            echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                        }
+                                                     ?> 
                                                    
                                                     </div> 
                                                      <div class="col-12 col-sm-6 ml-5">
@@ -97,16 +153,16 @@
                                                     <label class="col-12 col-sm-2 col-form-label text-sm-left">REGISTRAR:</label>
                                                     <div class="col-12 col-form-label col-sm-1 col-sm-1">
                                                     <?php 
-                                                       if($row['status'] ==="Pending"){
+                                                       if($row['registrar_status'] ==="Pending"){
                                                            echo '<span class="badge bg-warning text-white">Pending</span>';
-                                                         } else if($row['status'] ==="Waiting for Payment"){
+                                                         } else if($row['registrar_status'] ==="Waiting for Payment"){
                                                           echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
-                                                         }else if($row['status'] ==="Releasing"){
+                                                         }else if($row['registrar_status'] ==="Releasing"){
                                                             echo '<span class="badge bg-success text-white">Verified</span>';
-                                                        }else if($row['status'] ==="Received"){
+                                                        }else if($row['registrar_status'] ==="Received"){
                                                             echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                         }
-                                                        else if($row['status'] ==="Declined"){
+                                                        else if($row['registrar_status'] ==="Declined"){
                                                             echo '<span class="badge bg-danger text-white">Declined</span>';
                                                         }
                                                      ?> </div>  

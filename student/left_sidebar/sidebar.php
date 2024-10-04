@@ -2,7 +2,6 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="../asset/libs/css/style.css">
-<link rel="stylesheet" href="../asset/libs/css/styles.css">
 <div class="nav-left-sidebar sidebar-light" style="background-color: rgb(1,50,32); padding-top: 25px; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
     <div class="menu-list">
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -24,20 +23,22 @@
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="document.php"><i class="fa fa-fw fa-file-image">
-                            </i>Send Proof of Payment <span class="badge badge-success">0</span>
+                        <a class="nav-link" href="payment.php"><i class="fa fa-fw fa-money-bill-wave">
+                            </i>Proof of Payment <span class="badge badge-success">0</span>
                         </a>
                         </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="add-request.php"><i class="fa fa-fw fa-plus">
                             </i>Request Document <span class="badge badge-success">0</span>
                         </a>
+                    
                         
                     <li class="nav-item">
                         <a class="nav-link" href="profile.php"><i class="fas fa-id-card">
                             </i>Profile <span class="badge badge-success">0</span>
                         </a>
                     </li>
+                    
                     
                 </ul>
             </div>

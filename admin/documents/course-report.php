@@ -169,6 +169,3 @@
          chart.draw(data, options);
       }
    </script>
-</body>
- 
-</html>
