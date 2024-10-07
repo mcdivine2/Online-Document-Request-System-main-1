@@ -99,10 +99,23 @@
 			}
 		}
 
-	    public function fetchAll_document($student_id){ 
+	    public function fetchAll_documents($student_id){ 
             $sql = "SELECT * FROM  tbl_document WHERE `student_id` = ?";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+
+		  public function fetchAll_document(){ 
+            $sql = "SELECT * FROM  tbl_document ORDER BY date_created DESC";
+				$stmt = $this->conn->prepare($sql);
 				$stmt->execute();
 				$result = $stmt->get_result();
 		        $data = array();
@@ -171,7 +184,7 @@
 		  }
 
 		  public function fetchAll_pendingrequest($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Received' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Received' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -185,7 +198,7 @@
 		  }
 
 		  public function fetchAll_processing($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Processing' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Processing' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -199,7 +212,7 @@
 		  }
 
 		  public function fetchAll_paymentpending($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND accounting_status = 'Waiting for Payment' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Waiting for Payment' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -213,7 +226,7 @@
 		  }
 
 		  public function fetchAll_releaseddocument($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Released' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Releasing' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -276,7 +289,7 @@
 
 		  }
 
-	    public function count_numberoftotalrequest($student_id){ 
+	    public function count_numberoftotalrequest(){ 
             $sql = "SELECT COUNT(request_id) as count_request FROM tbl_documentrequest";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
@@ -290,7 +303,7 @@
 		  }
 
 		 public function count_numberoftotalpending($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND accounting_status = 'Waiting for Payment'";
+            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -304,7 +317,7 @@
 		  }
 
 		 public function count_numberoftotalreceived($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE student_id = ? AND status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -318,7 +331,7 @@
 		  }
 
 		  public function processing_status($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Processing'";
+            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND status = 'Processing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -332,7 +345,7 @@
 		  }
 
 		  public function count_numberofreleased($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Released'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND status = 'Releasing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -402,7 +415,7 @@
 		}
 
 
-			public function add_request($first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $received, $purpose, $mode_request, $student_id) {
+		public function add_request($first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $received, $purpose, $mode_request, $student_id) {
 			// Ensure the connection is active
 			if ($this->conn->ping()) {
 				// Prepare the SQL statement
@@ -432,6 +445,7 @@
 		}
 		
 		
+		
 		public function add_myrequest($control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified){
 	       $stmt = $this->conn->prepare("INSERT INTO `tbl_payment` (`control_no`, `studentID_no`, `document_name`, `date_releasing`, `ref_number`, `proof_ofpayment`, `student_id`,`status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified);
@@ -442,7 +456,6 @@
 			}
 		}
 
-		
 		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $request_id){
 			$sql = "UPDATE `tbl_documentrequest` SET `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ? WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
@@ -457,12 +470,12 @@
 		public function delete_request($request_id){
 				$sql = "DELETE FROM tbl_documentrequest WHERE request_id = ?";
 				 $stmt = $this->conn->prepare($sql);
-				$stmt->bind_param("i", $request_id);
+				$stmt->bind_param("i", $document_id);
 				if($stmt->execute()){
 					$stmt->close();
 					$this->conn->close();
 					return true;
 				}
-		}
+			}
 	}	
 ?>

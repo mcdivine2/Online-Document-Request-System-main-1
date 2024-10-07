@@ -194,6 +194,17 @@
 			}
 
 
+			public function add_document($document_name, $description, $daysto_process, $price){
+				$stmt = $this->conn->prepare("INSERT INTO `tbl_document` (`document_name`, `description`, `daysto_process`, `price`) VALUES(?, ?, ?, ?)") or die($this->conn->error);
+				 $stmt->bind_param("ssss", $document_name, $description, $daysto_process, $price);
+				 if($stmt->execute()){
+					 $stmt->close();
+					 $this->conn->close();
+					 return true;
+				 }
+			 }
+
+
 	    public function fetchAll_document(){ 
             $sql = "SELECT * FROM  tbl_document ORDER BY date_created DESC";
 				$stmt = $this->conn->prepare($sql);

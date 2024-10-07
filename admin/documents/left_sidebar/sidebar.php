@@ -14,8 +14,11 @@
                                 <a class="nav-link" href="request.php"><i class="fa fa-fw fa-certificate"></i>All Requests <span class="badge badge-success">6</span></a>
                             </li> 
                             <li class="nav-item ">
-                                <a class="nav-link" href="proof-of-payment.php"><i class="fa fa-fw fa-file-image"></i>Proof of Payment <span class="badge badge-success">6</span></a>
+                                <a class="nav-link" href="payment.php"><i class="fa fa-fw fa-file-image"></i>Proof of Payment <span class="badge badge-success">6</span></a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="document.php"><i class="fa fa-fw fa-file"></i>Manage Document <span class="badge badge-success">6</span></a>
+                            </li><br><br>
                             <li class="nav-item ">
                                 <a class="nav-link" href="student.php"><i class="fa fa-fw fa-user-graduate"></i>Clients  <span class="badge badge-success">6</span></a>
                             </li>
@@ -29,9 +32,6 @@
                             <li class="nav-item ">
 
                                 <a class="nav-link" href="course-report.php"><i class="fa fa-fw fa-chart-bar"></i>Reports <span class="badge badge-success">6</span></a>
-
-                                <a class="nav-link" href="payment.php"><i class="fa fa-fw fa-chart-bar"></i>Reports <span class="badge badge-success">6</span></a>
-
                             </li>  
                         </ul>
                     </div>

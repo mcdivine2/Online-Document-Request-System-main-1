@@ -71,7 +71,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['first_name']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>

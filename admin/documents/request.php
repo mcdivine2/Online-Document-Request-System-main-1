@@ -43,148 +43,102 @@
 
                                 
                                                 
-                            <div class="card-body">
-                                    <div id="message"></div>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped table-bordered first" attribute="data-show-print" type="boo lean">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Date Requested</th>
-                                                    <th scope="col">Control No.</th>
-                                                    <th scope="col">Student ID</th>
-                                                    <th scope="col">Document Name</th>
-                                                    <th scope="col">No. of Copies</th>
-                                                    <th scope="col">Mode Request</th>
-                                                    <th scope="col">Date Releasing</th>
-                                                    <th scope="col">Processing Officer</th>
-                                                    <th scope="col">Status</th>
-                                                    <th scope="col">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                             <?php 
-                                                $conn = new class_model();
-                                                $docrequest = $conn->fetchAll_documentrequest();
-                                               ?>
-                                               <?php foreach ($docrequest as $row) {
+                                <div class="card-body">
+    <div id="message"></div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered first" data-show-print="true">
+            <thead>
+                <tr>
+                    <th scope="col">Date Requested</th>
+                    <th scope="col">Control No.</th>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Document Name</th>
+                    <th scope="col">No. of Copies</th>
+                    <th scope="col">Mode Request</th>
+                    <th scope="col">Date Releasing</th>
+                    <th scope="col">Processing Officer</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    $conn = new class_model();
+                    $docrequest = $conn->fetchAll_documentrequest();
+                ?>
+                <?php foreach ($docrequest as $row) { ?>
+                    <tr>
+                        <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
+                        <td><?= $row['control_no']; ?></td>
+                        <td><?= $row['first_name'] .' '.$row['last_name']; ?></td>
+                        <td><?= $row['document_name']; ?></td>
+                        <td><?= $row['no_ofcopies']; ?></td>
+                        <td><?= $row['mode_request']; ?></td>
+                        <td>
+                            <?php 
+                                if ($row['date_releasing'] === "") {
+                                    echo "";
+                                } else {
+                                    echo date("M d, Y", strtotime($row['date_releasing']));
+                                }
+                            ?>
+                        </td>
+                        <td><?= $row['processing_officer']; ?></td>
+                        <td>
+                            <?php
+                                if ($row['registrar_status'] === "Pending Request") {
+                                    echo '<span class="badge bg-warning text-white">Pending Requests</span>';
+                                } elseif ($row['registrar_status'] === "Processing") {
+                                    echo '<span class="badge bg-info text-white">Processing</span>';
+                                } elseif ($row['registrar_status'] === "Pending") {
+                                    echo '<span class="badge bg-warning text-white">Pending</span>';
+                                } elseif ($row['registrar_status'] === "Waiting for Payment") {
+                                    echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+                                } elseif ($row['registrar_status'] === "Releasing") {
+                                    echo '<span class="badge bg-success text-white">Verified</span>';
+                                } elseif ($row['registrar_status'] === "Received") {
+                                    echo '<span class="badge bg-warning text-white">Pending Request</span>';
+                                } elseif ($row['registrar_status'] === "Declined") {
+                                    echo '<span class="badge bg-danger text-white">Declined</span>';
+                                }
+                            ?>
+                        </td>
+                        <td class="align-right">
+                            <?php
+                                if ($row['registrar_status'] !== 'Released') {
+                                    echo '<a href="edit-request.php?request=' . $row['request_id'] . '&student-number=' . $row['first_name'] . '" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user"><i class="fa fa-edit"></i></a> |';
 
-                                                ?>
-                                                <tr>
-                                                <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>
-                    
-                                                    <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
-                                                    <td><?= $row['document_name']; ?></td>
-                                                    <td><?= $row['no_ofcopies']; ?></td>
-                                                    <td><?= $row['mode_request']; ?></td>
-                                                     <td>
-                                                     <?php 
-                                                     if($row['date_releasing'] === ""){
-                                                           echo "";
-                                                         }else if($row['date_releasing'] === $row['date_releasing']){
-                                                           echo date("M d, Y",strtotime($row['date_releasing']));
-                                                         }
-                                                     ?>
-                                                    </td>
-                                                    <td><?= $row['processing_officer']; ?></td>
-                                                    <td>
-                                                     <?php 
+                                    echo '<a href="javascript:;" data-id="' . $row['request_id'] . '" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Delete user"><i class="fa fa-trash-alt"></i></a> |';
+                                }
+                            ?>
 
-                                                       if($row['registrar_status'] ==="Pending Request"){
-                                                        echo '<span class="badge bg-warning text-white">Pending Requests</span>';
-                                                      } else if($row['registrar_status'] ==="Processing"){
-                                                       echo '<span class="badge bg-info text-white">Processing</span>';
-
-                                                       if($row['registrar_status'] ==="Pending"){
-                                                        echo '<span class="badge bg-warning text-white">Pending</span>';
-                                                      } else if($row['registrar_status'] ==="Waiting for Payment"){
-                                                       echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
-
-                                                      }else if($row['registrar_status'] ==="Releasing"){
-                                                         echo '<span class="badge bg-success text-white">Verified</span>';
-                                                     }else if($row['registrar_status'] ==="Received"){
-                                                         echo '<span class="badge bg-warning text-white">Pending Request</span>';
-                                                     }
-                                                     else if($row['registrar_status'] ==="Declined"){
-                                                         echo '<span class="badge bg-danger text-white">Declined</span>';
-                                                     }
-                                                    
-                                                     ?> 
-
-                                                      
-                                                    </td>
-                                                    <td class="align-right">
-
-                                                    <?php
-                                                      if ($row['registrar_status'] === 'Released') {
-                                                        echo '';
-
-                                                      
-
-
-
-                                                      }else{
-echo '<a href="edit-request.php?request=';
-echo $row['request_id'];
-echo '&student-number=';
-echo $row['studentID_no'];
-echo '"class= "text-secondary font-weight-bold text-xs" data-toggle-tooltip" data-original-title= "Edit user"><i class= "fa fa-edit"></i></a> |';
-
-echo '<a href="javascipt:; "data-id="';
-echo $row['request_id'];
-echo '"class= "text-secondary font-weight-bold text-xs" data-toggle-tooltip" data-original-title= "Edit user"><i class= "fa fa-trash-alt"></i></a> |';
-                                                      }
-                                                      ?>
-
-                                                      
-                                                        
-
-
-
-                                                        <a href="<?php 
-
-                                                       if($row['registrar_status'] ==='Pending Request'){
-                                                           echo 'email-form-p.php';
-                                                         } else if($row['registrar_status'] ==='Received'){
-                                                          echo 'email-form-r.php';
-                                                         }else if($row['registrar_status'] ==='Processing'){
-
-                                                       if($row['registrar_status'] ==='Pending'){
-                                                           echo 'email-form-p.php';
-                                                         } else if($row['registrar_status'] ==='Received'){
-                                                          echo 'email-form-r.php';
-                                                         }else if($row['registrar_status'] ==='Waiting for Payment'){
-
-                                                           echo 'email-form-wfp.php';
-                                                        }else if($row['registrar_status'] ==='Releasing'){
-                                                          echo 'email-form.php';
-                                                        }else if($row['registrar_status'] ==='Declined'){
-                                                          echo 'email-form-dc.php';
-                                                        }else if($row['registrar_status'] ==='Released'){
-                                                          echo 'email-form-rl.php';
-                                                        }
-                                                     ?>?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                          <i class="fa fa-envelope"></i>
-                                                        </a> 
-
-                                                      </td>
-                                                </tr>
-                                             <?php } ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- ============================================================== -->
-                        <!-- end responsive table -->
-                        <!-- ============================================================== -->
-                    </div>
-               
-            </div>
-            
-        </div>
+                            <a href="<?php 
+                                if ($row['registrar_status'] === 'Pending Request') {
+                                    echo 'email-form-p.php';
+                                } elseif ($row['registrar_status'] === 'Received') {
+                                    echo 'email-form-r.php';
+                                } elseif ($row['registrar_status'] === 'Processing') {
+                                    echo 'email-form-p.php';
+                                } elseif ($row['registrar_status'] === 'Waiting for Payment') {
+                                    echo 'email-form-wfp.php';
+                                } elseif ($row['registrar_status'] === 'Releasing') {
+                                    echo 'email-form.php';
+                                } elseif ($row['registrar_status'] === 'Declined') {
+                                    echo 'email-form-dc.php';
+                                } elseif ($row['registrar_status'] === 'Released') {
+                                    echo 'email-form-rl.php';
+                                }
+                            ?>?request=<?= $row['request_id']; ?>&student-number=<?= $row['first_name']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Send email">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
     </div>
+</div>
+
     <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">

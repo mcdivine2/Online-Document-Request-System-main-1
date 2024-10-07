@@ -154,10 +154,34 @@
                     <!-- Request For Section -->
                     <div class="form-group mt-4">
                         <h4 class="section-title">Request For</h4>
+                        
                         <div class="row">
                             <div class="col-md-4"> <!-- First Column for Checkboxes -->
                                 <label>Select Document</label> <br>
-                                <input type="checkbox" name="document_name[]" id="document_name1" value="Transcript of Records"> Transcript of Records <br>
+                                <?php
+                                
+                                $conn = new class_model();
+                                $doc = $conn->fetchAll_document(); 
+                                if ($doc && count($doc) > 0) {
+                                    foreach ($doc as $index => $document) {
+                                        // Display each document as a checkbox
+                                        echo '<div class="form-check">';
+                                        echo '<input class="form-check-input" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" onchange="toggleQuantity(' . ($index + 1) . ')">';
+                                        echo '<label class="form-check-label">' . $document['document_name'] . '</label>';
+                                        
+                                        // Hidden quantity input associated with the document
+                                        echo '<div id="quantity' . ($index + 1) . '" class="mt-1 hidden" style="display:none;">';
+                                        echo '<label for="' . $document['document_name'] . '">Copies:</label>';
+                                        echo '<input type="number" name="no_ofcopies[]" value="1" class="form-control">';
+                                        echo '</div>';
+                                        echo '</div>';
+                                    }
+                                } else {
+                                    echo "No documents found.";
+                                }
+                                ?> <br>
+
+                               <!-- <input type="checkbox" name="document_name[]" id="document_name1" value="Transcript of Records"> Transcript of Records <br>
                                 <div id="quantity1" class="mt-1 hidden" style="display:none;">
                                     <label for="Transcript of Records">Copies:</label>
                                     <input type="number" name="no_ofcopies[]" value="1" class="form-control">
@@ -182,16 +206,16 @@
                                 </div>
                             </div>
                            
-                            <div class="col-md-4">  <!-- Second Column for Checkboxes -->
+                            <div class="col-md-4"> 
                                 <br>
                                 <input type="checkbox" name="document_name[]" id="document_name5" value="Honorable Dismisal"> Honorable Dismisal <br>
                                 <div id="quantity5" class="mt-1 hidden" style="display:none;">
                                     <label for="Honorable Dismisal">Copies:</label>
                                     <input type="number" name="no_ofcopies[]" value="1" class="form-control">
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                    </div>
+                    </div> 
 
                     <div class="form-group row" style="margin-top: -10px;">
 												<label class="col-form-label col-sm-2">Date Request:</label>

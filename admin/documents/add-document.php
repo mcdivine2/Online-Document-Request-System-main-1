@@ -46,33 +46,34 @@
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right"><i class="fa fa-fw fa-file-image"></i> Document Info</label>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Document Name</label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Document Name: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                         <input data-parsley-type="alphanum" type="text" name="document_name" required="" placeholder="" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Description</label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Description: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" name="document_decription" type="text" required="" placeholder="" class="form-control">
+                                                        <input data-parsley-type="alphanum" type="text" name="description" required="" placeholder="" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Number of Days to Process</label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Days to Process: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" name="no_ofdaysprocess" required="" placeholder="" class="form-control">
+                                                        <input data-parsley-type="alphanum" name="daysto_process" type="text" required="" placeholder="" class="form-control">
                                                     </div>
                                                 </div>
-                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Number of Copies</label>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Price: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" name="amount" required="" placeholder="" class="form-control">
+                                                        <input data-parsley-type="alphanum" type="text" name="price" required="" placeholder="" class="form-control">
                                                     </div>
                                                 </div>
+                                                
                                                 </div>
                                                 <div class="form-group row text-right">
                                                     <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
-                                                        <button class="btn btn-space btn-primary">Submit</button>
+                                                        <button class="btn btn-space btn-primary add-document">Submit</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -130,11 +131,11 @@
       e.preventDefault();
 
       var a = $(this).find('input[name="document_name"]').val();
-      var b = $(this).find('input[name="document_decription"]').val();
-      var c = $(this).find('input[name="no_ofdaysprocess"]').val();
-      var d = $(this).find('input[name="amount"]').val();
+      var b = $(this).find('input[name="description"]').val();
+      var c = $(this).find('input[name="daysto_process"]').val();
+      var d = $(this).find('input[name="price"]').val();
 
-     if (a === '' ||  b ==='' ||  c ===''||  d ===''){
+     if (a === '' ||  b ==='' ||  c ===''){
           $('#message').html('<div class="alert alert-danger"> Required All Fields!</div>');
         }else{
         $.ajax({
@@ -142,9 +143,9 @@
             method: 'post',
             data: {
               document_name: a,
-              document_decription: b,
-              no_ofdaysprocess: c,
-              amount: d
+              description: b,
+              daysto_process: c,
+              price: d
             },
             success: function(response) {
 
