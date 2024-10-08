@@ -109,11 +109,12 @@
                                                           <i class="fa fa-download"></i>
                                                         </a> &nbsp;</div>
                      -->
-                                                        <div class="three">
-                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                          <i class="fa fa-edit"></i>
-                                                        </a> &nbsp;</div>
                                                         <div class="four">
+                                                         <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
+                                                          <i class="fa fa-trash-alt"></i>
+                                                        </a></div>
+                                                        
+                                                        <div class="three">
                                                         <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-eye"></i>
                                                         </a></div>
