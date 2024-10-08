@@ -30,6 +30,7 @@
                                 <a class="nav-link" href="users.php"><i class="fa fa-fw fa-user-lock"></i>Users <span class="badge badge-success">6</span></a>
                             </li>     
                             <li class="nav-item ">
+
                                 <a class="nav-link" href="course-report.php"><i class="fa fa-fw fa-chart-bar"></i>Reports <span class="badge badge-success">6</span></a>
                             </li>  
                         </ul>
