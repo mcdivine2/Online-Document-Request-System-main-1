@@ -23,7 +23,7 @@
                         </a>
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link" href="payment.php"><i class="fa fa-fw fa-money-bill-wave">
+                        <a class="nav-link" href="document.php"><i class="fa fa-fw fa-money-bill-wave">
                             </i>Proof of Payment <span class="badge badge-success">0</span>
                         </a>
                         </li>

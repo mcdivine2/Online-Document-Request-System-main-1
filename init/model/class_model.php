@@ -184,7 +184,7 @@
 		  }
 
 		  public function fetchAll_pendingrequest($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Received' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Received' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -198,7 +198,7 @@
 		  }
 
 		  public function fetchAll_processing($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Processing' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Processing' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -212,7 +212,7 @@
 		  }
 
 		  public function fetchAll_paymentpending($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Waiting for Payment' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND accounting_status = 'Waiting for Payment' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -226,7 +226,7 @@
 		  }
 
 		  public function fetchAll_releaseddocument($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Releasing' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Released' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -289,7 +289,7 @@
 
 		  }
 
-	    public function count_numberoftotalrequest(){ 
+	    public function count_numberoftotalrequest($student_id){ 
             $sql = "SELECT COUNT(request_id) as count_request FROM tbl_documentrequest";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
@@ -303,7 +303,7 @@
 		  }
 
 		 public function count_numberoftotalpending($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND status = 'Waiting for Payment'";
+            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND accounting_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -317,7 +317,7 @@
 		  }
 
 		 public function count_numberoftotalreceived($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE student_id = ? AND status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -331,7 +331,7 @@
 		  }
 
 		  public function processing_status($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND status = 'Processing'";
+            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Processing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -345,7 +345,7 @@
 		  }
 
 		  public function count_numberofreleased($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Released'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -415,18 +415,18 @@
 		}
 
 
-		public function add_request($first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $received, $purpose, $mode_request, $student_id) {
+		public function add_request($control_no, $studentID_no, $email_address, $document_name, $no_ofcopies, $date_request, $received, $student_id, $mode_request) {
 			// Ensure the connection is active
 			if ($this->conn->ping()) {
 				// Prepare the SQL statement
-				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest (first_name, last_name, complete_address, birthdate, course, email_address, control_no, document_name, no_ofcopies, date_request, status, purpose, mode_request, student_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest (control_no, studentID_no, document_name, no_ofcopies, date_request, registrar_status, student_id, mode_request) VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
 				
 				if ($stmt === false) {
 					die('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error);
 				}
 		
-				// Bind parameters (Fixed parameter type count and double dollar sign issue)
-				$stmt->bind_param("sssssssssssssi", $first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $received, $purpose, $mode_request, $student_id);
+				// Bind parameters
+				$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $received, $student_id, $mode_request);
 		
 				// Execute the statement
 				if ($stmt->execute()) {
@@ -446,6 +446,10 @@
 		
 		
 		
+
+
+
+
 		public function add_myrequest($control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified){
 	       $stmt = $this->conn->prepare("INSERT INTO `tbl_payment` (`control_no`, `studentID_no`, `document_name`, `date_releasing`, `ref_number`, `proof_ofpayment`, `student_id`,`status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified);
@@ -470,12 +474,12 @@
 		public function delete_request($request_id){
 				$sql = "DELETE FROM tbl_documentrequest WHERE request_id = ?";
 				 $stmt = $this->conn->prepare($sql);
-				$stmt->bind_param("i", $document_id);
+				$stmt->bind_param("i", $request_id);
 				if($stmt->execute()){
 					$stmt->close();
 					$this->conn->close();
 					return true;
 				}
-			}
+		}
 	}	
 ?>
