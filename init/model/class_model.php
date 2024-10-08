@@ -184,7 +184,7 @@
 		  }
 
 		  public function fetchAll_pendingrequest($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND status = 'Received' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Received' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
