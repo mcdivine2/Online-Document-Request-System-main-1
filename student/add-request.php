@@ -90,7 +90,7 @@
                     <div class="form-group">
                         <h4 class="section-title">Applicant's Information</h4>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <?php
                                     $conn = new class_model();
                                     $getstudno = $conn->student_profile($student_id);
@@ -98,7 +98,11 @@
                                 <label>Firstname</label>
                                 <input type="text" name="first_name" value="<?= $getstudno['first_name']; ?>" class="form-control" readonly>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label>Maiden name</label>
+                                <input type="text" name="last_name" value="<?= $getstudno['middle_name']; ?>" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
                                 <label>Lastname</label>
                                 <input type="text" name="last_name" value="<?= $getstudno['last_name']; ?>" class="form-control" readonly>
                             </div>
@@ -118,7 +122,16 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <label>Course</label>
-                                <input type="text" name="course" class="form-control" placeholder="Enter Course">
+                                <select data-parsley-type="alphanum" type="text" id="course" required="" placeholder="" class="form-control">
+                                                       <?php 
+                                                            $conn = new class_model();  
+                                                            $course = $conn->fetchAll_course();
+                                                         ?>
+                                                           <option value="">&larr;Select Course &rarr;</option>
+                                                            <?php foreach ($course as $row) { ?>
+                                                           <option value="<?= $row['course_name']; ?>"><?= $row['course_name']; ?></option>
+                                                       <?php } ?>
+                                                       </select>
                             </div>
                             <div class="col-md-6">
                                 <label>Email Address</label>
