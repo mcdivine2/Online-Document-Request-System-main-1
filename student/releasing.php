@@ -25,8 +25,7 @@
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item" aria-current="page">Document Requests</li>
-                                        <li class="breadcrumb-item active" aria-current="page">Releasing</li>
+                                        <li class="breadcrumb-item" aria-current="page">Completed Requests</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -87,13 +86,13 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['status'] ==="Processing"){
-                                                           echo '<span class="badge bg-info text-white">Processing</span>';
-                                                         } else if($row['status'] ==="Waiting for Payment"){
+                                                       if($row['registrar_status'] ==="Released"){
+                                                           echo '<span class="badge bg-info text-white">Completed</span>';
+                                                         } else if($row['registrar_status'] ==="Waiting for Payment"){
                                                           echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                         }else if($row['status'] ==="Releasing"){
+                                                         }else if($row['registrar_status'] ==="Releasing"){
                                                             echo '<span class="badge bg-success text-white">Releasing</span>';
-                                                        }else if($row['status'] ==="Received"){
+                                                        }else if($row['registrar_status'] ==="Received"){
                                                             echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                         }
                                                      ?> 
@@ -102,15 +101,22 @@
 
                                              <td class="align-right">
                                               <div class="box">
+
+                                                         <div class="four">
+                                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                            <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div> 
                   <!--                                   <div class="one">
                                                         <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-download"></i>
                                                         </a> &nbsp;</div>
                      -->
-                                                        <div class="three">
-                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                          <i class="fa fa-edit"></i>
-                                                        </a> &nbsp;</div>
+                                                        <!-- <div class="three">
+                                                            <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                            <i class="fa fa-edit"></i>
+                                                            </a> &nbsp;
+                                                        </div> -->
 <!--                                                         <div class="four">
                                                          <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-trash-alt"></i>

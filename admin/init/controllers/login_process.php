@@ -5,12 +5,12 @@
 		$username = trim($_POST['username']);
 		$password = trim($_POST['password']);
 		$status = "Active";
-	//	$role = "Administrator";
+		$role = "Administrator";
 		
-		$get_admin = $conn->login($username, $password, $status);
+		$get_admin = $conn->login($username, $password, $status, $role);
 		if($get_admin['count'] > 0){
 			session_start();
-			$_SESSION['user_id'] = $get_admin['user_id'];
+			$_SESSION['admin'] = $get_admin['user_id'];
 
 			echo 1;
 		}else{

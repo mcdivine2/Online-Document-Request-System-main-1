@@ -205,111 +205,115 @@
     </script>
 
 <script>
-$(document).ready(function() {
-    // Increment/Decrement logic for copies
-    $('.btn-minus').click(function() {
+    $(document).ready(function(){
+      $('.btn-minus').click(function(){
         var input = $(this).siblings('input');
         var value = parseInt(input.val());
         if (value > 1) {
-            input.val(value - 1);
+          input.val(value - 1);
         }
-    });
+      });
 
-    $('.btn-plus').click(function() {
+      $('.btn-plus').click(function(){
         var input = $(this).siblings('input');
         var value = parseInt(input.val());
         input.val(value + 1);
+      });
     });
+  </script>
 
-    // Show or hide the number of copies based on the checkbox state
-    $('input[type="checkbox"][name="document_name[]"]').change(function() {
+<script>
+    function updateQuantity(inputId, delta) {
+      const input = document.getElementById(inputId);
+      let value = parseInt(input.value) || 0;
+      value += delta;
+      if (value < 1) value = 1;
+      input.value = value;
+    }
+
+    $(document).ready(function() {
+      $('input[type="checkbox"][name="document_name[]"]').change(function() {
         const quantityId = '#quantity' + this.id.replace('document_name', '');
         if (this.checked) {
-            $(quantityId).removeClass('hidden');
+          $(quantityId).removeClass('hidden');
         } else {
-            $(quantityId).addClass('hidden');
+          $(quantityId).addClass('hidden');
         }
+      });
     });
+  </script>
+      <script>
+     document.addEventListener('DOMContentLoaded', () => {
+        let btn = document.querySelector('#add-request');
+        btn.addEventListener('click', () => {
+            // Create a new FormData object from the form
+            const form = document.querySelector('form[name="docu_forms"]');
+            var data = new FormData(form);
 
-    // Handle form submission
-    $('#add-request').click(function(e) {
-        e.preventDefault(); // Prevent default form submission
-
-        // Create a new FormData object
-        var data = new FormData(document.querySelector('form[name="docu_forms"]'));
-
-        // Validate that at least one document is selected
-        let docNames = [];
-        let docCopies = [];
-        let isDocumentSelected = false;
-
-        $('input[type="checkbox"][name="document_name[]"]').each(function(index) {
-            if (this.checked) {
-                isDocumentSelected = true;
-                docNames.push(this.value); // Add selected document name
-                let no_ofcopies = $(this).closest('.form-group').find('input[name="no_ofcopies[]"]').val();
-                
-                // Ensure at least one copy is selected
-                no_ofcopies = no_ofcopies ? no_ofcopies : 1;
-                docCopies.push(no_ofcopies);
-            }
-        });
-
-        if (!isDocumentSelected) {
-            $('#message').html('<div class="alert alert-danger">Please select at least one document.</div>');
-            return;
-        }
-
-        // Clear previously appended values to avoid duplication
-        data.delete('document_name[]');
-        data.delete('no_ofcopies[]');
-
-        // Append document names and copies to FormData
-        docNames.forEach((doc, index) => {
-            data.append('document_name[]', doc);
-            data.append('no_ofcopies[]', docCopies[index]);
-        });
-
-        // AJAX form submission
-        $.ajax({
-            url: '../init/controllers/add_request.php',
-            type: "POST",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                $("#message").html(response);
-                window.scrollTo(0, 0);
-            },
-            error: function(response) {
-                console.log("Failed to submit the form.");
-            }
-        });
-    });
-});
-
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
+            // Ensure that each document has its corresponding number of copies
+            $('input[type="checkbox"][name="document_name[]"]').each(function(index) {
+                if (this.checked) {
+                    let no_ofcopies = $(this).closest('.form-group').find('input[name="no_ofcopies[]"]').val();
+                    data.append('document_name[]', this.value);
+                    data.append('no_ofcopies[]', no_ofcopies);
                 }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-print_r($_POST); // This will help you inspect the incoming data
-exit;
-</script>
+            });
 
+            // Validate other required fields
+            let allFieldsFilled = true;
+            ['control_no', 'studentID_no', 'email_address', 'date_request', 'mode_request'].forEach(field => {
+                if (!data.get(field)) {
+                    allFieldsFilled = false;
+                }
+            });
+
+            if (!allFieldsFilled) {
+                $('#message').html('<div class="alert alert-danger">Required All Fields!</div>');
+            } else {
+                $.ajax({
+                    url: '../init/controllers/add_request.php',
+                    type: "POST",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        $("#message").html(response);
+                        window.scrollTo(0, 0);
+                    },
+                    error: function(response) {
+                        console.log("Failed");
+                    }
+                });
+            }
+        });
+    });
+      </script>
+
+
+
+<!--     <script>
+    $('#form').parsley();
+    </script> -->
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+    </script>
 
 </body>
  

@@ -111,8 +111,8 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                       <select data-parsley-type="alphanum" type="text" value="<?= $row['status']; ?>" id="status" required="" placeholder="" class="form-control">
-                                                           <option value="<?= $row['status']; ?>" hidden><?= $row['status']; ?></option>
+                                                       <select data-parsley-type="alphanum" type="text" value="<?= $row['dean_status']; ?>" id="status" required="" placeholder="" class="form-control">
+                                                           <option value="<?= $row['dean_status']; ?>" hidden><?= $row['dean_status']; ?></option>
                                                            <option value="Pending" style="background-color: orange;color: #fff">Pending</option>
                                                            <option value="Waiting for Payment" style="background-color: skyblue;color: #fff">Waiting for Payment</option>
                                                            <option value="Declined" style="background-color: red;color: #fff">Declined</option>

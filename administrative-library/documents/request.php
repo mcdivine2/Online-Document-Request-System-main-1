@@ -89,16 +89,16 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['status'] ==="Pending"){
+                                                       if($row['library_status'] ==="Pending"){
                                                         echo '<span class="badge bg-warning text-white">Pending</span>';
-                                                      } else if($row['status'] ==="Waiting for Payment"){
+                                                      } else if($row['library_status'] ==="Waiting for Payment"){
                                                        echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
-                                                      }else if($row['status'] ==="Releasing"){
+                                                      }else if($row['library_status'] ==="Releasing"){
                                                          echo '<span class="badge bg-success text-white">Verified</span>';
-                                                     }else if($row['status'] ==="Received"){
+                                                     }else if($row['library_status'] ==="Received"){
                                                          echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                      }
-                                                     else if($row['status'] ==="Declined"){
+                                                     else if($row['library_status'] ==="Declined"){
                                                          echo '<span class="badge bg-danger text-white">Declined</span>';
                                                      }
                                                     
@@ -109,7 +109,7 @@
                                                     <td class="align-right">
 
                                                     <?php
-                                                      if ($row['status'] === 'Released') {
+                                                      if ($row['library_status'] === 'Released') {
                                                         echo '';
 
                                                       
@@ -135,17 +135,17 @@ echo '"class= "text-secondary font-weight-bold text-xs" data-toggle-tooltip" dat
 
 
                                                         <a href="<?php 
-                                                       if($row['status'] ==='Pending'){
+                                                       if($row['library_status'] ==='Pending'){
                                                            echo 'email-form-p.php';
-                                                         } else if($row['status'] ==='Received'){
+                                                         } else if($row['library_status'] ==='Received'){
                                                           echo 'email-form-r.php';
-                                                         }else if($row['status'] ==='Waiting for Payment'){
+                                                         }else if($row['library_status'] ==='Waiting for Payment'){
                                                            echo 'email-form-wfp.php';
-                                                        }else if($row['status'] ==='Releasing'){
+                                                        }else if($row['library_status'] ==='Releasing'){
                                                           echo 'email-form.php';
-                                                        }else if($row['status'] ==='Declined'){
+                                                        }else if($row['library_status'] ==='Declined'){
                                                           echo 'email-form-dc.php';
-                                                        }else if($row['status'] ==='Released'){
+                                                        }else if($row['library_status'] ==='Released'){
                                                           echo 'email-form-rl.php';
                                                         }
                                                      ?>?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">

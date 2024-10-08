@@ -87,13 +87,13 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['status'] ==="Processing"){
-                                                           echo '<span class="badge bg-info text-white">Processing</span>';
-                                                         } else if($row['status'] ==="Waiting for Payment"){
-                                                          echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                         }else if($row['status'] ==="Releasing"){
+                                                       if($row['registrar_status'] ==="Pending Request"){
+                                                           echo '<span class="badge bg-info text-white">Pending Request</span>';
+                                                         } else if($row['registrar_status'] ==="Processing"){
+                                                          echo '<span class="badge bg-danger text-white">Processing</span>';
+                                                         }else if($row['registrar_status'] ==="Releasing"){
                                                             echo '<span class="badge bg-success text-white">Releasing</span>';
-                                                        }else if($row['status'] ==="Received"){
+                                                        }else if($row['registrar_status'] ==="Received"){
                                                             echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                         }
                                                      ?> 
@@ -107,10 +107,16 @@
                                                           <i class="fa fa-download"></i>
                                                         </a> &nbsp;</div>
                      -->
-                                                        <div class="three">
-                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                          <i class="fa fa-edit"></i>
-                                                        </a> &nbsp;</div>
+                                                        <!-- <div class="three">
+                                                            <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                            <i class="fa fa-edit"></i>
+                                                            </a> &nbsp;
+                                                        </div> -->
+                                                        <div class="four">
+                                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                            <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </div> 
 <!--                                                         <div class="four">
                                                          <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-trash-alt"></i>

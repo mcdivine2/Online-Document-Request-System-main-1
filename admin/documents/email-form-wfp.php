@@ -1,4 +1,4 @@
-       <?php include('main_header/header.php');?>
+<?php include('main_header/header.php');?>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->
@@ -39,7 +39,10 @@
                     include '../init/model/config/connection2.php';
                     $GET_reqid = intval($_GET['request']);
                     $student_number = $_GET['student-number'];
-                    $sql = "SELECT * FROM `tbl_documentrequest` WHERE `request_id`= ? AND studentID_no = ?";
+                    $sql = "SELECT tbl_documentrequest.*, tbl_students.email_address 
+                    FROM `tbl_documentrequest` 
+                    INNER JOIN `tbl_students` ON tbl_documentrequest.studentID_no = tbl_students.studentID_no 
+                    WHERE `request_id` = ? AND tbl_documentrequest.studentID_no = ?";            
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_reqid, $student_number);
                     $stmt->execute();
@@ -66,7 +69,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Subject: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" value="Waiting for Payment of <?= $row['document_name']; ?>" name="subject" required="" placeholder="" class="form-control" readonly>
+                                                        <input data-parsley-type="alphanum" type="text" value="Request received for <?= $row['document_name']; ?>" name="subject" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
@@ -74,8 +77,7 @@
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Message: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                        
-                                                    <textarea data-parsley-type="alphanum" type="text" name="body" required="" placeholder="" class="form-control" readonly> Hello, This is a test! Your <?= $row['document_name']; ?> is now on process with Reference # <?= $row['control_no']; ?>. You can pay via GCASH to this Number 09XXXXXXXXX / Registrar's Office. Save your Receipt for verification
-                                                     
+                                                    <textarea data-parsley-type="alphanum" type="text" name="body" required="" placeholder="" class="form-control" readonly> Hello, This is a test! Your request for <?= $row['document_name']; ?> has been received with Reference # <?= $row['control_no']; ?>.
 
                                                 </textarea>
                                                    

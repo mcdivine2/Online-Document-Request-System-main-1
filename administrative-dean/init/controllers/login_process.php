@@ -5,9 +5,9 @@
 		$username = trim($_POST['username']);
 		$password = trim($_POST['password']);
 		$status = "Active";
-	//	$role = "Administrator";
+		$role = "Dean";
 		
-		$get_admin = $conn->login($username, $password, $status);
+		$get_admin = $conn->login($username, $password, $status, $role);
 		if($get_admin['count'] > 0){
 			session_start();
 			$_SESSION['user_id'] = $get_admin['user_id'];

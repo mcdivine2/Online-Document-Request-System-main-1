@@ -1,4 +1,4 @@
-       <?php include('main_header/header.php');?>
+<?php include('main_header/header.php');?>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->
@@ -14,29 +14,28 @@
         <!-- ============================================================== -->
         <div class="dashboard-wrapper">
             <div class="container-fluid  dashboard-content">
-                <!-- ============================================================== -->
-                <!-- pageheader -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                             <h2 class="pageheader-title"><i class="fa fa-fw fa-money-bill-wave"></i> Payment </h2>
-                            <div class="page-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Payment</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ============================================================== -->
-                <!-- end pageheader -->
-                <!-- ============================================================== -->
-               
-                    <div class="row">
+            <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="page-header">
+            <h2 class="pageheader-title"><i class="fa fa-fw fa-money-bill-wave"></i>Payment Information </h2>
+            <div class="page-breadcrumb">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Payments Information</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Payment Form -->
+
+
+
+
+<div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Payment Information</h5>
@@ -137,60 +136,3 @@
             
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- end main wrapper -->
-    <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
-    <script src="../asset/libs/js/main-js.js"></script>
-    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/data-table.js"></script>
-     <script type="text/javascript">
-        $(document).ready(function(){
-          var firstName = $('#firstName').text();
-          var lastName = $('#lastName').text();
-          var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
-          var profileImage = $('#profileImage').text(intials);
-        });
-    </script>
-    <script>
-    $(document).ready(function() {
-
-        load_data();
-
-        var count = 1;
-
-        function load_data() {
-            $(document).on('click', '.delete', function() {
-
-                var payment_id = $(this).attr("data-id");
-                // console.log("================get course_id================");
-                // console.log(course_id);
-                if (confirm("Are you sure want to remove this data?")) {
-                    $.ajax({
-                        url: "../init/controllers/delete_payment.php",
-                        method: "POST",
-                        data: {
-                            payment_id: payment_id
-                        },
-                      success: function(response) {
-
-                          $("#message").html(response);
-                          },
-                          error: function(response) {
-                            console.log("Failed");
-                          }
-                    })
-                }
-            });
-        }
-
-    });
-</script>
-</body>
- 
-</html>
