@@ -1,5 +1,16 @@
 <?php
-require_once "../model/class_model.php";
+		require_once "../model/class_model.php";
+	if(ISSET($_POST)){
+		$conn = new class_model();
+		$username = trim($_POST['username']);
+		$password = trim($_POST['password']);
+		$status = "Active";
+		$role = "Administrator";
+		
+		$get_admin = $conn->login($username, $password, $status, $role);
+		if($get_admin['count'] > 0){
+			session_start();
+			$_SESSION['admin'] = $get_admin['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn = new class_model();

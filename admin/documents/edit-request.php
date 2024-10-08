@@ -113,13 +113,8 @@
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                        <select data-parsley-type="alphanum" type="text" value="<?= $row['status']; ?>" id="status" required="" placeholder="" class="form-control">
                                                            <option value="<?= $row['status']; ?>" hidden><?= $row['status']; ?></option>
-
                                                            <option value="Received" >Pending Request</option>
                                                            <option value="Processing" >Processing</option>
-
-                                                           <option value="Pending" >Pending</option>
-                                                           <option value="Waiting for Payment" >Waiting for Payment</option>
-
                                                            <option value="Declined">Declined</option>
                                                            <option value="Releasing">Verified</option>
                                                            <option value="Released">Released</option>

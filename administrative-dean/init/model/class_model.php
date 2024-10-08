@@ -311,17 +311,10 @@
 		  }
 
 
-
 		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $dean_status, $request_id){
 			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `dean_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
 			$stmt->bind_param("sssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $dean_status, $request_id);
-
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $dean_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `dean_status` = ?  WHERE request_id = ?";
-			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $dean_status, $request_id);
-
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
