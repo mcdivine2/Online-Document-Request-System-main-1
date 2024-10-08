@@ -100,7 +100,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label>Maiden name</label>
-                                <input type="text" name="last_name" value="<?= $getstudno['middle_name']; ?>" class="form-control" readonly>
+                                <input type="text" name="middle_name" value="<?= $getstudno['middle_name']; ?>" class="form-control" readonly>
                             </div>
                             <div class="col-md-4">
                                 <label>Lastname</label>
@@ -193,40 +193,6 @@
                                     echo "No documents found.";
                                 }
                                 ?> <br>
-
-                               <!-- <input type="checkbox" name="document_name[]" id="document_name1" value="Transcript of Records"> Transcript of Records <br>
-                                <div id="quantity1" class="mt-1 hidden" style="display:none;">
-                                    <label for="Transcript of Records">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-
-                                <input type="checkbox" name="document_name[]" id="document_name2" value="Evaluation of Grades"> Evaluation of Grades <br>
-                                <div id="quantity2" class="mt-1 hidden" style="display:none;">
-                                    <label for="Evaluation of Grades">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-
-                                <input type="checkbox" name="document_name[]" id="document_name3" value="Certificate of Grades"> Certificate of Grades <br>
-                                <div id="quantity3" class="mt-1 hidden" style="display:none;">
-                                    <label for="Certificate of Grades">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-
-                                <input type="checkbox" name="document_name[]" id="document_name4" value="Good Moral"> Good Moral <br>
-                                <div id="quantity4" class="mt-1 hidden" style="display:none;">
-                                    <label for="Good Moral">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-4"> 
-                                <br>
-                                <input type="checkbox" name="document_name[]" id="document_name5" value="Honorable Dismisal"> Honorable Dismisal <br>
-                                <div id="quantity5" class="mt-1 hidden" style="display:none;">
-                                    <label for="Honorable Dismisal">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-                            </div>-->
                         </div>
                     </div> 
 
@@ -294,18 +260,19 @@
 
 <script>
 $(document).ready(function() {
-        $('input[type="checkbox"][name="document_name[]"]').change(function() {
-            const quantityId = '#quantity' + this.id.replace('document_name', '');
-            if (this.checked) {
-                $(quantityId).show();
-            } else {
-                $(quantityId).hide();
-                $(quantityId).find('input').val(''); // Clear input when unchecked
-            }
-        });
+    // Show or hide quantity input based on the checkbox selection
+    $('input[type="checkbox"][name="document_name[]"]').change(function() {
+        const quantityId = '#quantity' + this.id.replace('document_name', '');
+        if (this.checked) {
+            $(quantityId).show();
+        } else {
+            $(quantityId).hide();
+            $(quantityId).find('input').val(''); // Clear input when unchecked
+        }
+    });
 
-        // Handle form submission
-        $('#add-request').click(function(e) {
+    // Handle form submission
+    $('#add-request').click(function(e) {
         e.preventDefault(); // Prevent default form submission
 
         // Create a new FormData object
@@ -332,6 +299,14 @@ $(document).ready(function() {
             $('#message').html('<div class="alert alert-danger">Please select at least one document.</div>');
             return;
         }
+
+        // Get the selected course value and append it to FormData
+        var course = $('#course').val();
+        if (course === "") {
+            $('#message').html('<div class="alert alert-danger">Please select a course.</div>');
+            return;
+        }
+        data.append('course', course);
 
         // Clear previously appended values to avoid duplication
         data.delete('document_name[]');
@@ -360,6 +335,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
