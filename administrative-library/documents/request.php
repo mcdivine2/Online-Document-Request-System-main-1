@@ -73,7 +73,7 @@
                                                 <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>
                     
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= $row['mode_request']; ?></td>
@@ -89,16 +89,16 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['library_status'] ==="Pending"){
+                                                       if($row['custodian_status'] ==="Pending"){
                                                         echo '<span class="badge bg-warning text-white">Pending</span>';
-                                                      } else if($row['library_status'] ==="Waiting for Payment"){
+                                                      } else if($row['custodian_status'] ==="Waiting for Payment"){
                                                        echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
-                                                      }else if($row['library_status'] ==="Releasing"){
+                                                      }else if($row['custodian_status'] ==="Releasing"){
                                                          echo '<span class="badge bg-success text-white">Verified</span>';
-                                                     }else if($row['library_status'] ==="Received"){
+                                                     }else if($row['custodian_status'] ==="Received"){
                                                          echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                      }
-                                                     else if($row['library_status'] ==="Declined"){
+                                                     else if($row['custodian_status'] ==="Declined"){
                                                          echo '<span class="badge bg-danger text-white">Declined</span>';
                                                      }
                                                     
@@ -109,7 +109,7 @@
                                                     <td class="align-right">
 
                                                     <?php
-                                                      if ($row['library_status'] === 'Released') {
+                                                      if ($row['custodian_status'] === 'Released') {
                                                         echo '';
 
                                                       
@@ -120,7 +120,7 @@
 echo '<a href="edit-request.php?request=';
 echo $row['request_id'];
 echo '&student-number=';
-echo $row['studentID_no'];
+echo $row['student_id'];
 echo '"class= "text-secondary font-weight-bold text-xs" data-toggle-tooltip" data-original-title= "Edit user"><i class= "fa fa-edit"></i></a> |';
 
 echo '<a href="javascipt:; "data-id="';
@@ -135,20 +135,20 @@ echo '"class= "text-secondary font-weight-bold text-xs" data-toggle-tooltip" dat
 
 
                                                         <a href="<?php 
-                                                       if($row['library_status'] ==='Pending'){
+                                                       if($row['custodian_status'] ==='Pending'){
                                                            echo 'email-form-p.php';
-                                                         } else if($row['library_status'] ==='Received'){
+                                                         } else if($row['custodian_status'] ==='Received'){
                                                           echo 'email-form-r.php';
-                                                         }else if($row['library_status'] ==='Waiting for Payment'){
+                                                         }else if($row['custodian_status'] ==='Waiting for Payment'){
                                                            echo 'email-form-wfp.php';
-                                                        }else if($row['library_status'] ==='Releasing'){
+                                                        }else if($row['custodian_status'] ==='Releasing'){
                                                           echo 'email-form.php';
-                                                        }else if($row['library_status'] ==='Declined'){
+                                                        }else if($row['custodian_status'] ==='Declined'){
                                                           echo 'email-form-dc.php';
-                                                        }else if($row['library_status'] ==='Released'){
+                                                        }else if($row['custodian_status'] ==='Released'){
                                                           echo 'email-form-rl.php';
                                                         }
-                                                     ?>?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                     ?>?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-envelope"></i>
                                                         </a> 
 
