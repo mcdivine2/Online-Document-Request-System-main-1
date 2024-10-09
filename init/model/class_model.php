@@ -419,7 +419,7 @@
 			// Ensure the connection is active
 			if ($this->conn->ping()) {
 				// Prepare the SQL statement
-				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest (first_name, last_name, complete_address, birthdate, course, email_address, control_no, document_name, no_ofcopies, date_request, registrar_status, purpose, mode_request, student_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest (first_name, middle_name, last_name, complete_address, birthdate, course, email_address, control_no, document_name, no_ofcopies, date_request, status, purpose, mode_request, student_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				
 				if ($stmt === false) {
 					die('Prepare failed: (' . $this->conn->errno . ') ' . $this->conn->error);
