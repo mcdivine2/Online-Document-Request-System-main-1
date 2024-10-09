@@ -39,7 +39,7 @@
                     include '../init/model/config/connection2.php';
                     $GET_reqid = intval($_GET['request']);
                     $student_number = $_GET['student-number'];
-                    $sql = "SELECT * FROM `tbl_documentrequest` WHERE `request_id`= ? AND studentID_no = ?";
+                    $sql = "SELECT * FROM `tbl_documentrequest` WHERE `request_id`= ? AND student_id = ?";
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_reqid, $student_number);
                     $stmt->execute();

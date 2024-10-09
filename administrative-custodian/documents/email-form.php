@@ -1,4 +1,4 @@
-       <?php include('main_header/header.php');?>
+<?php include('main_header/header.php');?>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->
@@ -39,10 +39,7 @@
                     include '../init/model/config/connection2.php';
                     $GET_reqid = intval($_GET['request']);
                     $student_number = $_GET['student-number'];
-                    $sql = "SELECT tbl_documentrequest.*, tbl_student.email_address 
-                    FROM `tbl_documentrequest` 
-                    INNER JOIN `tbl_student` ON tbl_documentrequest.studentID_no = tbl_student.studentID_no 
-                    WHERE `request_id` = ? AND tbl_documentrequest.studentID_no = ?";            
+                    $sql = "SELECT * FROM `tbl_documentrequest` WHERE `request_id`= ? AND student_id = ?";
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_reqid, $student_number);
                     $stmt->execute();
@@ -69,7 +66,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Subject: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" value="Releasing of <?= $row['document_name']; ?>" name="subject" required="" placeholder="" class="form-control" readonly>
+                                                        <input data-parsley-type="alphanum" type="text" value="Request received for <?= $row['document_name']; ?>" name="subject" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
@@ -77,7 +74,8 @@
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Message: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                        
-                                                    <textarea data-parsley-type="alphanum" type="text" name="body" required="" placeholder="" class="form-control" readonly> Hello, This is a test! Your <?= $row['document_name']; ?> is ready to release! Please claim it on the office of registrar on <?= $row['date_releasing']; ?>
+                                                    <textarea data-parsley-type="alphanum" type="text" name="body" required="" placeholder="" class="form-control" readonly> Hello, This is a test! Your request for <?= $row['document_name']; ?> has been received with Reference # <?= $row['control_no']; ?>.
+
                                                 </textarea>
                                                    
                                                 

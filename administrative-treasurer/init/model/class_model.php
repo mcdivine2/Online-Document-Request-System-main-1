@@ -311,11 +311,10 @@
 		  }
 
 
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $accounting_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `accounting_status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $accounting_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `accounting_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $accounting_status, $request_id);
-
+			$stmt->bind_param("sssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $accounting_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -508,7 +507,7 @@
 		  }
 
 		 public function count_numberoftotalreceived(){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE accounting_status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -521,7 +520,7 @@
 		  }
 
 		  public function count_numberofreleased(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE accounting_status = 'Releasing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -534,7 +533,7 @@
 		  }
 
 		  public function count_released(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE status = 'Released'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE accounting_status = 'Released'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

@@ -5,13 +5,13 @@
 		$conn = new class_model();
 
 		$control_no = trim($_POST['control_no']);
-		$studentID_no = trim($_POST['studentID_no']);
+		$studentID_no = trim($_POST['student_id']);
 		$document_name = trim($_POST['document_name']);
 		$no_ofcopies = trim($_POST['no_ofcopies']);
 	    $date_request = trim($_POST['date_request']);
 		$date_releasing = trim($_POST['date_releasing']);
 	    // $processing_officer = trim($_POST['processing_officer']);
-		$status = trim($_POST['status']);
+		$status = trim($_POST['dean_status']);
 		$request_id = trim($_POST['request_id']);
 
 
