@@ -34,7 +34,7 @@
                 <!-- ============================================================== -->
                 <!-- pagehader  -->
                 <!-- ============================================================== -->
-                <div class="row justify-content-center" >
+                <div class="row" >
                     <!-- metric -->
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
                         <div class="card">
@@ -55,10 +55,56 @@
                             </div>
                             <div class="row">
                             <a href="student.php" class="btn btn-primary col-12" style="background-color:#1269AF">View Info</a>
-                        </div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                               <?php 
+                                    $conn = new class_model();
+                                    $cstudent = $conn->count_released();
+                               ?>
+                               <?php foreach ($cstudent as $row): ?>
+                                <div class="d-inline-block">
+                                    <h5 class="text-muted"><b>Released</b></h5>
+                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                                </div>
+                                <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
+                                    <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
+                                </div>
+                                 <?php endforeach;?>
+                            </div>
+                            <a href="released.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                        </div>
+                    </div>
+                    <!-- /. metric -->
+
+
+                      <!-- metric -->
+                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                               <?php 
+                                    $conn = new class_model();
+                                    $cstudent = $conn->count_released();
+                               ?>
+                               <?php foreach ($cstudent as $row): ?>
+                                <div class="d-inline-block">
+                                    <h5 class="text-muted"><b>Declined</b></h5>
+                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                                </div>
+                                <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
+                                    <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
+                                </div>
+                                 <?php endforeach;?>
+                            </div>
+                            <a href="released.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                        </div>
+                        
                     </div>
                 </div>
-                <div class="row justify-content-center" >
+                <div class="row " >
              
                     <!-- metric -->
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -132,54 +178,8 @@
                     </div>
                     <!-- /. metric -->
                     <!-- metric -->
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                               <?php 
-                                    $conn = new class_model();
-                                    $cstudent = $conn->count_released();
-                               ?>
-                               <?php foreach ($cstudent as $row): ?>
-                                <div class="d-inline-block">
-                                    <h5 class="text-muted"><b>Released</b></h5>
-                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
-                                </div>
-                                <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
-                                    <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
-                                </div>
-                                 <?php endforeach;?>
-                            </div>
-                            <a href="released.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
-                        </div>
-                    </div>
+                  
                     <!-- /. metric -->
-
-
-                      <!-- metric -->
-                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
-                        <div class="card">
-                            <div class="card-body">
-                               <?php 
-                                    $conn = new class_model();
-                                    $cstudent = $conn->count_released();
-                               ?>
-                               <?php foreach ($cstudent as $row): ?>
-                                <div class="d-inline-block">
-                                    <h5 class="text-muted"><b>Declined</b></h5>
-                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
-                                </div>
-                                <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
-                                    <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
-                                </div>
-                                 <?php endforeach;?>
-                            </div>
-                            <a href="released.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
-                        </div>
-                        
-                    </div>
-                    <!-- /. metric -->
-                   
-                    
                    
                 </div>
                                 <h5 class="card-header">Request Status Reports</h5>
