@@ -60,12 +60,6 @@
                         <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/administrative-dean/" >Administrative Dean</a>
                         <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/admin-aide/" >Admin-Aide</a>
 
-                    <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-treasurer/">Administrative Accounting</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-library/" >Administrative Library</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-custodian" >Administrative Custodian</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/administrative-dean/" >Administrative Dean</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main2/admin-aide/" >Admin-Aide</a>
-
                     </div>
                     </div>
                     </div>
