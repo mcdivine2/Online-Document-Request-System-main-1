@@ -61,7 +61,7 @@
                                             <tbody>
                                              <?php 
                                                 $conn = new class_model();
-                                                $docrequest = $conn->fetchAll_pendingpayment();
+                                                $docrequest = $conn->fetchAll_declined();
                                                ?>
                                                <?php foreach ($docrequest as $row) {
 

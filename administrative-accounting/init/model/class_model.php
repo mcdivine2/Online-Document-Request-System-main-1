@@ -272,6 +272,18 @@
 		         return $data;
 
 		  }
+		  public function fetchAll_declined(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Declined' ";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
 
 		  public function fetchAll_pendingpayment(){ 
             $sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Waiting for Payment'";
@@ -455,7 +467,7 @@
 		  }
 
 		 public function count_numberoftotalpending(){ 
-            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE status = 'Waiting for Payment'";
+            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE accounting_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -510,6 +522,19 @@
 
 		  public function count_released(){ 
             $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE accounting_status = 'Released'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  
+		  public function count_decline(){ 
+            $sql = "SELECT COUNT(request_id) as count_decline FROM tbl_documentrequest WHERE accounting_status = 'Declined'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
