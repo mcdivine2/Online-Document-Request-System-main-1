@@ -85,13 +85,13 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['custodian_status'] ==="Pending"){
+                                                       if($row['dean_status'] ==="Pending"){
                                                            echo '<span class="badge bg-info text-white">Pending</span>';
-                                                         } else if($row['custodian_status'] ==="Received"){
+                                                         } else if($row['dean_status'] ==="Received"){
                                                            echo '<span class="badge bg-warning text-white">Received</span>';
-                                                         }else if($row['custodian_status'] ==="Waiting for Payment"){
+                                                         }else if($row['dean_status'] ==="Waiting for Payment"){
                                                            echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                        }else if($row['custodian_status'] ==="Verified"){
+                                                        }else if($row['dean_status'] ==="Verified"){
                                                             echo '<span class="badge bg-success text-white">Verified</span>';
                                                         }
                                                      ?> 

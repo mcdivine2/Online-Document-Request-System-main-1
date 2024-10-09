@@ -85,17 +85,17 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['custodian_status'] ==="Processing"){
+                                                       if($row['dean_status'] ==="Processing"){
                                                            echo '<span class="badge bg-info text-white">Processing</span>';
-                                                         } else if($row['custodian_status'] ==="Received"){
+                                                         } else if($row['dean_status'] ==="Received"){
                                                            echo '<span class="badge bg-warning text-white">Received</span>';
-                                                         }else if($row['custodian_status'] ==="Waiting for Payment"){
+                                                         }else if($row['dean_status'] ==="Waiting for Payment"){
                                                            echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                        }else if($row['custodian_status'] ==="Releasing"){
+                                                        }else if($row['dean_status'] ==="Releasing"){
                                                             echo '<span class="badge bg-success text-white">Releasing</span>';
-                                                        }else if($row['custodian_status'] ==="Released"){
+                                                        }else if($row['dean_status'] ==="Released"){
                                                           echo '<span class="badge bg-success text-white">Released</span>';
-                                                      }else if($row['custodian_status'] ==="Declined"){
+                                                      }else if($row['dean_status'] ==="Declined"){
                                                         echo '<span class="badge bg-danger text-white">Declined</span>';
                                                     }
                                                      ?> 

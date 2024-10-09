@@ -235,7 +235,7 @@
 		  }
 
 		  public function fetchAll_newrequest(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Received' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Received' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -248,7 +248,7 @@
 		  }
 
 		  public function fetchAll_releasing(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Releasing' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Releasing' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -261,7 +261,7 @@
 		  }
 
 		  public function fetchAll_released(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Released' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Released' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -274,7 +274,7 @@
 		  }
 
 		  public function fetchAll_pendingpayment(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Waiting for Payment'";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -287,10 +287,10 @@
 		  }
 
 
-		public function edit_request($control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $custodian_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `custodian_status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $accounting_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `accounting_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("sssssssi", $control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $custodian_status, $request_id);
+			$stmt->bind_param("sssssssi", $control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $accounting_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -470,7 +470,7 @@
 		  
 
 		   public function count_numberoftotalpaid(){ 
-            $sql = "SELECT COUNT(request_id) as count_paid FROM tbl_documentrequest WHERE custodian_status = 'Paid'";
+            $sql = "SELECT COUNT(request_id) as count_paid FROM tbl_documentrequest WHERE accounting_status = 'Paid'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -483,7 +483,7 @@
 		  }
 
 		 public function count_numberoftotalreceived(){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE custodian_status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE accounting_status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -496,7 +496,7 @@
 		  }
 
 		  public function count_numberofreleased(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE custodian_status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE accounting_status = 'Releasing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -509,7 +509,7 @@
 		  }
 
 		  public function count_released(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE custodian_status = 'Released'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE accounting_status = 'Released'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

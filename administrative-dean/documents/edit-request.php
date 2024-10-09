@@ -110,9 +110,9 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
-                                                    <div class="col-12 col-sm-8 col-lg-6">
-                                                       <select data-parsley-type="alphanum" type="text" value="<?= $row['custodian_status']; ?>" id="custodian_status" required="" placeholder="" class="form-control">
-                                                           <option value="<?= $row['custodian_status']; ?>" hidden><?= $row['custodian_status']; ?></option>
+                                                    <div class="col-12 col-sm-8 col-lg-6"> 
+                                                       <select data-parsley-type="alphanum" type="text" value="<?= $row['dean_status']; ?>" id="dean_status" required="" placeholder="" class="form-control">
+                                                           <option value="<?= $row['dean_status']; ?>" hidden><?= $row['dean_status']; ?></option>
                                                            <option value="Pending" style="background-color: orange;color: #fff">Pending</option>
                                                            <option value="Waiting for Payment" style="background-color: skyblue;color: #fff">Waiting for Payment</option>
                                                            <option value="Declined" style="background-color: red;color: #fff">Declined</option>
@@ -168,7 +168,7 @@
                   const date_request = document.querySelector('input[name=date_request]').value;
                   const date_releasing = document.querySelector('input[name=date_releasing]').value;
                   const processing_officer = document.querySelector('input[name=processing_officer]').value;
-                  const custodian_status = $('#custodian_status option:selected').val();
+                  const dean_status = $('#dean_status option:selected').val();
                   const request_id = document.querySelector('input[name=request_id]').value;
 
                   var data = new FormData(this.form);
@@ -180,7 +180,7 @@
                   data.append('date_request', date_request);
                   data.append('date_releasing', date_releasing);
                   data.append('processing_officer', processing_officer);
-                  data.append('custodian_status', custodian_status);
+                  data.append('dean_status', dean_status);
                   data.append('request_id', request_id);
 
 

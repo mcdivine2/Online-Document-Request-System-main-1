@@ -5,7 +5,7 @@
 		$username = trim($_POST['username']);
 		$password = trim($_POST['password']);
 		$status = "Active";
-		$role = "Custodian";
+		$role = "Accounting";
 		
 		$get_admin = $conn->login($username, $password, $status, $role);
 		if($get_admin['count'] > 0){
