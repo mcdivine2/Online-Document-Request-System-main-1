@@ -13,13 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email_address = trim($_POST['email_address']);
     $control_no = trim($_POST['control_no']);
     $date_request = trim($_POST['date_request']);
-    $received = "Received"; // Static value for status
     $mode_request = trim($_POST['mode_request']);
     $student_id = trim($_POST['student_id']);
 
     $document_names = isset($_POST['document_name']) ? $_POST['document_name'] : [];
     $no_ofcopies = isset($_POST['no_ofcopies']) ? $_POST['no_ofcopies'] : [];
-    $purpose = isset($_POST['purpose']) ? $_POST['purpose'] : []; 
+    $purpose = isset($_POST['purpose']) ? $_POST['purpose'] : [];
+
+    // Initialize status fields
+    $registrar_status = "Received";
+    $custodian_status = "Received";
+    $dean_status = "Received";
+    $library_status = "Received";
+    $accounting_status = "Received";
 
     // Input validation
     $errors = []; // Store validation errors
@@ -36,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($mode_request)) $errors[] = 'Mode of request is required!';
     if (empty($student_id)) $errors[] = 'Student ID is required!';
     if (empty($purpose)) $errors[] = 'At least one purpose is required!';
-    
+
     // Check if document names and copies match
     if (count($document_names) !== count($no_ofcopies)) {
         $errors[] = 'Document names and copies mismatch!';
@@ -72,7 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $document_name,
             $copies, // Use the individual number of copies
             $date_request,
-            $received,
+            $registrar_status,
+            $custodian_status,
+            $dean_status,
+            $library_status,
+            $accounting_status,
             implode(", ", $purpose), // Ensure purpose is a string
             $mode_request,
             $student_id

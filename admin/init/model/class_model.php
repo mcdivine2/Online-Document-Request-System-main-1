@@ -279,7 +279,7 @@
 		  }
 
 		  public function fetchAll_newrequest(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Received' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Received' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -292,7 +292,7 @@
 		  }
 
 		  public function fetchAll_releasing(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Releasing' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Releasing' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -305,7 +305,7 @@
 		  }
 
 		  public function fetchAll_released(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Released' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Released' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -318,7 +318,7 @@
 		  }
 
 		  public function fetchAll_pendingpayment(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Waiting for Payment' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Waiting for Payment' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -519,7 +519,7 @@
 		  }
 
 		 public function count_numberoftotalpending(){ 
-            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE status = 'Waiting for Payment'";
+            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE accounting_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -534,7 +534,7 @@
 		  
 
 		   public function count_numberoftotalpaid(){ 
-            $sql = "SELECT COUNT(request_id) as count_paid FROM tbl_documentrequest WHERE status = 'Paid'";
+            $sql = "SELECT COUNT(request_id) as count_paid FROM tbl_documentrequest WHERE accounting_status = 'Paid'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -547,7 +547,7 @@
 		  }
 
 		 public function count_numberoftotalreceived(){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE registrar_status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -560,7 +560,7 @@
 		  }
 
 		  public function count_numberofreleased(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE registrar_status = 'Releasing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -573,7 +573,7 @@
 		  }
 
 		  public function count_released(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE status = 'Released'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE registrar_status = 'Released'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

@@ -50,7 +50,7 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Control No.</th>
-                                                    <th scope="col">Student ID</th>
+                                                    <th scope="col">Student Name</th>
                                                     <th scope="col">Document Name</th>
                                                     <th scope="col">No. of Copies</th>
                                                     <th scope="col">Date Request</th>
@@ -71,7 +71,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['first_name']; ?></td>
+                                                    <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>

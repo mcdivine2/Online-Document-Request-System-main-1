@@ -39,7 +39,7 @@
                     include '../init/model/config/connection2.php';
                     $GET_reqid = intval($_GET['request']);
                     $student_number = $_GET['student-number'];
-                    $sql = "SELECT * FROM `tbl_documentrequest` WHERE `request_id`= ? AND studentID_no = ?";
+                    $sql = "SELECT * FROM `tbl_documentrequest` WHERE `request_id`= ? AND student_id = ?";
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_reqid, $student_number);
                     $stmt->execute();
@@ -65,7 +65,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Student ID</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" value="<?= $row['studentID_no']; ?>" name="studentID_no" type="text" required="" placeholder="" class="form-control" readonly>
+                                                        <input data-parsley-type="alphanum" value="<?= $row['student_id']; ?>" name="student_id" type="text" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
@@ -110,8 +110,8 @@
                                                 </div>
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
-                                                    <div class="col-12 col-sm-8 col-lg-6">
-                                                       <select data-parsley-type="alphanum" type="text" value="<?= $row['dean_status']; ?>" id="status" required="" placeholder="" class="form-control">
+                                                    <div class="col-12 col-sm-8 col-lg-6"> 
+                                                       <select data-parsley-type="alphanum" type="text" value="<?= $row['dean_status']; ?>" id="dean_status" required="" placeholder="" class="form-control">
                                                            <option value="<?= $row['dean_status']; ?>" hidden><?= $row['dean_status']; ?></option>
                                                            <option value="Pending" style="background-color: orange;color: #fff">Pending</option>
                                                            <option value="Waiting for Payment" style="background-color: skyblue;color: #fff">Waiting for Payment</option>
@@ -162,29 +162,29 @@
               btn.addEventListener('click', () => {
 
                   const control_no = document.querySelector('input[name=control_no]').value;
-                  const studentID_no = document.querySelector('input[name=studentID_no]').value;
+                  const student_id = document.querySelector('input[name=student_id]').value;
                   const document_name = document.querySelector('input[name=document_name]').value;
                   const no_ofcopies = document.querySelector('input[name=no_ofcopies]').value;
                   const date_request = document.querySelector('input[name=date_request]').value;
                   const date_releasing = document.querySelector('input[name=date_releasing]').value;
                   const processing_officer = document.querySelector('input[name=processing_officer]').value;
-                  const status = $('#status option:selected').val();
+                  const dean_status = $('#dean_status option:selected').val();
                   const request_id = document.querySelector('input[name=request_id]').value;
 
                   var data = new FormData(this.form);
 
                   data.append('control_no', control_no);
-                  data.append('studentID_no', studentID_no);
+                  data.append('student_id', student_id);
                   data.append('document_name', document_name);
                   data.append('no_ofcopies', no_ofcopies);
                   data.append('date_request', date_request);
                   data.append('date_releasing', date_releasing);
                   data.append('processing_officer', processing_officer);
-                  data.append('status', status);
+                  data.append('dean_status', dean_status);
                   data.append('request_id', request_id);
 
 
-              if (control_no === '' &&  studentID_no ==='' &&  document_name ==='' &&  no_ofcopies ==='' &&  date_request ==='' &&  date_releasing ==='' &&  processing_officer ===''){
+              if (control_no === '' &&  student_id ==='' &&  document_name ==='' &&  no_ofcopies ==='' &&  date_request ==='' &&  date_releasing ==='' &&  processing_officer ===''){
                       $('#message').html('<div class="alert alert-danger"> Required All Fields!</div>');
                     }else{
                        $.ajax({
