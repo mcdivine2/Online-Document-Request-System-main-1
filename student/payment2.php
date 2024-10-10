@@ -29,62 +29,74 @@
         </div>
     </div>
 </div>
+<style>
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #1269AF;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .form-control {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background-color: #1269AF;
+        border-color: #1269AF;
+        color: white;
+    }
+
+    .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .row > .col-md-6 {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .text-right {
+        text-align: right;
+    }
+</style>
 
 <!-- Payment Form -->
 
-<div class="row justify-content-center mx-3">
+<div class="row justify-content-right mx-3">
     <div class="col-xl-6 col-lg-8 col-md-8 col-sm-10">
         <div class="card influencer-profile-data">
             <div class="card-body">
+            
+            <h4 class="section-title">Proof of payment</h4>
                 <form id="addPaymentForm" method="POST" action="submit_payment.php">
                     <div class="form-group row">
-                        <div class="col-12 col-sm-6">
-                            <label>Reference No.</label>
-                            <input type="text" value="<?= uniqid('ref_'); ?>" name="reference_no" readonly class="form-control">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label>Student Name</label>
-                            <input type="text" name="student_name" required class="form-control" placeholder="Enter student name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-sm-6">
-                            <label>Control No.</label>
-                            <input type="text" name="control_no" required class="form-control" placeholder="Enter control number">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label>Document Name</label>
-                            <input type="text" name="document_name" required class="form-control" placeholder="Enter document name">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-sm-6">
-                            <label>Date of Payment</label>
-                            <input type="date" name="date_ofpayment" required class="form-control">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label>Total Amount</label>
-                            <input type="text" name="total_amount" required class="form-control" placeholder="Enter total amount">
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-12 col-sm-6">
-                            <label>Amount Paid</label>
-                            <input type="text" name="amount_paid" required class="form-control" placeholder="Enter amount paid">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label>Proof of Payment</label>
-                            <input type="text" name="proof_ofpayment" required class="form-control" placeholder="Enter proof of payment">
-                        </div>
+                    <input data-parsley-type="alphanum" type="file" alt="document_name" id="document_name" accept=".jpeg, .jpg, .png, .gif" required="" placeholder="" class="form-control">
+                    <footer style="font-size: 11px"><b>File Type:</b><font color="red"><i>.jpg .png .gif</i></font></footer>
                     </div>
                     
-                    <div class="form-group row text-right">
+                   
+                        
+                    
+                    <div class="form-groupform-group mt-4 text-right">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-space btn-primary">Submit Payment</button>
+                            <button type="submit" class="btn btn-space btn-primary">Submit</button>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>
-    </div>
-</div>
+  
+
+

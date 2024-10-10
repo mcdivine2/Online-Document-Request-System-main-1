@@ -20,9 +20,7 @@
         <div class="row">
             <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="page-header">
-                    <h2 class="pageheader-title">
-                        <center><i class="fa fa-fw fa-user-graduate"></i> <strong>Registration Form </strong></center>
-                    </h2>
+                
                    
                 <div class="page-breadcrumb">
 
@@ -42,6 +40,9 @@
         <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 col-12" id="studentForm">
             <div class="card influencer-profile-data">
                 <div class="card-body">
+                <h2 class="pageheader-title">
+                        <center><i class="fa fa-fw fa-user-graduate"></i> <strong>Registration Form </strong></center>
+                    </h2>
                     <div class="" id="message"></div>
                     <form id="validationform" name="student_form" data-parsley-validate="" novalidate="" method="POST"
                         enctype="multipart/form-data">

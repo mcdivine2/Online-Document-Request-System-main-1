@@ -90,7 +90,7 @@
                     <div class="form-group">
                         <h4 class="section-title">Applicant's Information</h4>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <?php
                                     $conn = new class_model();
                                     $getstudno = $conn->student_profile($student_id);
@@ -98,7 +98,11 @@
                                 <label>Firstname</label>
                                 <input type="text" name="first_name" value="<?= $getstudno['first_name']; ?>" class="form-control" readonly>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label>Maiden name</label>
+                                <input type="text" name="middle_name" value="<?= $getstudno['middle_name']; ?>" class="form-control" readonly>
+                            </div>
+                            <div class="col-md-4">
                                 <label>Lastname</label>
                                 <input type="text" name="last_name" value="<?= $getstudno['last_name']; ?>" class="form-control" readonly>
                             </div>
@@ -118,7 +122,16 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <label>Course</label>
-                                <input type="text" name="course" class="form-control" placeholder="Enter Course">
+                                <select data-parsley-type="alphanum" type="text" id="course" required="" placeholder="" class="form-control">
+                                                       <?php 
+                                                            $conn = new class_model();  
+                                                            $course = $conn->fetchAll_course();
+                                                         ?>
+                                                           <option value="">&larr;Select Course &rarr;</option>
+                                                            <?php foreach ($course as $row) { ?>
+                                                           <option value="<?= $row['course_name']; ?>"><?= $row['course_name']; ?></option>
+                                                       <?php } ?>
+                                                       </select>
                             </div>
                             <div class="col-md-6">
                                 <label>Email Address</label>
@@ -180,40 +193,6 @@
                                     echo "No documents found.";
                                 }
                                 ?> <br>
-
-                               <!-- <input type="checkbox" name="document_name[]" id="document_name1" value="Transcript of Records"> Transcript of Records <br>
-                                <div id="quantity1" class="mt-1 hidden" style="display:none;">
-                                    <label for="Transcript of Records">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-
-                                <input type="checkbox" name="document_name[]" id="document_name2" value="Evaluation of Grades"> Evaluation of Grades <br>
-                                <div id="quantity2" class="mt-1 hidden" style="display:none;">
-                                    <label for="Evaluation of Grades">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-
-                                <input type="checkbox" name="document_name[]" id="document_name3" value="Certificate of Grades"> Certificate of Grades <br>
-                                <div id="quantity3" class="mt-1 hidden" style="display:none;">
-                                    <label for="Certificate of Grades">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-
-                                <input type="checkbox" name="document_name[]" id="document_name4" value="Good Moral"> Good Moral <br>
-                                <div id="quantity4" class="mt-1 hidden" style="display:none;">
-                                    <label for="Good Moral">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-                            </div>
-                           
-                            <div class="col-md-4"> 
-                                <br>
-                                <input type="checkbox" name="document_name[]" id="document_name5" value="Honorable Dismisal"> Honorable Dismisal <br>
-                                <div id="quantity5" class="mt-1 hidden" style="display:none;">
-                                    <label for="Honorable Dismisal">Copies:</label>
-                                    <input type="number" name="no_ofcopies[]" value="1" class="form-control">
-                                </div>
-                            </div>-->
                         </div>
                     </div> 
 
@@ -253,23 +232,50 @@
 
                     <!-- Submission Section -->
                     <div class="form-group mt-4 text-right">
-                        <input type="hidden" name="student_id" value="<?= $_SESSION['student_id'];?>" class="form-control">
-                        <button type="submit" id="add-request" class="btn btn-primary btn-block">Submit</button>
-                    </div>
+            <input type="hidden" name="student_id" value="<?= $_SESSION['student_id'];?>" class="form-control">
+            <button type="button" id="submitForm" class="btn btn-primary btn-block">Submit</button>
+        </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Payment Details Modal (add this at the bottom of your main PHP file) -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Payment Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Student Name: </strong> <span id="modalStudentName"></span></p>
+        <p><strong>Control No.: </strong> <span id="modalControlNo"></span></p>
+        <p><strong>Document Name: </strong> <span id="modalDocumentName"></span></p>
+        <p><strong>Mode: </strong> <span id="modalMode"></span></p>
+        <p><strong>Total Amount: </strong> <span id="modalTotalAmount"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" id="confirmSubmit" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <!-- ============================================================== -->
     <!-- end main wrapper -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../assets/vendor/parsley/parsley.js"></script>
-    <script src="../assets/libs/js/main-js.js"></script>
+    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
+    <script src="../asset/libs/js/main-js.js"></script>
+    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/datatables/js/data-table.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
           var firstName = $('#firstName').text();
@@ -281,37 +287,42 @@
 
 <script>
 $(document).ready(function() {
-        $('input[type="checkbox"][name="document_name[]"]').change(function() {
-            const quantityId = '#quantity' + this.id.replace('document_name', '');
-            if (this.checked) {
-                $(quantityId).show();
-            } else {
-                $(quantityId).hide();
-                $(quantityId).find('input').val(''); // Clear input when unchecked
-            }
-        });
+    let formData = null; // Declare formData outside for reuse
 
-        // Handle form submission
-        $('#add-request').click(function(e) {
+    // Show or hide quantity input based on the checkbox selection
+    $('input[type="checkbox"][name="document_name[]"]').change(function() {
+        const quantityId = '#quantity' + this.id.replace('document_name', '');
+        if (this.checked) {
+            $(quantityId).show();
+        } else {
+            $(quantityId).hide();
+            $(quantityId).find('input').val(''); // Clear input when unchecked
+        }
+    });
+
+    // Handle form submission with modal trigger
+    $('#submitForm').click(function(e) {
         e.preventDefault(); // Prevent default form submission
 
-        // Create a new FormData object
-        var data = new FormData(document.querySelector('form[name="docu_forms"]'));
+        formData = new FormData(document.querySelector('form[name="docu_forms"]'));
 
         // Validate that at least one document is selected
         let docNames = [];
         let docCopies = [];
         let isDocumentSelected = false;
+        let totalAmount = 0;
+        const costPerDocument = 50; // Example cost per document (adjust as needed)
 
         $('input[type="checkbox"][name="document_name[]"]').each(function(index) {
             if (this.checked) {
                 isDocumentSelected = true;
                 docNames.push(this.value); // Add selected document name
                 let no_ofcopies = $(this).closest('.form-group').find('input[name="no_ofcopies[]"]').val();
-                
-                // Ensure at least one copy is selected
-                no_ofcopies = no_ofcopies ? no_ofcopies : 1;
+                no_ofcopies = no_ofcopies ? no_ofcopies : 1; // Default to 1 if not provided
                 docCopies.push(no_ofcopies);
+
+                // Calculate total cost
+                totalAmount += costPerDocument * no_ofcopies;
             }
         });
 
@@ -320,33 +331,72 @@ $(document).ready(function() {
             return;
         }
 
+        // Get the selected course value and append it to FormData
+        var course = $('#course').val();
+        if (course === "") {
+            $('#message').html('<div class="alert alert-danger">Please select a course.</div>');
+            return;
+        }
+        formData.append('course', course);
+
         // Clear previously appended values to avoid duplication
-        data.delete('document_name[]');
-        data.delete('no_ofcopies[]');
+        formData.delete('document_name[]');
+        formData.delete('no_ofcopies[]');
 
         // Append document names and copies to FormData
         docNames.forEach((doc, index) => {
-            data.append('document_name[]', doc);
-            data.append('no_ofcopies[]', docCopies[index]);
+            formData.append('document_name[]', doc);
+            formData.append('no_ofcopies[]', docCopies[index]);
         });
 
-        // AJAX form submission
-        $.ajax({
-            url: '../init/controllers/add_request.php',
-            type: "POST",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-                $("#message").html(response);
-                window.scrollTo(0, 0);
-            },
-            error: function(response) {
-                console.log("Failed to submit the form.");
-            }
-        });
+        // Populate modal fields with the collected data
+
+        // Correctly concatenate first, middle, and last names with spaces
+        $('#modalStudentName').text(
+            $('input[name="first_name"]').val() + ' ' +
+            $('input[name="middle_name"]').val() + ' ' + 
+            $('input[name="last_name"]').val()
+        );
+
+        $('#modalControlNo').text($('input[name="control_no"]').val());
+        $('#modalDocumentName').text(docNames.join(', '));
+        let modeValue = $('#mode_request').val(); // Correctly fetch the selected value
+        console.log('Mode:', modeValue); // Debugging output
+        $('#modalMode').text(modeValue);
+        $('#modalTotalAmount').text('₱' + totalAmount); // Display total amount
+
+        // Show the modal
+        $('#paymentModal').modal('show');
+    });
+
+    $('.btn-secondary').click(function() {
+    $('#paymentModal').modal('hide'); // Hide the modal when cancel is clicked
+});
+    // Confirm form submission when modal is confirmed
+    $('#confirmSubmit').click(function() {
+        // Check if formData exists and proceed with the AJAX submission
+        if (formData !== null) {
+            $.ajax({
+                url: '../init/controllers/add_request.php',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    $("#message").html(response);
+                    window.scrollTo(0, 0);
+                    $('#paymentModal').modal('hide'); // Close modal on success
+                },
+                error: function(response) {
+                    console.log("Failed to submit the form.");
+                }
+            });
+        }
     });
 });
+
+
+
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields
 (function() {
