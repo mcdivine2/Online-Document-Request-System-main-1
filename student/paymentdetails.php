@@ -80,13 +80,35 @@
         <div class="card influencer-profile-data">
             <div class="card-body">
             
-            <h4 class="section-title">Proof of payment</h4>
+            <h4 class="section-title">Payment details</h4>
                 <form id="addPaymentForm" method="POST" action="submit_payment.php">
                     <div class="form-group row">
-                    <input data-parsley-type="alphanum" type="file" alt="document_name" id="document_name" accept=".jpeg, .jpg, .png, .gif" required="" placeholder="" class="form-control">
-                    <footer style="font-size: 11px"><b>File Type:</b><font color="red"><i>.jpg .png .gif</i></font></footer>
+                        <div class="col-12 col-sm-6">
+                            <label>Reference No.</label>
+                            <input type="text" value="<?= uniqid('ref_'); ?>" name="reference_no" readonly class="form-control">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label>Student Name</label>
+                            <input type="text" name="student_name" required class="form-control" placeholder="student name">
+                        </div>
                     </div>
-                    
+                    <div class="form-group row">
+                        <div class="col-12 col-sm-6">
+                            <label>Control No.</label>
+                            <input type="text" name="control_no" required class="form-control" placeholder="Enter control number">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label>Document Name</label>
+                            <input type="text" name="document_name" required class="form-control" placeholder="List of the documents">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                       
+                        <div class="col-12 col-sm-6">
+                            <label>Total Amount</label>
+                            <input type="text" name="total_amount" required class="form-control" placeholder="Total amount to be paid">
+                        </div>
+                    </div>
                    
                         
                     
