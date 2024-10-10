@@ -67,10 +67,10 @@
 
                                                 ?>
                                                 <tr>
-                                                    <td><?= date($row['time_stamp']); ?></td>
+                                                    <td><?= date("M d, Y",strtotime($row['date_releasing'])); ?></td>
                     
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                      <td>
@@ -85,25 +85,25 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['status'] ==="Pending"){
+                                                       if($row['custodian_status'] ==="Pending"){
                                                            echo '<span class="badge bg-info text-white">Pending</span>';
-                                                         } else if($row['status'] ==="Received"){
+                                                         } else if($row['custodian_status'] ==="Received"){
                                                            echo '<span class="badge bg-warning text-white">Received</span>';
-                                                         }else if($row['status'] ==="Waiting for Payment"){
+                                                         }else if($row['custodian_status'] ==="Waiting for Payment"){
                                                            echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                        }else if($row['status'] ==="Verified"){
+                                                        }else if($row['custodian_status'] ==="Verified"){
                                                             echo '<span class="badge bg-success text-white">Verified</span>';
                                                         }
                                                      ?> 
                                                     </td>
                                                     <td class="align-right">
-                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-edit"></i>
                                                         </a> |
                                                         <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-trash-alt"></i>
                                                         </a> |
-                                                        <a href="email-form-r.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="email-form-r.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-envelope"></i>
                                                         </a> |
 

@@ -78,7 +78,7 @@
                                                       ?>
                                                     </td>
                                                     <td class="align-right">
-                                                        <a href="edit-student.php?student=<?= $row['student_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="edit-student.php?student=<?= $row['student_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-edit"></i>
                                                         </a> 
                                                         <a href="javascript:;" data-id="<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">

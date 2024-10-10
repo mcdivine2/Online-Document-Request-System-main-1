@@ -42,7 +42,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Student ID</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" name="studentID_no" required="" placeholder="" class="form-control">
+                                                        <input data-parsley-type="alphanum" type="text" name="student_id" required="" placeholder="" class="form-control">
                                                     </div>
                                                 </div>
                                                 
@@ -204,7 +204,7 @@
        $('form[name="student_form"]').on('submit', function(e){
           e.preventDefault();
 
-          var a = $(this).find('input[name="studentID_no"]').val();
+          var a = $(this).find('input[name="student_id"]').val();
           var b = $(this).find('input[name="first_name"]').val();
           var c = $(this).find('input[name="middle_name"]').val();
           var d = $(this).find('input[name="last_name"]').val();
@@ -228,7 +228,7 @@
                 method: 'post',
                 data: {
                     
-                  studentID_no: a,
+                  student_id: a,
                   first_name: b,
                   middle_name: c,
                   last_name: d,
