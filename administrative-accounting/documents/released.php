@@ -37,7 +37,7 @@
                 <!-- end pageheader -->
                 <!-- ============================================================== -->
                
-                    <div class="row">
+                <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Request Information</h5>
@@ -46,12 +46,15 @@
                                     <div class="table-responsive">
                                         <table class="table table-striped table-bordered first">
                                             <thead>
-                                                <tr>
-                                                    <th scope="col">Date Requested</th>
-                                                    <th scope="col">Control No.</th>
+                                                <tr>                                                   
+                                                    <th scope="col">Student Name</th>
                                                     <th scope="col">Student ID</th>
                                                     <th scope="col">Document Name</th>
+                                                    <th scope="col">Date Requested</th>
+                                                    <th scope="col">Control No.</th>
+                                                    <th scope="col">PalawanPay Ref.No</th>
                                                     <th scope="col">No. of Copies</th>
+                                                    <th scope="col">Total Cost</th>
                                                     <th scope="col">Date Releasing</th>
                                                     <th scope="col">Processing Officer</th>
                                                     <th scope="col">Status</th>
@@ -67,20 +70,23 @@
 
                                                 ?>
                                                 <tr>
+                                                    <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
+                                                    <td><?= $row['document_name']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_releasing'])); ?></td>
                     
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['student_id']; ?></td>
-                                                    <td><?= $row['document_name']; ?></td>
+                                                    <td>PalawanPay Ref.No</td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
-                                                     <td>
+                                                    <td>100 example </td>
+                                                    <td>
                                                      <?php 
                                                      if($row['date_releasing'] === ""){
                                                            echo "";
                                                          }else if($row['date_releasing'] === $row['date_releasing']){
                                                            echo date("M d, Y",strtotime($row['date_releasing']));
                                                          }
-                                                     ?>
+                                                     ?> 
                                                     </td>
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
@@ -104,6 +110,12 @@
                                                         
                                                         <a href="email-form.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-envelope"></i>
+                                                        </a> 
+                                                        <a href="#?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                          <i class="fa fa-edit"></i>
+                                                        </a> 
+                                                        <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                          <i class="fa fa-eye"></i>
                                                         </a> 
 
                                                       </td>

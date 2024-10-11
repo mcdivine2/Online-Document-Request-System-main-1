@@ -117,7 +117,7 @@
                                                            <option value="Waiting for Payment" style="background-color: skyblue;color: #fff">Waiting for Payment</option>
                                                            <option value="Declined" style="background-color: red;color: #fff">Declined</option>
                                                            <option value="Releasing" style="background-color: green;color: #fff">Verified</option>
-                                                           <option value="Released" style="background-color: blue;color: #fff">Released</option>
+                                                           <!-- <option value="Released" style="background-color: blue;color: #fff">Released</option> -->
                                                        </select>
                                                     </div>
                                                 </div>

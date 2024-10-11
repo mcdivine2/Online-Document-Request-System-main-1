@@ -83,15 +83,17 @@
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
-                                                    if ($row['accounting_status'] === "Pending") {
-                                                        echo '<span class="badge bg-info text-white">Pending</span>';
-                                                    } else if ($row['accounting_status'] === "Received") {
-                                                        echo '<span class="badge bg-warning text-white">Received</span>';
-                                                    } else if ($row['accounting_status'] === "Waiting for Payment") {
-                                                        echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                    } else if ($row['accounting_status'] === "Verified") {
-                                                        echo '<span class="badge bg-success text-white">Verified</span>';
-                                                    }
+                                                  if ($row['accounting_status'] === "Pending") {
+                                                      echo '<span class="badge bg-primary text-white">Pending</span>'; // Blue for pending
+                                                  } else if ($row['accounting_status'] === "Received") {
+                                                      echo '<span class="badge bg-info text-white">Received</span>'; // Light blue for received
+                                                  } else if ($row['accounting_status'] === "Waiting for Payment") {
+                                                      echo '<span class="badge bg-warning text-dark">Waiting for Payment</span>'; // Yellow for waiting, dark text for contrast
+                                                  } else if ($row['accounting_status'] === "Verified") {
+                                                      echo '<span class="badge bg-success text-white">Verified</span>'; // Green for verified
+                                                  } else if ($row['accounting_status'] === "Declined") {
+                                                      echo '<span class="badge bg-danger text-white">Declined</span>'; // Red for declined
+                                                  }
                                                 ?> 
                                             </td>
                                             <td class="align-right">

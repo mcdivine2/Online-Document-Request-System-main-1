@@ -54,7 +54,7 @@
                         <div class="form-group row">
                             <label class="col-12 col-sm-3 col-form-label text-sm-right">EDP Number</label>
                             <div class="col-12 col-sm-8 col-lg-6">
-                                <input data-parsley-type="alphanum" type="text" name="studentID_no" required=""
+                                <input data-parsley-type="alphanum" type="text" name="student_id" required=""
                                     placeholder="" class="form-control">
                                     <footer style="font-size: 11px"><p>*Optional</p>
                                     
@@ -147,7 +147,7 @@
                             <div class="form-group row">
                                 <label class="col-12 col-sm-3 col-form-label text-sm-right">EDP Number</label>
                                 <div class="col-12 col-sm-8 col-lg-6">
-                                    <input data-parsley-type="alphanum" type="text" name="studentID_no" required=""
+                                    <input data-parsley-type="alphanum" type="text" name="student_id" required=""
                                         placeholder="" class="form-control">
                                 </div>
                             </div>
@@ -330,7 +330,7 @@
         $('form[name="student_form"]').on('submit', function (e) {
             e.preventDefault();
 
-            var a = $(this).find('input[name="studentID_no"]').val();
+            var a = $(this).find('input[name="student_id"]').val();
             var b = $(this).find('input[name="first_name"]').val();
             var c = $(this).find('input[name="middle_name"]').val();
             var d = $(this).find('input[name="last_name"]').val();
@@ -342,7 +342,7 @@
 
             var data = new FormData(this.form);
 
-            data.append('studentID_no', a);
+            data.append('student_id', a);
             data.append('first_name', b);
             data.append('middle_name', c);
             data.append('last_name', d);
