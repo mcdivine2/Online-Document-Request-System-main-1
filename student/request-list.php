@@ -145,23 +145,43 @@
       </div>
       <div class="modal-body">
         <p>Are you sure you want to proceed with the payment for this request?</p>
-        <form action="process_payment.php" method="POST" id="paymentForm">
+        <form action="process_payment.php" method="POST" id="paymentForm" enctype="multipart/form-data">
           <input type="hidden" name="request_id" id="request_id">
+          
+          <div class="form-group">
+            <label for="amount">REF. NO.</label>
+            <input type="text" class="form-control" id="ref" name="ref" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="amount">Documents</label>
+            <input type="text" class="form-control" id="Name" name="name" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Date Payed</label>
+            <input type="text" class="form-control" id="Name" name="name" readonly>
+          </div>
+
           <div class="form-group">
             <label for="amount">Amount to Pay</label>
             <input type="text" class="form-control" id="amount" name="amount" readonly>
           </div>
-          <!-- Additional fields for payment details can be added here -->
+          <!-- Image Upload Field -->
+          <div class="form-group">
+            <label for="paymentProof">Upload Proof of Payment</label>
+            <input type="file" class="form-control" id="paymentProof" name="payment_proof" accept="image/*" required>
+          </div>
+          
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" form="paymentForm" class="btn btn-success">Confirm Payment</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" form="paymentForm">Confirm Payment</button>
       </div>
     </div>
   </div>
 </div>
-
 
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
