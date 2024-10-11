@@ -415,6 +415,7 @@
 		}
 
 
+
 		public function add_request($first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $registrar_status, $custodian_status, $dean_status, $library_status, $accounting_status, $purpose, $mode_request, $student_id) {
 			// Ensure the connection is active
 			if ($this->conn->ping()) {
@@ -429,7 +430,7 @@
 		
 				// Bind parameters
 				$stmt->bind_param("sssssssssssssssssi", $first_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $registrar_status, $custodian_status, $dean_status, $library_status, $accounting_status, $purpose, $mode_request, $student_id);
-		
+
 				// Execute the statement
 				if ($stmt->execute()) {
 					$stmt->close();
