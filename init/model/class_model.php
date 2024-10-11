@@ -416,12 +416,12 @@
 
 
 
-		public function add_request($first_name, $middle_name , $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $registrar_status, $custodian_status, $dean_status, $library_status, $accounting_status, $purpose, $mode_request, $student_id) {
+		public function add_request($first_name, $middle_name , $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $price, $date_request, $registrar_status, $custodian_status, $dean_status, $library_status, $accounting_status, $purpose, $mode_request, $student_id) {
 			// Ensure the connection is active
 			if ($this->conn->ping()) {
 				// Prepare the SQL statement with 18 placeholders
 				$stmt = $this->conn->prepare("INSERT INTO tbl_documentrequest 
-					(first_name, middle_name, last_name, complete_address, birthdate, course, email_address, control_no, document_name, no_ofcopies, date_request, registrar_status, custodian_status, dean_status, library_status, accounting_status, purpose, mode_request, student_id) 
+					(first_name, middle_name, last_name, complete_address, birthdate, course, email_address, control_no, document_name, price, date_request, registrar_status, custodian_status, dean_status, library_status, accounting_status, purpose, mode_request, student_id) 
 					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 		
 				if ($stmt === false) {
@@ -429,7 +429,7 @@
 				}
 		
 				// Bind parameters
-				$stmt->bind_param("ssssssssssssssssssi", $first_name, $middle_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $no_ofcopies, $date_request, $registrar_status, $custodian_status, $dean_status, $library_status, $accounting_status, $purpose, $mode_request, $student_id);
+				$stmt->bind_param("ssssssssssssssssssi", $first_name, $middle_name, $last_name, $complete_address, $birthdate, $course, $email_address, $control_no, $document_name, $price, $date_request, $registrar_status, $custodian_status, $dean_status, $library_status, $accounting_status, $purpose, $mode_request, $student_id);
 
 				// Execute the statement
 				if ($stmt->execute()) {
@@ -446,6 +446,7 @@
 				die('MySQL connection lost');
 			}
 		}
+
 		
 		
 		
