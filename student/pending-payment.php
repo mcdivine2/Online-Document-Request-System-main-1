@@ -71,7 +71,7 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>
@@ -108,7 +108,7 @@
                                                         </a> &nbsp;</div>
                      -->
                                                         <div class="three">
-                                                        <a href="add-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="add-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-edit"></i>
                                                         </a> &nbsp;</div>
 <!--                                                         <div class="four">
