@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $middle_name = trim($_POST['middle_name']);
     $last_name = trim($_POST['last_name']);
     $complete_address = trim($_POST['complete_address']);
+    $price = str_replace('₱', '', trim($_POST['price'])); // Remove ₱ symbol
     $birthdate = trim($_POST['birthdate']);
     $course = trim($_POST['course']);
     $email_address = trim($_POST['email_address']);
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Required fields validation
     if (empty($first_name)) $errors[] = 'First name is required!';
-    if (empty($middle_name)) $errors[] = 'maiden name is required!';
+    if (empty($middle_name)) $errors[] = 'Maiden name is required!';
     if (empty($last_name)) $errors[] = 'Last name is required!';
     if (empty($complete_address)) $errors[] = 'Complete address is required!';
     if (empty($birthdate)) $errors[] = 'Birthdate is required!';
@@ -62,43 +63,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Process requests
-    $all_success = true;
-
+    $documents = [];
     foreach ($document_names as $index => $document_name) {
-        // Ensure there's a corresponding copy input
         $copies = isset($no_ofcopies[$index]) ? (int)$no_ofcopies[$index] : 1;
-
-        // Add request to the database
-        $request = $conn->add_request(
-            $first_name,
-            $middle_name,
-            $last_name,
-            $complete_address,
-            $birthdate,
-            $course,
-            $email_address,
-            $control_no,
-            $document_name,
-            $copies, // Use the individual number of copies
-            $date_request,
-            $registrar_status,
-            $custodian_status,
-            $dean_status,
-            $library_status,
-            $accounting_status,
-            implode(", ", $purpose), // Ensure purpose is a string
-            $mode_request,
-            $student_id
-        );
-
-        if (!$request) {
-            $all_success = false; // Mark as failed if any request fails
-            break;
-        }
+        $documents[] = $document_name . " (x" . $copies . ")";
     }
+    $document_string = implode(", ", $documents);
+    
+    // Add request to the database
+    $request = $conn->add_request(
+        $first_name,
+        $middle_name,
+        $last_name,
+        $complete_address,
+        $birthdate,
+        $course,
+        $email_address,
+        $control_no,
+        $document_string, // Use the concatenated document string
+        $price,
+        $date_request,
+        $registrar_status,
+        $custodian_status,
+        $dean_status,
+        $library_status,
+        $accounting_status,
+        implode(", ", $purpose), // Ensure purpose is a string
+        $mode_request,
+        $student_id
+    );
 
-    // Provide feedback on the operation's success
-    if ($all_success) {
+    // Check if the request was successful
+    if ($request) { // If $request is true, show success
         echo '<div class="alert alert-success">Request added successfully!</div>';
         echo '<script>setTimeout(function() { window.history.go(-1); }, 1000);</script>';
     } else {
