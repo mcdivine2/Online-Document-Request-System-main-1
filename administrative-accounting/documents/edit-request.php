@@ -75,12 +75,12 @@
                                                         <input data-parsley-type="alphanum" value="<?= $row['document_name']; ?>" type="text" name="document_name" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
-                                                 <div class="form-group row">
+                                                 <!-- <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">No. of Copies</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                         <input data-parsley-type="alphanum" value="<?= $row['no_ofcopies']; ?>" type="text" name="no_ofcopies" required="" placeholder="" class="form-control" readonly>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
                                                  <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Date Request</label>

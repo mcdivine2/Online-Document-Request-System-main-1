@@ -70,7 +70,7 @@
                                                     <td><?= date($row['time_stamp']); ?></td>
                     
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['no_ofcopies']; ?></td>
                                                      <td>
@@ -97,13 +97,13 @@
                                                      ?> 
                                                     </td>
                                                     <td class="align-right">
-                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-edit"></i>
                                                         </a> |
                                                         <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-trash-alt"></i>
                                                         </a> |
-                                                        <a href="email-form-wfp.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="email-form-wfp.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-envelope"></i>
                                                         </a> |
 

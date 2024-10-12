@@ -60,7 +60,7 @@
                                 <tbody>
                                     <?php 
                                         $conn = new class_model();
-                                        $docrequest = $conn->fetchAll_newrequest();
+                                        $docrequest = $conn->fetchAll_processing();
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>
@@ -81,8 +81,8 @@
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
-                                                  if ($row['registrar_status'] === "Pending") {
-                                                      echo '<span class="badge bg-primary text-white">Pending</span>'; // Blue for pending
+                                                  if ($row['registrar_status'] === "Processing") {
+                                                      echo '<span class="badge bg-primary text-white">Processing</span>'; // Blue for pending
                                                   } else if ($row['registrar_status'] === "Received") {
                                                       echo '<span class="badge bg-info text-white">Received</span>'; // Light blue for received
                                                   } else if ($row['registrar_status'] === "Waiting for Payment") {

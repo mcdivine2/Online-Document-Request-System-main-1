@@ -52,7 +52,6 @@
                                                     <th scope="col">Control No.</th>
                                                     <th scope="col">Student Name</th>
                                                     <th scope="col">Document Name</th>
-                                                    <th scope="col">No. of Copies</th>
                                                     <th scope="col">Date Request</th>
                                                     <th scope="col">Date Releasing</th>
                                                     <th scope="col">Processing Officer</th>
@@ -73,7 +72,6 @@
                                                     <td><?= $row['control_no']; ?></td>
                                                     <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
-                                                    <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>
                                                     <td>
                                                      <?php 
