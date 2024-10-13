@@ -7,22 +7,13 @@
 		$control_no = trim($_POST['control_no']);
 		$student_id = trim($_POST['student_id']);
 		$document_name = trim($_POST['document_name']);
-		$no_ofcopies = trim($_POST['no_ofcopies']);
 	    $date_request = trim($_POST['date_request']);
-		$date_releasing = trim($_POST['date_releasing']);
+
 	    // $processing_officer = trim($_POST['processing_officer']);
 		$library_status = trim($_POST['library_status']);
 		$request_id = trim($_POST['request_id']);
 
-
-		// $request = $conn->edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $status, $request_id);
-		// if($request == TRUE){
-		//     echo '<div class="alert alert-success">Edit Request Successfully!</div><script> setTimeout(function() {  window.history.go(-1); }, 1000); </script>';
-
-		//   }else{
-		// 	echo '<div class="alert alert-danger">Edit Request Failed!</div><script> setTimeout(function() {  window.history.go(-0); }, 1000); </script>';
-		// }
-		$request = $conn->edit_request($control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $library_status, $request_id);
+		$request = $conn->edit_request($control_no, $student_id, $document_name, $date_request, $library_status, $request_id, $library_status);
 		if($request == TRUE){
 		    echo '<div class="alert alert-success">Edit Request Successfully!</div><script> setTimeout(function() {  window.history.go(-1); }, 1000); </script>';
 

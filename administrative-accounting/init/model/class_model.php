@@ -299,10 +299,10 @@
 		  }
 
 
-		public function edit_request($control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $accounting_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `accounting_status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $student_id, $document_name, $date_request, $accounting_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `date_request` = ?, `accounting_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("sssssssi", $control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $accounting_status, $request_id);
+			$stmt->bind_param("sssssi", $control_no, $student_id, $document_name,  $date_request, $accounting_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
