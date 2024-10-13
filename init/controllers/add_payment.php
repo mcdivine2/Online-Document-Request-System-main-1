@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $document_name = isset($_POST['document_name']) ? trim($_POST['document_name']) : '';
     $date_ofpayment = isset($_POST['date_ofpayment']) ? trim($_POST['date_ofpayment']) : '';
     $total_amount = isset($_POST['total_amount']) ? trim($_POST['total_amount']) : '';
-    $student_id = isset($_POST['student_id']) ? trim($_POST['student_id']) : '';
+    $student_id = trim($_POST['student_id']);
 
     // Handle file upload for payment proof
     if (isset($_FILES["proof_ofpayment"]) && $_FILES["proof_ofpayment"]["error"] === UPLOAD_ERR_OK) {

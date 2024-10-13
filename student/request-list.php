@@ -114,8 +114,9 @@
                                         </div>
                                     </td>
                                     <td>
-                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal" 
-                                        data-request-id="<?= $row['request_id']; ?>" 
+                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
+                                        data-student-id="<?= $row['student_id']; ?>" 
+                                        data-student-name="<?= $row['first_name'] .' '. $row['last_name']; ?>"
                                         data-control-no="<?= $row['control_no']; ?>"
                                          data-document-name="<?= $row['document_name']; ?>"
                                         data-total-amount="<?= $row['price']; ?>">
@@ -148,6 +149,11 @@
       <div class="modal-body">
         <p>Are you sure you want to proceed with the payment for this request?</p>
         <form action="process_payment.php" method="POST" id="paymentForm" enctype="multipart/form-data">
+        <div class="form-group">
+            <input type="hidden" name="student_id" value="<?= $_SESSION['student_id']; ?>">
+            <input type="hidden" class="form-control" id="student" name="date_ofpayment" readonly>
+          </div>
+
           <div class="form-group">
             <label for="trace_nonumber">Trace. NO.</label>
             <input type="text" class="form-control" id="trace_no" name="trace_no" placeholder="Enter Trace number">
@@ -186,7 +192,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" name="student_id" value="<?= $_SESSION['student_id']; ?>" class="btn btn-primary" form="paymentForm">Confirm Payment</button>
+
+        <button type="submit" class="btn btn-primary" form="paymentForm">Confirm Payment</button>
       </div>
     </div>
   </div>
@@ -219,7 +226,7 @@ $(document).ready(function() {
         var button = $(event.relatedTarget); // Button that triggered the modal
 
         // Extract the data-* attributes from the button
-        var requestId = button.data('request-id');
+        
         var controlNo = button.data('control-no');
         var totalamount = button.data('total-amount');
         var documentName = button.data('document-name');
@@ -228,7 +235,7 @@ $(document).ready(function() {
         var modal = $(this);
 
         // Populate the modal's input fields with the data
-        modal.find('#request_id').val(requestId);
+        
         modal.find('#control_no').val(controlNo);
         modal.find('#total_amount').val(totalamount);
         modal.find('#document_name').val(documentName);

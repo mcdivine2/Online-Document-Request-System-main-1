@@ -273,8 +273,8 @@
 
 		  }
 
-	    public function fetchAll_paymentss($student_id){ 
-            $sql = "SELECT *,CONCAT(tbl_student.first_name, ', ' ,tbl_student.middle_name, ' ' ,tbl_student.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_student ON tbl_student.student_id =  tbl_payment.student_id  WHERE tbl_payment.student_id = ?";
+	    public function fetchAll_payments($student_id){ 
+            $sql = "SELECT *,CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_students ON tbl_students.student_id =  tbl_payment.student_id  WHERE tbl_payment.student_id = ?";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
