@@ -46,14 +46,11 @@
                                         <table class="table table-striped table-bordered first">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">Student Name.</th>
                                                     <th scope="col">Control No.</th>
-                                                    <th scope="col">Document Name</th>
-                                                    <th scope="col">Date Release</th>
+                                                    <th scope="col">Trace Number</th>
                                                     <th scope="col">Reference No.</th>
-                                                     <th scope="col">Date of Payment</th>
                                                     <th scope="col">Total Amount</th>
-                                                    <th scope="col">Amount Paid</th>
+                                                    <th scope="col">Date of Payment</th>
                                                     <th scope="col">Proof of Payment</th>
                                                     <th scope="col">Status</th>
                                                <!--      <th scope="col">Action</th> -->
@@ -86,7 +83,7 @@
                                              
                                                     <td><?= $row['document_name']; ?></td>
                                                     <td><?= $row['date_releasing']; ?></td>
-                                                    <td><?= $row['ref_number']; ?></td>
+                                                    <td><?= $row['ref_no']; ?></td>
                                                     <td>    
                                                       <?php 
                                                      if($row['date_ofpayment'] === ""){
