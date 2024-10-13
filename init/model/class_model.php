@@ -254,6 +254,19 @@
 		         return $data;
 
 		  }
+		  public function fetchAll_declined($student_id){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Declined' ";
+				$stmt = $this->conn->prepare($sql);
+			    $stmt->bind_param("i", $student_id); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
 
 	    public function fetchAll_payment($student_id){ 
             $sql = "SELECT *,CONCAT(tbl_student.first_name, ', ' ,tbl_student.middle_name, ' ' ,tbl_student.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_student ON tbl_student.student_id =  tbl_payment.student_id  WHERE tbl_payment.student_id = ?";
@@ -319,7 +332,7 @@
 		  }
 
 		 public function count_numberoftotalpending($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Waiting for Payment'";
+            $sql = "SELECT COUNT(request_id) as count_pending FROM tbl_documentrequest WHERE student_id = ? AND accounting_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -362,6 +375,19 @@
 
 		  public function count_numberofreleased($student_id){ 
             $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Releasing'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->bind_param("i", $student_id);
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function count_declined($student_id){ 
+            $sql = "SELECT COUNT(request_id) as count_declined FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Declined'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
