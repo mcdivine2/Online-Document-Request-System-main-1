@@ -60,7 +60,7 @@
 				$fetch = $result->fetch_array();
 				return array(
 					'student_id'=>$fetch['student_id'],
-					'studentID_no'=>$fetch['studentID_no'],
+					'student_id'=>$fetch['student_id'],
 					'first_name'=> $fetch['first_name'],
 					'middle_name'=>$fetch['middle_name'],
 					'last_name'=>$fetch['last_name'],
@@ -182,6 +182,22 @@
 		         return $data;
 
 		  }
+		  public function fetch_document_by_id($student_id, $request_id) {
+			$sql = "SELECT * FROM tbl_documentrequest WHERE student_id = ? AND request_id = ?";
+			$stmt = $this->conn->prepare($sql);
+			
+			if (!$stmt) {
+				die("SQL Error: " . $this->conn->error);
+			}
+		
+			$stmt->bind_param("ii", $student_id, $request_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			
+			return $result->fetch_assoc();  // Fetch a single row
+		}
+		
+		  
 
 		  public function fetchAll_pendingrequest($student_id){ 
             $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Received' ";
@@ -451,9 +467,9 @@
 		
 		
 		
-		public function add_myrequest($control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified){
-	       $stmt = $this->conn->prepare("INSERT INTO `tbl_payment` (`control_no`, `studentID_no`, `document_name`, `date_releasing`, `ref_number`, `proof_ofpayment`, `student_id`,`status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
-			$stmt->bind_param("ssssssis", $control_no, $studentID_no, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $student_id, $Verified);
+		public function add_myrequest($control_no, $student_id, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $Verified){
+	       $stmt = $this->conn->prepare("INSERT INTO `tbl_payment` (`control_no`, `student_id`, `document_name`, `date_releasing`, `ref_number`, `proof_ofpayment`, `student_id`,`status`) VALUES( ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			$stmt->bind_param("sssssis", $control_no, $student_id, $document_name, $date_releasing, $ref_number, $proof_ofpayment, $Verified);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -461,10 +477,10 @@
 			}
 		}
 
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ? WHERE request_id = ?";
+		public function edit_request($control_no, $student_id, $document_name, $no_ofcopies, $date_request, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET `control_no` = ?, `student_id` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ? WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("sssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $request_id);
+			$stmt->bind_param("sssssi", $control_no, $student_id, $document_name, $no_ofcopies, $date_request, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
