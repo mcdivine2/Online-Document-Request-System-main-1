@@ -136,7 +136,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label>Email Address</label>
-                                <input type="email" name="email_address" class="form-control" placeholder="Enter Email">
+                                <input type="email" name="email_address" value="<?= $getstudno['email_address']; ?>" class="form-control" placeholder="">
                             </div>
                         </div>
 
