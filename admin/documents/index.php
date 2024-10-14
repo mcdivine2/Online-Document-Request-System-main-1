@@ -63,19 +63,19 @@
                             <div class="card-body">
                                <?php 
                                     $conn = new class_model();
-                                    $cstudent = $conn->count_released();
+                                    $cstudent = $conn->count_complete();
                                ?>
                                <?php foreach ($cstudent as $row): ?>
                                 <div class="d-inline-block">
-                                    <h5 class="text-muted"><b>Released</b></h5>
-                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                                    <h5 class="text-muted"><b>Complete</b></h5>
+                                    <h2 class="mb-0"><?= $row['count_complete']; ?></h2>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
                                     <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
                                 </div>
                                  <?php endforeach;?>
                             </div>
-                            <a href="released.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                            <a href="complete.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
                         </div>
                     </div>
                     <!-- /. metric -->
@@ -87,19 +87,19 @@
                             <div class="card-body">
                                <?php 
                                     $conn = new class_model();
-                                    $cstudent = $conn->count_released();
+                                    $cstudent = $conn->count_declined();
                                ?>
                                <?php foreach ($cstudent as $row): ?>
                                 <div class="d-inline-block">
                                     <h5 class="text-muted"><b>Declined</b></h5>
-                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                                    <h2 class="mb-0"><?= $row['count_declined']; ?></h2>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
                                     <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
                                 </div>
                                  <?php endforeach;?>
                             </div>
-                            <a href="released.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                            <a href="declined.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
                         </div>
                         
                     </div>
@@ -161,19 +161,19 @@
                             <div class="card-body">
                                <?php 
                                     $conn = new class_model();
-                                    $cstudent = $conn->count_numberofreleased();
+                                    $cstudent = $conn->count_numberofprocessing();
                                ?>
                                <?php foreach ($cstudent as $row): ?>
                                 <div class="d-inline-block">
-                                    <h5 class="text-muted"><b>Releasing</b></h5>
-                                    <h2 class="mb-0"><?= $row['count_released']; ?></h2>
+                                    <h5 class="text-muted"><b>Processing</b></h5>
+                                    <h2 class="mb-0"><?= $row['count_processing']; ?></h2>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg mt-1" style="background-color:#1269AF">
                                     <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color:white !important"></i>
                                 </div>
                                  <?php endforeach;?>
                             </div>
-                            <a href="releasing.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                            <a href="processing.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
                         </div>
                     </div>
                     <!-- /. metric -->

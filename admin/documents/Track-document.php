@@ -40,14 +40,14 @@
 
         $student_id = $_SESSION['student_id'];
         $conn = new class_model();
-        $docrequest = $conn->fetchAll_documentrequest($student_id);
 
-        // Loop through each document request
-        foreach ($docrequest as $row) {
-            $document_name = $row['document_name'];
+        // Fetch only the first document request
+        $row = $conn->fetchAll_documentrequest($student_id)[0]; // Adjust if method returns a single row
+
+        $document_name = $row['document_name'];
         ?>
 
-        <!-- Card for each document request -->
+        <!-- Card for the document request -->
         <div class="row">
             <div class="col-xl-12">
                 <div class="card influencer-profile-data">
@@ -56,65 +56,27 @@
                         <h5 class="card-title">Document: <?= $document_name ?></h5>
 
                         <!-- Department statuses for the document -->
+                        <?php 
+                        $departments = ['library', 'custodian', 'dean', 'accounting', 'registrar'];
+                        foreach ($departments as $dept): 
+                            $status = $row[$dept . '_status'];
+                        ?>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-sm-left">LIBRARY:</label>
+                            <label class="col-sm-2 col-form-label text-sm-left text-uppercase"><?= $dept ?>:</label>
                             <div class="col-sm-1">
-                                <?= renderStatus($row['library_status']) ?>
+                                <?= renderStatus($status) ?>
                             </div>
                             <div class="col-sm-6 ml-5">
-                                <input data-parsley-type="alphanum" type="text" value="Your request for <?= $document_name ?> is <?= strtolower($row['library_status']); ?>, please comply." name="subject" required="" class="form-control" readonly>
+                                <input data-parsley-type="alphanum" type="text" 
+                                       value="Your request for <?= $document_name ?> is <?= strtolower($status); ?>, please comply." 
+                                       name="subject" required="" class="form-control" readonly>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-sm-left">CUSTODIAN:</label>
-                            <div class="col-sm-1">
-                                <?= renderStatus($row['custodian_status']) ?>
-                            </div>
-                            <div class="col-sm-6 ml-5">
-                                <input data-parsley-type="alphanum" type="text" value="Your request for <?= $document_name ?> is <?= strtolower($row['custodian_status']); ?>, please comply." name="subject" required="" class="form-control" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-sm-left">DEAN:</label>
-                            <div class="col-sm-1">
-                                <?= renderStatus($row['dean_status']) ?>
-                            </div>
-                            <div class="col-sm-6 ml-5">
-                                <input data-parsley-type="alphanum" type="text" value="Your request for <?= $document_name ?> is <?= strtolower($row['dean_status']); ?>, please comply." name="subject" required="" class="form-control" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-sm-left">ACCOUNTING:</label>
-                            <div class="col-sm-1">
-                                <?= renderStatus($row['accounting_status']) ?>
-                            </div>
-                            <div class="col-sm-6 ml-5">
-                                <input data-parsley-type="alphanum" type="text" value="Your request for <?= $document_name ?> is <?= strtolower($row['accounting_status']); ?>, please comply." name="subject" required="" class="form-control" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-sm-left">REGISTRAR:</label>
-                            <div class="col-sm-1">
-                                <?= renderStatus($row['registrar_status']) ?>
-                            </div>
-                            <div class="col-sm-6 ml-5">
-                                <input data-parsley-type="alphanum" type="text" value="Your request for <?= $document_name ?> is <?= strtolower($row['registrar_status']); ?>, please comply." name="subject" required="" class="form-control" readonly>
-                            </div>
-                        </div>
-
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </div>
-
-        <?php
-        } // End of docrequest foreach loop
-        ?>
-
     </div>
 </div>
 

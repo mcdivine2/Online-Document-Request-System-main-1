@@ -52,7 +52,6 @@
                                                     <th scope="col">Control No.</th>
                                                     <th scope="col">Student ID</th>
                                                     <th scope="col">Document Name</th>
-                                                    <th scope="col">No. of Copies</th>
                                                     <th scope="col">Date Request</th>
                                                     <th scope="col">Date Releasing</th>
                                                     <th scope="col">Processing Officer</th>
@@ -71,9 +70,8 @@
                                                 ?>
                                                 <tr>
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
-                                                    <td><?= $row['no_ofcopies']; ?></td>
                                                     <td><?= date("M d, Y",strtotime($row['date_request'])); ?></td>
                                                     <td>
                                                      <?php 
@@ -108,12 +106,12 @@
                                                         </a> &nbsp;</div>
                      -->
                                                         <!-- <div class="three">
-                                                            <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                            <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                             <i class="fa fa-edit"></i>
                                                             </a> &nbsp;
                                                         </div> -->
                                                         <div class="four">
-                                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                             <i class="fa fa-eye"></i>
                                                             </a>
                                                         </div> 

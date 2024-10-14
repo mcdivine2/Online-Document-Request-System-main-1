@@ -41,8 +41,8 @@
                     $student_number = $_GET['student-number'];
                     $sql = "SELECT tbl_documentrequest.*, tbl_students.email_address 
                     FROM `tbl_documentrequest` 
-                    INNER JOIN `tbl_students` ON tbl_documentrequest.studentID_no = tbl_students.studentID_no 
-                    WHERE `request_id` = ? AND tbl_documentrequest.studentID_no = ?";            
+                    INNER JOIN `tbl_students` ON tbl_documentrequest.student_id = tbl_students.student_id 
+                    WHERE `request_id` = ? AND tbl_documentrequest.student_id = ?";            
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_reqid, $student_number);
                     $stmt->execute();
@@ -125,7 +125,7 @@
               btn.addEventListener('click', () => {
 
                   const control_no = document.querySelector('input[name=control_no]').value;
-                  const studentID_no = document.querySelector('input[name=studentID_no]').value;
+                  const student_id = document.querySelector('input[name=student_id]').value;
                   const document_name = document.querySelector('input[name=document_name]').value;
                   const no_ofcopies = document.querySelector('input[name=no_ofcopies]').value;
                   const date_request = document.querySelector('input[name=date_request]').value;
@@ -137,7 +137,7 @@
                   var data = new FormData(this.form);
 
                   data.append('control_no', control_no);
-                  data.append('studentID_no', studentID_no);
+                  data.append('student_id', student_id);
                   data.append('document_name', document_name);
                   data.append('no_ofcopies', no_ofcopies);
                   data.append('date_request', date_request);
@@ -147,7 +147,7 @@
                   data.append('request_id', request_id);
 
 
-              if (control_no === '' &&  studentID_no ==='' &&  document_name ==='' &&  no_ofcopies ==='' &&  date_request ==='' &&  date_releasing ==='' &&  processing_officer ===''){
+              if (control_no === '' &&  student_id ==='' &&  document_name ==='' &&  no_ofcopies ==='' &&  date_request ==='' &&  date_releasing ==='' &&  processing_officer ===''){
                       $('#message').html('<div class="alert alert-danger"> Required All Fields!</div>');
                     }else{
                        $.ajax({

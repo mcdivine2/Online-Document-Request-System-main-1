@@ -60,7 +60,7 @@
                                 <tbody>
                                     <?php 
                                         $conn = new class_model();
-                                        $docrequest = $conn->fetchAll_newrequest();
+                                        $docrequest = $conn->fetchAll_released();
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>
@@ -81,23 +81,27 @@
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
-                                                  if ($row['registrar_status'] === "Pending") {
+                                                  if ($row['accounting_status'] === "Pending") {
                                                       echo '<span class="badge bg-primary text-white">Pending</span>'; // Blue for pending
-                                                  } else if ($row['registrar_status'] === "Received") {
+                                                  } else if ($row['accounting_status'] === "Received") {
                                                       echo '<span class="badge bg-info text-white">Received</span>'; // Light blue for received
-                                                  } else if ($row['registrar_status'] === "Waiting for Payment") {
+                                                  } else if ($row['accounting_status'] === "Waiting for Payment") {
                                                       echo '<span class="badge bg-warning text-dark">Waiting for Payment</span>'; // Yellow for waiting, dark text for contrast
-                                                  } else if ($row['registrar_status'] === "Verified") {
+                                                  } else if ($row['accounting_status'] === "Verified") {
                                                       echo '<span class="badge bg-success text-white">Verified</span>'; // Green for verified
-                                                  } else if ($row['registrar_status'] === "Declined") {
+                                                  } else if ($row['accounting_status'] === "Declined") {
                                                       echo '<span class="badge bg-danger text-white">Declined</span>'; // Red for declined
                                                   }
                                                 ?> 
                                             </td>
                                             <td class="align-right">
-                                                <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
-                                                    <i class="fa fa-edit"></i>
-                                                </a> |
+                                            <?php if ($row['registrar_status'] !== "Released") { ?>
+                                                    <!-- Show the edit option only if the status is not Released -->
+                                                    <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" 
+                                                    class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a> |
+                                                <?php } ?>
                                                 <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
                                                     <i class="fa fa-eye"></i>
                                                 </a> |
