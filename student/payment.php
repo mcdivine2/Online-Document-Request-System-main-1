@@ -48,7 +48,8 @@
                                                 <tr>
                                                     <th scope="col">Student Name</th>
                                                     <th scope="col">Control No.</th>
-                                                    <th scope="col">Trace Number</th>
+                                                    <th scope="col">Document Name</th>
+                                                    <th scope="col">Trace No.</th>
                                                     <th scope="col">Reference No.</th>
                                                     <th scope="col">Total Amount</th>
                                                     <th scope="col">Date of Payment</th>
@@ -83,8 +84,9 @@
                                                     <td><?= $row['control_no']; ?></td>
                                              
                                                     <td><?= $row['document_name']; ?></td>
-                                                    <td><?= $row['date_releasing']; ?></td>
+                                                    <td><?= $row['trace_no']; ?></td>
                                                     <td><?= $row['ref_no']; ?></td>
+                                                    <td><?php $tamount = $row['total_amount']; echo 'Php'.' '.formatMoney($tamount, true); ?></td>
                                                     <td>    
                                                       <?php 
                                                      if($row['date_ofpayment'] === ""){
@@ -94,9 +96,7 @@
                                                          }
                                                      ?>
                                                     </td>
-                                                    <td><?php $tamount = $row['total_amount']; echo 'Php'.' '.formatMoney($tamount, true); ?></td>
-                                                    <td><?php $apaid = $row['amount_paid']; echo 'Php'.' '.formatMoney($apaid, true); ?></td>
-
+                                                    
                                                     <td><?= $row['proof_ofpayment']; ?></td>
                                                     <td>
                                                   
@@ -109,15 +109,6 @@
                                                            echo '<span class="badge bg-danger text-white">Rejected</span>';
                                                         }
                                                      ?> </td>
-                                                    
-                                                    <td class="align-right">
-                                                        <a href="edit-payment.php?payment=<?= $row['payment_id']; ?>&document-controlnumber=<?php echo $row['document_controlno']; ?>"  class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                                          <i class="fa fa-edit"></i>
-                                                        </a> |
-                                                        <a href="javascript:;" data-id="<?= $row['payment_id']; ?>"  class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Edit user">
-                                                          <i class="fa fa-trash-alt"></i>
-                                                        </a>
-                                                      </td>
                                                 </tr>
                                             <?php } ?>
                                             </tbody>

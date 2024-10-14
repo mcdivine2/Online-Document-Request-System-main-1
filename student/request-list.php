@@ -43,9 +43,9 @@
             <div class="card-body">
                 <div id="message"></div>
                 <div class="table-responsive">
-                    <a href_no="add-request.php" class="btn btn-sm" style="background-color:#1269AF !important; color:white">
-                        <i class="fa fa-fw fa-plus"></i> Add Request
-                    </a><br><br>
+                <a href="add-request.php" class="btn btn-sm" style="background-color:#1269AF !important; color:white">
+                    <i class="fa fa-fw fa-plus"></i> Add Request
+                </a><br><br>
                     <table class="table table-striped table-bordered first">
                         <thead>
                             <tr>
@@ -100,23 +100,16 @@
                                         ?>
                                     </td>
                                     <td class="align-right">
-                                        <div class="box">
-                                            <div class="four">
-                                                <a href_no="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Delete request">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                            <div class="three">
-                                                <a href_no="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Track document">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </div>
+                                        <div class="box">   
+                                        <div class="three">
+                                            <!-- Converted to a button -->
+                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
+                                            Clearance
+                                            </a>
                                         </div>
                                     </td>
                                     <td>
                                     <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
-                                        data-student-id="<?= $row['student_id']; ?>" 
-                                        data-student-name="<?= $row['first_name'] .' '. $row['last_name']; ?>"
                                         data-control-no="<?= $row['control_no']; ?>"
                                          data-document-name="<?= $row['document_name']; ?>"
                                         data-total-amount="<?= $row['price']; ?>">
