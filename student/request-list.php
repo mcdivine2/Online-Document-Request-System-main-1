@@ -24,7 +24,7 @@
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href_no="#" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Document Request</li>
                                     </ol>
                                 </nav>
@@ -43,16 +43,16 @@
             <div class="card-body">
                 <div id="message"></div>
                 <div class="table-responsive">
-                <a href="add-request.php" class="btn btn-sm" style="background-color:#1269AF !important; color:white">
-                    <i class="fa fa-fw fa-plus"></i> Add Request
-                </a><br><br>
+                    <a href="add-request.php" class="btn btn-sm" style="background-color:#1269AF !important; color:white">
+                        <i class="fa fa-fw fa-plus"></i> Add Request
+                    </a><br><br>
                     <table class="table table-striped table-bordered first">
                         <thead>
                             <tr>
                                 <th scope="col">Control No.</th>
-                                <th scope="col">Student Name</th>
+                                <th scope="col">Student ID</th>
                                 <th scope="col">Document Name</th>
-                                <th scope="col">Total total_amount</th>
+                                <th scope="col">Total amount</th>
                                 <th scope="col">Date Request</th>
                                 <th scope="col">Date Releasing</th>
                                 <th scope="col">Processing Officer</th>
@@ -100,21 +100,25 @@
                                         ?>
                                     </td>
                                     <td class="align-right">
-                                        <div class="box">   
-                                        <div class="three">
-                                            <!-- Converted to a button -->
-                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
-                                            Clearance
-                                            </a>
+                                        <div class="box">
+                                            <div class="four">
+                                                <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Delete request">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                </a>
+                                            </div>
+                                            <div class="three">
+                                                <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Track document">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </td>
                                     <td>
-                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
-                                        data-control-no="<?= $row['control_no']; ?>"
-                                         data-document-name="<?= $row['document_name']; ?>"
-                                        data-total-amount="<?= $row['price']; ?>">
-                                        <i class="fa fa-credit-card"></i> Pay
-                                    </button>
+                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal" 
+                                            data-request-id="<?= $row['request_id']; ?>" 
+                                            data-amount="<?= $row['price']; ?>"> <!-- Assuming 'price' is a column in your fetched data -->
+                                            <i class="fa fa-credit-card"></i> Pay
+                                        </button>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -142,50 +146,37 @@
       <div class="modal-body">
         <p>Are you sure you want to proceed with the payment for this request?</p>
         <form action="process_payment.php" method="POST" id="paymentForm" enctype="multipart/form-data">
-        <div class="form-group">
-            <input type="hidden" name="student_id" value="<?= $_SESSION['student_id']; ?>">
-            <input type="hidden" class="form-control" id="student" name="date_ofpayment" readonly>
-          </div>
-
+          <input type="hidden" name="request_id" id="request_id">
+          
           <div class="form-group">
-            <label for="trace_nonumber">Trace. NO.</label>
-            <input type="text" class="form-control" id="trace_no" name="trace_no" placeholder="Enter Trace number">
-          </div>
-
-          <div class="form-group">
-            <label for="refference">Ref. No.</label>
-            <input type="text" class="form-control" id="ref_no" name="ref_no" placeholder="Enter Reference number">
-          </div>
-
-          <div class="form-group">
-            <label for="control number">Control No.</label>
-            <input type="text" class="form-control" id="control_no" name="control_no" readonly>
+            <label for="amount">REF. NO.</label>
+            <input type="text" class="form-control" id="ref" name="ref" readonly>
           </div>
           
           <div class="form-group">
-            <label for="documents">Documents</label>
-            <input type="text" class="form-control" id="document_name" name="document_name" readonly>
+            <label for="amount">Documents</label>
+            <input type="text" class="form-control" id="Name" name="name" readonly>
           </div>
 
           <div class="form-group">
-            <input type="hidden" class="form-control" id="date_ofpayment" name="date_ofpayment" readonly>
+            <label for="amount">Date Payed</label>
+            <input type="text" class="form-control" id="Name" name="name" readonly>
           </div>
 
           <div class="form-group">
-            <label for="total_amount">Amount to Pay</label>
-            <input type="text" class="form-control" id="total_amount" name="total_amount" readonly>
+            <label for="amount">Amount to Pay</label>
+            <input type="text" class="form-control" id="amount" name="amount" readonly>
           </div>
           <!-- Image Upload Field -->
           <div class="form-group">
             <label for="paymentProof">Upload Proof of Payment</label>
-            <input type="file" class="form-control" id="proof_ofpayment" name="proof_ofpayment" accept=".jpeg, .jpg, .png, .gif" required>
+            <input type="file" class="form-control" id="paymentProof" name="payment_proof" accept="image/*" required>
           </div>
           
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-
         <button type="submit" class="btn btn-primary" form="paymentForm">Confirm Payment</button>
       </div>
     </div>
@@ -210,119 +201,108 @@
           var profileImage = $('#profileImage').text(intials);
         });
     </script>
+    <script>
+    $(document).ready(function() {
+        load_data();
+
+        var count = 1;
+
+        function load_data() {
+            $(document).on('click', '.delete', function() {
+
+                var request_id = $(this).attr("data-id");
+                if (confirm("Are you sure want to remove this data?")) {
+                    $.ajax({
+                        url: "../init/controllers/delete_request.php",
+                        method: "POST",
+                        data: {
+                            request_id: request_id
+                        },
+                        success: function(response) {
+                            $("#message").html(response);
+                        },
+                        error: function(response) {
+                            console.log("Failed");
+                        }
+                    })
+                }
+            });
+        }
+
+        // Payment modal functionality
+        $('#paymentModal').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var requestId = button.data('request-id'); // Extract info from data-* attributes
+            var amount = button.data('amount'); // Assuming the amount data attribute is passed as well
+
+            var modal = $(this);
+            modal.find('#request_id').val(requestId); // Set the request ID in the modal form
+            modal.find('#amount').val(amount); // Set the amount in the modal form
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        function load_unseen_notification(view = '') {
+            $.ajax({
+                url: "../init/controllers/fetch.php",
+                method: "POST",
+                data: {
+                    view: view
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('.dropdown-menu_1').html(data.notification);
+                    if (data.unseen_notification > 0) {
+                        $('.count').html(data.unseen_notification);
+                    }
+                }
+            });
+        }
+
+        // Call the function to load unseen notifications periodically
+        setInterval(function() {
+            load_unseen_notification();
+        }, 5000); // 5 seconds interval
+    });
+</script>
 
 
 <script>
-$(document).ready(function() {
-    // Event listener for opening the modal 
-    $('#paymentModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
-
-        // Extract the data-* attributes from the button
-        
-        var controlNo = button.data('control-no');
-        var totalamount = button.data('total-amount');
-        var documentName = button.data('document-name');
-
-        // Fetch the modal
-        var modal = $(this);
-
-        // Populate the modal's input fields with the data
-        
-        modal.find('#control_no').val(controlNo);
-        modal.find('#total_amount').val(totalamount);
-        modal.find('#document_name').val(documentName);
-        
-        // Set the current date in the hidden "date_ofpayment" field
-        var today = new Date();
-        var formattedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-        modal.find('#date_ofpayment').val(formattedDate);  // Assuming the 'Name' field holds the date
-    });
-
-    // Handle form submission
-    // Handle form submission
-$('#paymentForm').on('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    // Create FormData object to hold form data
-    var formData = new FormData(this);
-
-    $.ajax({
-        url: '../init/controllers/add_payment.php', // URL to your backend script
-        type: 'POST',
-        data: formData,
-        contentType: false, // Important for file upload
-        processData: false, // Important for file upload
-        success: function(response) {
-            $('#message').html(response); // Display the response message
-            $('#paymentModal').modal('hide'); // Hide the modal after submission
-            load_data(); // Reload data if necessary
-        },
-        error: function(xhr, status, error) {
-            console.error("Error: " + error); // Log error for debugging
-            console.error("Response: " + xhr.responseText); // Log response for debugging
-        }
-    });
-});
-
-
-    // Load data function for handling deletions
-    load_data();
-    function load_data() {
-        $(document).on('click', '.delete', function() {
-            var request_id = $(this).attr("data-id");
-            if (confirm("Are you sure you want to remove this data?")) {
-                $.ajax({
-                    url: "../init/controllers/delete_request.php",
-                    method: "POST",
-                    data: {
-                        request_id: request_id
-                    },
-                    success: function(response) {
-                        $("#message").html(response);
-                        load_data(); // Reload data after deletion
-                    },
-                    error: function(response) {
-                        console.log("Failed");
-                    }
-                });
-            }
-        });
+$(document).ready(function(){
+ 
+ function load_unseen_notification(view = '')
+ {
+  $.ajax({
+   url:"../init/controllers/fetch.php",
+   method:"POST",
+   data:{view:view},
+   dataType:"json",
+   success:function(data)
+   {
+     $('.dropdown-menu_1').html(data.notification);
+    if(data.unseen_notification > 0)
+    {
+     $('.count').html(data.unseen_notification);
     }
+   }
+  });
+ }
+ 
+ load_unseen_notification();
 
-    // Load unseen notifications
-    function load_unseen_notification(view = '') {
-        $.ajax({
-            url: "../init/controllers/fetch.php",
-            method: "POST",
-            data: {
-                view: view
-            },
-            dataType: "json",
-            success: function(data) {
-                $('.dropdown-menu_1').html(data.notification);
-                if (data.unseen_notification > 0) {
-                    $('.count').html(data.unseen_notification);
-                }
-            }
-        });
-    }
-
-    // Initial load for unseen notifications
-    load_unseen_notification();
-
-    $(document).on('click', '.dropdown-toggle', function() {
-        $('.count').html(''); // Clear notification count
-        load_unseen_notification('yes'); // Load notifications
-    });
-
-    // ref_noresh notifications every 5 seconds
-    setInterval(function() {
-        load_unseen_notification();
-    }, 5000); // 5 seconds interval
+ $(document).on('click', '.dropdown-toggle', function(){
+  $('.count').html('');
+  load_unseen_notification('yes');
+ });
+ 
+ setInterval(function(){ 
+  load_unseen_notification();; 
+ }, 4000);
+ 
 });
 </script>
-
 
 </body>
  
