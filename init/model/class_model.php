@@ -89,13 +89,17 @@
 		  }
 
 
-		public function add_document($document_name, $document_decription, $image_size, $student_id){
-	       $stmt = $this->conn->prepare("INSERT INTO `tbl_document` (`document_name`, `document_decription`, `image_size`, `student_id`) VALUES(?, ?, ?, ?)") or die($this->conn->error);
-			$stmt->bind_param("sssi", $document_name, $document_decription, $image_size, $student_id);
-			if($stmt->execute()){
+		  public function add_payment($trace_no, $ref_no, $control_no, $document_name, $date_ofpayment, $total_amount, $payment_proof, $student_id) {
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_payment` (`trace_no`, `ref_no`, `control_no`, `document_name`, `date_ofpayment`, `total_amount`, `proof_ofpayment`, `student_id`, `status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, 'Paid')") or die($this->conn->error);
+			
+			$stmt->bind_param("sssssssi", $trace_no, $ref_no, $control_no, $document_name, $date_ofpayment, $total_amount, $payment_proof, $student_id);
+			
+			if($stmt->execute()) {
 				$stmt->close();
 				$this->conn->close();
 				return true;
+			} else {
+				return false; // In case of an error, return false
 			}
 		}
 
@@ -182,6 +186,7 @@
 		         return $data;
 
 		  }
+
 		  public function fetch_document_by_id($student_id, $request_id) {
 			$sql = "SELECT * FROM tbl_documentrequest WHERE student_id = ? AND request_id = ?";
 			$stmt = $this->conn->prepare($sql);
@@ -268,10 +273,24 @@
 
 		  }
 
-	    public function fetchAll_payment($student_id){ 
-            $sql = "SELECT *,CONCAT(tbl_student.first_name, ', ' ,tbl_student.middle_name, ' ' ,tbl_student.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_student ON tbl_student.student_id =  tbl_payment.student_id  WHERE tbl_payment.student_id = ?";
+	    public function fetchAll_payments($student_id){ 
+            $sql = "SELECT *,CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_students ON tbl_students.student_id =  tbl_payment.student_id  WHERE tbl_payment.student_id = ?";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+
+		  public function fetchAll_payment($payment_id){ 
+            $sql = "SELECT * FROM  tbl_payment WHERE `payment_id` = ?";
+				$stmt = $this->conn->prepare($sql);
+			    $stmt->bind_param("i", $payment_id); 
 				$stmt->execute();
 				$result = $stmt->get_result();
 		        $data = array();
