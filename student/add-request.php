@@ -158,9 +158,10 @@
                         $cNumber ='CTRL-'.createRandomcnumber();
                         ?>
                         <div class="row mt-2">
-                            <div class="col-md-6">
-                                <label>Control Number</label>
-                                <input type="text" value="<?= $cNumber . '' . $_SESSION['student_id']; ?>" name="control_no" class="form-control" readonly>
+                        <input type="hidden" value="<?= $cNumber . '' . $_SESSION['student_id']; ?>" name="control_no" class="form-control" readonly>
+                            <div class="col-md-3">
+                                <label>Date Request:</label>
+                                <input type="text" name="date_request" class="form-control" value="<?= date('M d Y'); ?>" readonly>
                             </div>
                         </div>
                     </div>
@@ -179,13 +180,13 @@
                                     foreach ($doc as $index => $document) {
                                         // Display each document as a checkbox with its price
                                         echo '<div class="form-check">';
-                                        echo '<input class="form-check-input" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" data-price="' . $document['price'] . '" onchange="toggleQuantity(' . ($index + 1) . ')">';
+                                        echo '<input class="form-check-input document-checkbox" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" data-price="' . $document['price'] . '">';
                                         echo '<label class="form-check-label">' . $document['document_name'] . ' (' . '₱' . $document['price'] . ')</label>';
                                         
                                         // Hidden quantity input associated with the document
                                         echo '<div id="quantity' . ($index + 1) . '" class="mt-1 hidden" style="display:none;">';
                                         echo '<label for="' . $document['document_name'] . '">Copies:</label>';
-                                        echo '<input type="number" name="no_ofcopies[]" value="1" class="form-control">';
+                                        echo '<input type="number" name="no_ofcopies[]" value="1" class="form-control no-of-copies" min="1">';
                                         echo '</div>';
                                         echo '</div>';
                                     }
@@ -193,20 +194,11 @@
                                     echo "No documents found.";
                                 }
                                 ?>
-
                             </div>
                         </div>
 
                         <!-- Request Date and Mode -->
                         <div class="row mt-3">
-                            <div class="col-md-3">
-                                <label>Date Request:</label>
-                                <input type="text" name="date_request" class="form-control" value="<?= date('M d Y'); ?>" readonly>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Total Amount:</label>
-                                <input type="text" name="price" class="form-control" placeholder="₱0" value="" readonly>
-                            </div>
                             <div class="col-md-3">
                                 <label>Mode:</label>
                                 <select name="mode_request" id="mode_request" class="form-control" required>
@@ -214,21 +206,30 @@
                                     <option value="Pick Up">Pick-Up</option>
                                     <option value="Delivery">Delivery</option>
                                 </select>
+                                <label id="deliveryFeeSection" style="display:none;">Delivery Fee: ₱50</label>
+                                <p id="deliveryFee" class="form-control-static"></p>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <label>Total Amount:</label>
+                                <input type="text" name="price" id="totalAmount" class="form-control" placeholder="₱0" value="" readonly>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Purpose Section -->
-                    <div class="form-group mt-4">
+                   <!-- Purpose Section -->
+                   <div class="form-group mt-4">
                         <h4 class="section-title">Purpose</h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Select Purpose</label><br>
                                 <input type="checkbox" name="purpose[]" value="Evaluation"> Evaluation <br>
-                                <input type="checkbox" name="purpose[]" value="Employment"> Employment/Promotion <br>
-                                <input type="checkbox" name="purpose[]" value="Abroad"> Abroad <br>
+                                <input type="checkbox" name="purpose[]" value="Employment"> Employment <br>
+                                <input type="checkbox" id="otherPurposeCheckbox" value="Other"> Other (specify) <br>
                             </div>
                         </div>
+                        <!-- Hidden input for "Other" -->
+                        <input type="text" id="otherPurposeInput" name="purpose[]" placeholder="Enter purpose" style="display:none;">
                     </div>
 
                     <!-- Submission Section -->
@@ -290,6 +291,7 @@
 <script>
 $(document).ready(function() {
     let formData = null;
+    const deliveryFee = 50; // Set delivery fee value (adjust as needed)
 
     // Show or hide quantity input based on the checkbox selection
     $('input[type="checkbox"][name="document_name[]"]').change(function() {
@@ -300,7 +302,52 @@ $(document).ready(function() {
             $(quantityId).hide();
             $(quantityId).find('input').val(''); // Clear input when unchecked
         }
+        calculateTotalAmount(); // Recalculate total amount on checkbox change
     });
+
+    $('#otherPurposeCheckbox').change(function() {
+        if (this.checked) {
+            $('#otherPurposeInput').show();
+        } else {
+            $('#otherPurposeInput').hide().val(''); // Hide and clear when unchecked
+        }
+    });
+
+    // Show or hide delivery fee based on mode of request
+    $('#mode_request').change(function() {
+        if ($(this).val() === 'Delivery') {
+            $('#deliveryFeeSection').show();
+        } else {
+            $('#deliveryFeeSection').hide();
+        }
+        calculateTotalAmount(); // Recalculate total amount when mode changes
+    });
+
+    // Function to calculate total amount
+    function calculateTotalAmount() {
+        let totalAmount = 0;
+
+        // Calculate total amount based on selected documents and copies
+        $('input[type="checkbox"][name="document_name[]"]').each(function() {
+            if (this.checked) {
+                let no_ofcopies = $(this).closest('.form-check').find('input[name="no_ofcopies[]"]').val();
+                no_ofcopies = no_ofcopies ? parseInt(no_ofcopies) : 1; // Default to 1 if not provided
+                const price = parseFloat($(this).data('price'));
+                totalAmount += price * no_ofcopies;
+            }
+        });
+
+        // Add delivery fee if "Delivery" is selected
+        if ($('#mode_request').val() === 'Delivery') {
+            totalAmount += deliveryFee;
+        }
+
+        // Update total price field
+        const formattedTotalAmount = totalAmount.toFixed(2); // Format total amount
+        $('input[name="price"]').val(formattedTotalAmount); // Update form field without ₱ symbol
+
+        return formattedTotalAmount;
+    }
 
     $('#submitForm').click(function(e) {
         e.preventDefault(); // Prevent default form submission
@@ -310,28 +357,25 @@ $(document).ready(function() {
         let docNames = [];
         let docCopies = [];
         let isDocumentSelected = false;
-        let totalAmount = 0;
 
         // Calculate total amount based on selected documents and copies
-        $('input[type="checkbox"][name="document_name[]"]').each(function(index) {
+        $('input[type="checkbox"][name="document_name[]"]').each(function() {
             if (this.checked) {
                 isDocumentSelected = true;
                 docNames.push(this.value); // Add selected document name
-                let no_ofcopies = $(this).closest('.form-group').find('input[name="no_ofcopies[]"]').val();
+                let no_ofcopies = $(this).closest('.form-check').find('input[name="no_ofcopies[]"]').val();
                 no_ofcopies = no_ofcopies ? no_ofcopies : 1; // Default to 1 if not provided
                 docCopies.push(no_ofcopies);
-
-                // Get the price from the data-price attribute and calculate total cost
-                const price = parseFloat($(this).data('price'));
-                totalAmount += price * no_ofcopies;
             }
         });
 
+        // Validate if any document is selected
         if (!isDocumentSelected) {
             $('#message').html('<div class="alert alert-danger">Please select at least one document.</div>');
             return;
         }
 
+        // Validate course selection
         var course = $('#course').val();
         if (course === "") {
             $('#message').html('<div class="alert alert-danger">Please select a course.</div>');
@@ -339,18 +383,19 @@ $(document).ready(function() {
         }
         formData.append('course', course);
 
+        // Remove old document names and copies
         formData.delete('document_name[]');
         formData.delete('no_ofcopies[]');
 
+        // Append selected documents and copies to form data
         docNames.forEach((doc, index) => {
             formData.append('document_name[]', doc);
             formData.append('no_ofcopies[]', docCopies[index]);
         });
 
-        // Update the "Total Amount" input field in the form
-        const formattedTotalAmount = totalAmount.toFixed(2); // Format total amount
-        $('input[name="price"]').val(formattedTotalAmount); // Update form with total amount (no ₱ symbol for database)
-        formData.append('price', formattedTotalAmount); // Append price to form data
+        // Get the total amount and add it to formData
+        const totalAmount = calculateTotalAmount();
+        formData.append('price', totalAmount); // Append price to form data
 
         // Populate modal with form data
         $('#modalStudentName').text(
@@ -361,13 +406,14 @@ $(document).ready(function() {
         $('#modalControlNo').text($('input[name="control_no"]').val());
         $('#modalDocumentName').text(docNames.join(', '));
         $('#modalMode').text($('#mode_request').val());
-        $('#modalTotalAmount').text('₱' + formattedTotalAmount); // Display total amount in modal with ₱ symbol
+        $('#modalTotalAmount').text('₱' + totalAmount); // Display total amount in modal with ₱ symbol
 
         $('#paymentModal').modal('show');
     });
 
+    // Hide modal on cancel button
     $('.btn-secondary').click(function() {
-        $('#paymentModal').modal('hide'); // Hide the modal when cancel is clicked
+        $('#paymentModal').modal('hide');
     });
 
     // Confirm form submission when modal is confirmed
@@ -381,7 +427,7 @@ $(document).ready(function() {
                 contentType: false,
                 success: function(response) {
                     $("#message").html(response);
-                    window.scrollTo(0, 0);
+                    window.scrollTo(0, 0); // Scroll to top of page on success
                     $('#paymentModal').modal('hide'); // Close modal on success
                 },
                 error: function(response) {
@@ -391,6 +437,8 @@ $(document).ready(function() {
         }
     });
 });
+
+
 
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields

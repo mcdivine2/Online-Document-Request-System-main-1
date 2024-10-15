@@ -104,7 +104,7 @@
                                         <div class="three">
                                             <!-- Converted to a button -->
                                             <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
-                                            Clearance
+                                            View
                                             </a>
                                         </div>
                                     </td>
