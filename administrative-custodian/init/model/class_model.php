@@ -272,6 +272,30 @@
 		         return $data;
 
 		  }
+		  public function fetchAll_declined(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Declined'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function fetchAll_verified(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Verified'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
 
 		  public function fetchAll_pendingpayment(){ 
             $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Waiting for Payment'";
@@ -285,12 +309,26 @@
 		         return $data;
 
 		  }
+		  public function fetch_document_by_id($student_id, $request_id) {
+			$sql = "SELECT * FROM tbl_documentrequest WHERE student_id = ? AND request_id = ?";
+			$stmt = $this->conn->prepare($sql);
+			
+			if (!$stmt) {
+				die("SQL Error: " . $this->conn->error);
+			}
+		
+			$stmt->bind_param("ii", $student_id, $request_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			
+			return $result->fetch_assoc();  // Fetch a single row
+		}
 
 
-		public function edit_request($control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $custodian_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `custodian_status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $student_id, $document_name, $date_request, $custodian_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `date_request` = ?, `custodian_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("sssssssi", $control_no, $student_id, $document_name, $no_ofcopies, $date_request, $date_releasing, $custodian_status, $request_id);
+			$stmt->bind_param("sssssi", $control_no, $student_id, $document_name, $date_request, $custodian_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -429,7 +467,7 @@
 		  
 
 		  public function count_allstudents(){ 
-            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_student) as count_students";
+            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_students) as count_students";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -510,6 +548,30 @@
 
 		  public function count_released(){ 
             $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE custodian_status = 'Released'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function count_declined(){ 
+            $sql = "SELECT COUNT(request_id) as count_declined FROM tbl_documentrequest WHERE custodian_status = 'Declined'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function count_verified(){ 
+            $sql = "SELECT COUNT(request_id) as count_verified FROM tbl_documentrequest WHERE custodian_status = 'Verified'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

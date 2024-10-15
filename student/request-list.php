@@ -24,7 +24,7 @@
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item"><a href_no="#" class="breadcrumb-link">Dashboard</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Document Request</li>
                                     </ol>
                                 </nav>
@@ -43,22 +43,21 @@
             <div class="card-body">
                 <div id="message"></div>
                 <div class="table-responsive">
-                    <a href="add-request.php" class="btn btn-sm" style="background-color:#1269AF !important; color:white">
-                        <i class="fa fa-fw fa-plus"></i> Add Request
-                    </a><br><br>
+                <a href="add-request.php" class="btn btn-sm" style="background-color:#1269AF !important; color:white">
+                    <i class="fa fa-fw fa-plus"></i> Add Request
+                </a><br><br>
                     <table class="table table-striped table-bordered first">
                         <thead>
                             <tr>
                                 <th scope="col">Control No.</th>
                                 <th scope="col">Student ID</th>
+                                <th scope="col">Student Name</th>
                                 <th scope="col">Document Name</th>
-                                <th scope="col">Total amount</th>
                                 <th scope="col">Date Request</th>
                                 <th scope="col">Date Releasing</th>
                                 <th scope="col">Processing Officer</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
-                                <th scope="col">Pay</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,9 +69,9 @@
                             <?php foreach ($docrequest as $row) { ?>
                                 <tr>
                                     <td><?= $row['control_no']; ?></td>
+                                    <td><?= $row['student_id']; ?></td>
                                     <td><?= $row['first_name'] .' '. $row['last_name']; ?></td>
                                     <td><?= $row['document_name']; ?></td>
-                                    <td><?= $row['price']; ?></td>
                                     <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
                                     <td>
                                         <?php 
@@ -86,12 +85,12 @@
                                     <td><?= $row['processing_officer']; ?></td>
                                     <td>
                                         <?php 
-                                            if ($row['registrar_status'] === "Pending") {
-                                                echo '<span class="badge bg-warning text-white">Pending</span>';
+                                            if ($row['registrar_status'] === "Released") {
+                                                echo '<span class="badge bg-success text-white">Released</span>';
                                             } elseif ($row['registrar_status'] === "Waiting for Payment") {
                                                 echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
                                             } elseif ($row['registrar_status'] === "Releasing") {
-                                                echo '<span class="badge bg-success text-white">Verified</span>';
+                                                echo '<span class="badge bg-success text-white">Processing</span>';
                                             } elseif ($row['registrar_status'] === "Received") {
                                                 echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                             } elseif ($row['registrar_status'] === "Declined") {
@@ -100,25 +99,13 @@
                                         ?>
                                     </td>
                                     <td class="align-right">
-                                        <div class="box">
-                                            <div class="four">
-                                                <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Delete request">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </a>
-                                            </div>
-                                            <div class="three">
-                                                <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Track document">
-                                                    <i class="fa fa-eye"></i>
-                                                </a>
-                                            </div>
+                                        <div class="box">   
+                                        <div class="three">
+                                            <!-- Converted to a button -->
+                                            <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
+                                            View
+                                            </a>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal" 
-                                            data-request-id="<?= $row['request_id']; ?>" 
-                                            data-amount="<?= $row['price']; ?>"> <!-- Assuming 'price' is a column in your fetched data -->
-                                            <i class="fa fa-credit-card"></i> Pay
-                                        </button>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -146,164 +133,102 @@
       <div class="modal-body">
         <p>Are you sure you want to proceed with the payment for this request?</p>
         <form action="process_payment.php" method="POST" id="paymentForm" enctype="multipart/form-data">
-          <input type="hidden" name="request_id" id="request_id">
-          
-          <div class="form-group">
-            <label for="amount">REF. NO.</label>
-            <input type="text" class="form-control" id="ref" name="ref" readonly>
-          </div>
-          
-          <div class="form-group">
-            <label for="amount">Documents</label>
-            <input type="text" class="form-control" id="Name" name="name" readonly>
+        <div class="form-group">
+            <input type="hidden" name="student_id" value="<?= $_SESSION['student_id']; ?>">
+            <input type="hidden" class="form-control" id="student" name="date_ofpayment" readonly>
           </div>
 
           <div class="form-group">
-            <label for="amount">Date Payed</label>
-            <input type="text" class="form-control" id="Name" name="name" readonly>
+            <label for="trace_nonumber">Trace. NO.</label>
+            <input type="text" class="form-control" id="trace_no" name="trace_no" placeholder="Enter Trace number">
           </div>
 
           <div class="form-group">
-            <label for="amount">Amount to Pay</label>
-            <input type="text" class="form-control" id="amount" name="amount" readonly>
+            <label for="refference">Ref. No.</label>
+            <input type="text" class="form-control" id="ref_no" name="ref_no" placeholder="Enter Reference number">
+          </div>
+
+          <div class="form-group">
+            <label for="control number">Control No.</label>
+            <input type="text" class="form-control" id="control_no" name="control_no" readonly>
+          </div>
+          
+          <div class="form-group">
+            <label for="documents">Documents</label>
+            <input type="text" class="form-control" id="document_name" name="document_name" readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="hidden" class="form-control" id="date_ofpayment" name="date_ofpayment" readonly>
+          </div>
+
+          <div class="form-group">
+            <label for="total_amount">Amount to Pay</label>
+            <input type="text" class="form-control" id="total_amount" name="total_amount" readonly>
           </div>
           <!-- Image Upload Field -->
           <div class="form-group">
             <label for="paymentProof">Upload Proof of Payment</label>
-            <input type="file" class="form-control" id="paymentProof" name="payment_proof" accept="image/*" required>
+            <input type="file" class="form-control" id="proof_ofpayment" name="proof_ofpayment" accept=".jpeg, .jpg, .png, .gif" required>
           </div>
           
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
         <button type="submit" class="btn btn-primary" form="paymentForm">Confirm Payment</button>
       </div>
     </div>
   </div>
 </div>
 
-    <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
-    <script src="../asset/libs/js/main-js.js"></script>
-    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/data-table.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-          var firstName = $('#firstName').text();
-          var lastName = $('#lastName').text();
-          var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
-          var profileImage = $('#profileImage').text(intials);
-        });
-    </script>
-    <script>
-    $(document).ready(function() {
-        load_data();
-
-        var count = 1;
-
-        function load_data() {
-            $(document).on('click', '.delete', function() {
-
-                var request_id = $(this).attr("data-id");
-                if (confirm("Are you sure want to remove this data?")) {
-                    $.ajax({
-                        url: "../init/controllers/delete_request.php",
-                        method: "POST",
-                        data: {
-                            request_id: request_id
-                        },
-                        success: function(response) {
-                            $("#message").html(response);
-                        },
-                        error: function(response) {
-                            console.log("Failed");
-                        }
-                    })
-                }
-            });
-        }
-
-        // Payment modal functionality
-        $('#paymentModal').on('show.bs.modal', function(event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var requestId = button.data('request-id'); // Extract info from data-* attributes
-            var amount = button.data('amount'); // Assuming the amount data attribute is passed as well
-
-            var modal = $(this);
-            modal.find('#request_id').val(requestId); // Set the request ID in the modal form
-            modal.find('#amount').val(amount); // Set the amount in the modal form
-        });
-    });
-</script>
+<!-- JavaScript -->
+<script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="../asset/libs/js/main-js.js"></script>
 
 <script>
-    $(document).ready(function() {
-        function load_unseen_notification(view = '') {
-            $.ajax({
-                url: "../init/controllers/fetch.php",
-                method: "POST",
-                data: {
-                    view: view
-                },
-                dataType: "json",
-                success: function(data) {
-                    $('.dropdown-menu_1').html(data.notification);
-                    if (data.unseen_notification > 0) {
-                        $('.count').html(data.unseen_notification);
-                    }
+    $(document).ready(function () {
+        // Generate initials for profile image
+        const firstName = $('#firstName').text();
+        const lastName = $('#lastName').text();
+        const initials = firstName.charAt(0) + lastName.charAt(0);
+        $('#profileImage').text(initials);
+
+        // Delete request
+        $('.delete').on('click', function () {
+            const request_id = $(this).data('id');
+            if (confirm("Are you sure you want to remove this data?")) {
+                $.post("../init/controllers/delete_request.php", { request_id }, function (response) {
+                    $("#message").html(response);
+                }).fail(function () {
+                    console.error("Failed to delete request.");
+                });
+            }
+        });
+
+        // Load unseen notifications
+        function loadUnseenNotifications(view = '') {
+            $.post("../init/controllers/fetch.php", { view }, function (data) {
+                $('.dropdown-menu_1').html(data.notification);
+                if (data.unseen_notification > 0) {
+                    $('.count').html(data.unseen_notification);
                 }
-            });
+            }, 'json');
         }
 
-        // Call the function to load unseen notifications periodically
-        setInterval(function() {
-            load_unseen_notification();
-        }, 5000); // 5 seconds interval
+        loadUnseenNotifications();
+        $('.dropdown-toggle').on('click', function () {
+            $('.count').html('');
+            loadUnseenNotifications('yes');
+        });
+
+        setInterval(loadUnseenNotifications, 4000);
     });
-</script>
-
-
-<script>
-$(document).ready(function(){
- 
- function load_unseen_notification(view = '')
- {
-  $.ajax({
-   url:"../init/controllers/fetch.php",
-   method:"POST",
-   data:{view:view},
-   dataType:"json",
-   success:function(data)
-   {
-     $('.dropdown-menu_1').html(data.notification);
-    if(data.unseen_notification > 0)
-    {
-     $('.count').html(data.unseen_notification);
-    }
-   }
-  });
- }
- 
- load_unseen_notification();
-
- $(document).on('click', '.dropdown-toggle', function(){
-  $('.count').html('');
-  load_unseen_notification('yes');
- });
- 
- setInterval(function(){ 
-  load_unseen_notification();; 
- }, 4000);
- 
-});
 </script>
 
 </body>
- 
 </html>

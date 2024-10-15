@@ -57,7 +57,7 @@
                         <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/administrative-library/" >Administrative Library</a>
                         <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/administrative-custodian" >Administrative Custodian</a>
                         <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/administrative-dean/" >Administrative Dean</a>
-                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/admin-aide/" >Admin-Aide</a>
+                        <a class="dropdown-item container-fluid" href="http://localhost/Online-Document-Request-System-main/admin/" >Admin</a>
                     </div>
                     </div>
                     </div>

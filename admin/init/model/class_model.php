@@ -108,7 +108,7 @@
 
 
 		public function add_student($IDnumber, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status){
-			$stmt = $this->conn->prepare("INSERT INTO `tbl_students` (`studentID_no`, `first_name`, `middle_name`, `last_name`, `complete_address`, `email_address`, `mobile_number`, `username`, `password`, `account_status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_students` (`student_id`, `first_name`, `middle_name`, `last_name`, `complete_address`, `email_address`, `mobile_number`, `username`, `password`, `account_status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			$stmt->bind_param("ssssssssss", $IDnumber, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status);
 			if($stmt->execute()){
 				$stmt->close();
@@ -159,27 +159,63 @@
 
 		
 
-		public function edit_student($studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id){
-			$sql = "UPDATE `tbl_students` SET   `studentID_no` = ?,   `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, `date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
-			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssssssssi", $studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id);
-			if($stmt->execute()){
+		  public function edit_student($first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id) {
+			$sql = "UPDATE `tbl_students` 
+					SET `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, 
+						`date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, 
+						`mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ? 
+					WHERE `student_id` = ?";
+		
+			$stmt = $this->conn->prepare($sql);
+		
+			// Bind parameters correctly without trailing comma
+			$stmt->bind_param(
+				"sssssssssssssi", 
+				$first_name, $middle_name, $last_name, $course, $year_level, 
+				$date_ofbirth, $gender, $complete_address, $email_address, 
+				$mobile_number, $username, $password, $account_status, $student_id
+			);
+		
+			if ($stmt->execute()) {
 				$stmt->close();
 				$this->conn->close();
 				return true;
+			} else {
+				// Optional: Handle errors (e.g., logging or returning false)
+				$stmt->close();
+				$this->conn->close();
+				return false;
 			}
 		}
+		
 
-		public function add_account($studentID_no, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status, $student_id){
-			$sql = "UPDATE `tbl_students` SET   `studentID_no` = ?, `first_name` = ?, `middle_name` = ?, `last_name` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
-			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssssi", $studentID_no, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status, $student_id);
-			if($stmt->execute()){
+		public function add_account($student_id, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status) {
+			$sql = "INSERT INTO `tbl_students` (`student_id`, `first_name`, `middle_name`, `last_name`, 
+						`complete_address`, `email_address`, `mobile_number`, `username`, `password`, `account_status`) 
+					VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		
+			$stmt = $this->conn->prepare($sql);
+		
+			// Bind parameters correctly
+			$stmt->bind_param(
+				"ssssssssss", 
+				$student_id, $first_name, $middle_name, $last_name, 
+				$complete_address, $email_address, $mobile_number, $username, 
+				$password, $status
+			);
+		
+			if ($stmt->execute()) {
 				$stmt->close();
 				$this->conn->close();
 				return true;
+			} else {
+				// Optional: Handle errors
+				$stmt->close();
+				$this->conn->close();
+				return false;
 			}
 		}
+		
 		
 
 		public function delete_student($student_id){
@@ -264,7 +300,7 @@
 
 				$output = fopen('php://output', 'w');
 
-					fputcsv($output, array('request_id','control_no','studentID_no','document_name','no_ofcopies','date_request','date_releasing','processing_officer','status'));
+					fputcsv($output, array('request_id','control_no','student_id','document_name','date_request','date_releasing','processing_officer','status'));
 
 				while ($row = mysqli_fetch_assoc($result))
 					{
@@ -291,8 +327,8 @@
 
 		  }
 
-		  public function fetchAll_releasing(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Releasing' ";
+		  public function fetchAll_verified(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Verified' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -329,12 +365,24 @@
 		         return $data;
 
 		  }
+		  public function fetchAll_declined(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Declined' ";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
 
 
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `registrar_status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $student_id, $document_name, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?,  `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `registrar_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id);
+			$stmt->bind_param("sssssssi", $control_no, $student_id, $document_name, $date_request, $date_releasing, $processing_officer, $registrar_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -354,7 +402,7 @@
 			}
 
     public function fetchAll_payment(){ 
-            $sql = "SELECT *,CONCAT(tbl_student.first_name, ', ' ,tbl_student.middle_name, ' ' ,tbl_student.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_student ON tbl_student.student_id =  tbl_payment.student_id ORDER BY tbl_payment.student_id DESC";
+            $sql = "SELECT *,CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name FROM  tbl_payment INNER JOIN tbl_students ON tbl_students.student_id =  tbl_payment.student_id ORDER BY tbl_payment.student_id DESC";
 				$stmt = $this->conn->prepare($sql);
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -365,6 +413,20 @@
 		         return $data;
 
 		  }
+		  public function fetch_document_by_id($student_id, $request_id) {
+			$sql = "SELECT * FROM tbl_documentrequest WHERE student_id = ? AND request_id = ?";
+			$stmt = $this->conn->prepare($sql);
+			
+			if (!$stmt) {
+				die("SQL Error: " . $this->conn->error);
+			}
+		
+			$stmt->bind_param("ii", $student_id, $request_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			
+			return $result->fetch_assoc();  // Fetch a single row
+		}
 
 		  public function edit_payment($control_no, $total_amount, $amount_paid, $date_ofpayment, $proof_ofpayment, $status, $payment_id){
 			$sql = "UPDATE `tbl_payment` SET  `control_no` = ?, `total_amount` = ?, `amount_paid` = ?, `date_ofpayment` = ?, `proof_ofpayment` = ?, `status` = ?  WHERE payment_id = ?";
@@ -559,8 +621,8 @@
 
 		  }
 
-		  public function count_numberofreleased(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE registrar_status = 'Releasing'";
+		  public function count_numberofverified(){ 
+            $sql = "SELECT COUNT(request_id) as count_verified FROM tbl_documentrequest WHERE registrar_status = 'Verified'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -572,8 +634,20 @@
 
 		  }
 
-		  public function count_released(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE registrar_status = 'Released'";
+		  public function count_complete(){ 
+            $sql = "SELECT COUNT(request_id) as count_complete FROM tbl_documentrequest WHERE registrar_status = 'Released'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function count_declined(){ 
+            $sql = "SELECT COUNT(request_id) as count_declined FROM tbl_documentrequest WHERE registrar_status = 'Declined'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
