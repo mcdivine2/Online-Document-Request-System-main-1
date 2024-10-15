@@ -1,4 +1,4 @@
-       <?php include('main_header/header.php');?>
+<?php include('main_header/header.php');?>
         <!-- ============================================================== -->
         <!-- end navbar -->
         <!-- ============================================================== -->
@@ -26,7 +26,7 @@
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
                                         <li class="breadcrumb-item" aria-current="page">Document Requests</li>
-                                        <li class="breadcrumb-item active" aria-current="page">Releasing</li>
+                                        <li class="breadcrumb-item active" aria-current="page">New Requests</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -51,7 +51,6 @@
                                                     <th scope="col">Control No.</th>
                                                     <th scope="col">Student ID</th>
                                                     <th scope="col">Document Name</th>
-                                                    <th scope="col">No. of Copies</th>
                                                     <th scope="col">Date Releasing</th>
                                                     <th scope="col">Processing Officer</th>
                                                     <th scope="col">Status</th>
@@ -61,18 +60,17 @@
                                             <tbody>
                                              <?php 
                                                 $conn = new class_model();
-                                                $docrequest = $conn->fetchAll_released();
+                                                $docrequest = $conn->fetchAll_declined();
                                                ?>
                                                <?php foreach ($docrequest as $row) {
 
                                                 ?>
                                                 <tr>
-                                                    <td><?= date($row['time_stamp']); ?></td>
+                                                    <td><?= date("M d, Y",strtotime($row['date_releasing'])); ?></td>
                     
                                                     <td><?= $row['control_no']; ?></td>
-                                                    <td><?= $row['studentID_no']; ?></td>
+                                                    <td><?= $row['student_id']; ?></td>
                                                     <td><?= $row['document_name']; ?></td>
-                                                    <td><?= $row['no_ofcopies']; ?></td>
                                                      <td>
                                                      <?php 
                                                      if($row['date_releasing'] === ""){
@@ -85,26 +83,27 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['status'] ==="Processing"){
-                                                           echo '<span class="badge bg-info text-white">Processing</span>';
-                                                         } else if($row['status'] ==="Received"){
+                                                       if($row['library_status'] ==="Pending"){
+                                                           echo '<span class="badge bg-info text-white">Pending</span>';
+                                                         } else if($row['library_status'] ==="Received"){
                                                            echo '<span class="badge bg-warning text-white">Received</span>';
-                                                         }else if($row['status'] ==="Waiting for Payment"){
-                                                           echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                        }else if($row['status'] ==="Releasing"){
-                                                            echo '<span class="badge bg-success text-white">Releasing</span>';
-                                                        }else if($row['status'] ==="Released"){
-                                                          echo '<span class="badge bg-success text-white">Released</span>';
-                                                      }else if($row['status'] ==="Declined"){
-                                                        echo '<span class="badge bg-danger text-white">Declined</span>';
-                                                    }
+                                                         }else if($row['library_status'] ==="Declined"){
+                                                           echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                        }else if($row['library_status'] ==="Verified"){
+                                                            echo '<span class="badge bg-success text-white">Verified</span>';
+                                                        }
                                                      ?> 
                                                     </td>
                                                     <td class="align-right">
-                                                        
-                                                        <a href="email-form.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['studentID_no']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                        <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                          <i class="fa fa-edit"></i>
+                                                        </a> |
+                                                        <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                                                          <i class="fa fa-eye"></i>
+                                                        </a> |
+                                                        <a href="email-form-r.php?request=<?= $row['request_id']; ?>&student-number=<?php echo $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                                           <i class="fa fa-envelope"></i>
-                                                        </a> 
+                                                        </a> |
 
                                                       </td>
                                                 </tr>

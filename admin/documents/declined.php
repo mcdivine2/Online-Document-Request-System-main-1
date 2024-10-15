@@ -60,7 +60,7 @@
                                 <tbody>
                                     <?php 
                                         $conn = new class_model();
-                                        $docrequest = $conn->fetchAll_newrequest();
+                                        $docrequest = $conn->fetchAll_declined();
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>

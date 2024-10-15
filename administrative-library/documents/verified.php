@@ -1,42 +1,43 @@
-<?php include('main_header/header.php'); ?>
-<!-- ============================================================== -->
-<!-- end navbar -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- left sidebar -->
-<!-- ============================================================== -->
-<?php include('left_sidebar/sidebar.php'); ?>
-<!-- ============================================================== -->
-<!-- end left sidebar -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- wrapper  -->
-<!-- ============================================================== -->
-<div class="dashboard-wrapper">
-    <div class="container-fluid dashboard-content">
+       <?php include('main_header/header.php');?>
         <!-- ============================================================== -->
-        <!-- pageheader -->
+        <!-- end navbar -->
         <!-- ============================================================== -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="page-header">
-                    <h2 class="pageheader-title"><i class="fa fa-fw fa-file"></i> Document Request </h2>
-                    <div class="page-breadcrumb">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Document Request</li>
-                            </ol>
-                        </nav>
+        <!-- ============================================================== -->
+        <!-- left sidebar -->
+        <!-- ============================================================== -->
+         <?php include('left_sidebar/sidebar.php');?>
+        <!-- ============================================================== -->
+        <!-- end left sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- wrapper  -->
+        <!-- ============================================================== -->
+        <div class="dashboard-wrapper">
+            <div class="container-fluid  dashboard-content">
+                <!-- ============================================================== -->
+                <!-- pageheader -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                             <h2 class="pageheader-title"><i class="fa fa-fw fa-file"></i> Document Request </h2>
+                            <div class="page-breadcrumb">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                        <li class="breadcrumb-item" aria-current="page">Document Requests</li>
+                                        <li class="breadcrumb-item active" aria-current="page">New Requests</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- end pageheader -->
-        <!-- ============================================================== -->
-
-        <div class="row">
+                <!-- ============================================================== -->
+                <!-- end pageheader -->
+                <!-- ============================================================== -->
+               
+                    <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="card">
                                 <h5 class="card-header">Request Information</h5>
@@ -59,7 +60,7 @@
                                             <tbody>
                                              <?php 
                                                 $conn = new class_model();
-                                                $docrequest = $conn->fetchAll_documentrequest();
+                                                $docrequest = $conn->fetchAll_verified();
                                                ?>
                                                <?php foreach ($docrequest as $row) {
 
@@ -82,13 +83,13 @@
                                                     <td><?= $row['processing_officer']; ?></td>
                                                     <td>
                                                      <?php 
-                                                       if($row['dean_status'] ==="Pending"){
+                                                       if($row['library_status'] ==="Pending"){
                                                            echo '<span class="badge bg-info text-white">Pending</span>';
-                                                         } else if($row['dean_status'] ==="Received"){
+                                                         } else if($row['library_status'] ==="Received"){
                                                            echo '<span class="badge bg-warning text-white">Received</span>';
-                                                         }else if($row['dean_status'] ==="Declined"){
-                                                           echo '<span class="badge bg-danger text-white">Declined</span>';
-                                                        }else if($row['dean_status'] ==="Verified"){
+                                                         }else if($row['library_status'] ==="Waiting for Payment"){
+                                                           echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
+                                                        }else if($row['library_status'] ==="Verified"){
                                                             echo '<span class="badge bg-success text-white">Verified</span>';
                                                         }
                                                      ?> 
@@ -117,96 +118,120 @@
                         <!-- end responsive table -->
                         <!-- ============================================================== -->
                     </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+               
             </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            
         </div>
     </div>
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- ============================================================== -->
-<!-- end main wrapper -->
-<!-- ============================================================== -->
-<!-- Optional JavaScript -->
-<script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="../assets/vendor/custom-js/jquery.multi-select.html"></script>
-<script src="../assets/libs/js/main-js.js"></script>
-<script src="../assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="../assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-<script src="../assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-<script src="../assets/vendor/datatables/js/data-table.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        var firstName = $('#firstName').text();
-        var lastName = $('#lastName').text();
-        var initials = firstName.charAt(0) + lastName.charAt(0);
-        $('#profileImage').text(initials);
-    });
-
+    <!-- ============================================================== -->
+    <!-- end main wrapper -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    <script src="../assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../assets/vendor/custom-js/jquery.multi-select.html"></script>
+    <script src="../assets/libs/js/main-js.js"></script>
+    <script src="../assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../assets/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../assets/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../assets/vendor/datatables/js/data-table.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          var firstName = $('#firstName').text();
+          var lastName = $('#lastName').text();
+          var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
+          var profileImage = $('#profileImage').text(intials);
+        });
+    </script>
+    <script>
     $(document).ready(function() {
+
         load_data();
+
+        var count = 1;
 
         function load_data() {
             $(document).on('click', '.delete', function() {
+
                 var request_id = $(this).attr("data-id");
-                if (confirm("Are you sure you want to remove this data?")) {
+                // console.log("================get course_id================");
+                // console.log(course_id);
+                if (confirm("Are you sure want to remove this data?")) {
                     $.ajax({
                         url: "../init/controllers/delete_request.php",
                         method: "POST",
-                        data: { request_id: request_id },
-                        success: function(response) {
-                            $("#message").html(response);
+                        data: {
+                            request_id: request_id
                         },
-                        error: function() {
+                      success: function(response) {
+
+                          $("#message").html(response);
+                          },
+                          error: function(response) {
                             console.log("Failed");
-                        }
-                    });
+                          }
+                    })
                 }
             });
         }
-    });
 
-    $(document).ready(function(){
-        function load_unseen_notification(view = '') {
-            $.ajax({
-                url: "../init/controllers/fetch.php",
-                method: "POST",
-                data: { view: view },
-                dataType: "json",
-                success: function(data) {
-                    $('.dropdown-menu_1').html(data.notification);
-                    if (data.unseen_notification > 0) {
-                        $('.count').html(data.unseen_notification);
-                    }
-                }
-            });
-        }
-        
-        load_unseen_notification();
-
-        $(document).on('click', '.dropdown-toggle', function() {
-            $('.count').html('');
-            load_unseen_notification('yes');
-        });
-
-        setInterval(function(){ 
-            load_unseen_notification(); 
-        }, 5000);
     });
 </script>
+
+<script>
+$(document).ready(function(){
+ 
+ function load_unseen_notification(view = '')
+ {
+  $.ajax({
+   url:"../init/controllers/fetch.php",
+   method:"POST",
+   data:{view:view},
+   dataType:"json",
+   success:function(data)
+   {
+     $('.dropdown-menu_1').html(data.notification);
+    if(data.unseen_notification > 0)
+    {
+     $('.count').html(data.unseen_notification);
+    }
+   }
+  });
+ }
+ 
+ load_unseen_notification();
+
+ $(document).on('click', '.dropdown-toggle', function(){
+  $('.count').html('');
+  load_unseen_notification('yes');
+ });
+ 
+ setInterval(function(){ 
+  load_unseen_notification();; 
+ }, 5000);
+ 
+});
+</script>
 </body>
+ 
 </html>
