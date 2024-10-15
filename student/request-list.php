@@ -183,138 +183,52 @@
   </div>
 </div>
 
-    <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
-    <script src="../asset/libs/js/main-js.js"></script>
-    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/data-table.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-          var firstName = $('#firstName').text();
-          var lastName = $('#lastName').text();
-          var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
-          var profileImage = $('#profileImage').text(intials);
-        });
-    </script>
-
+<!-- JavaScript -->
+<script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+<script src="../asset/libs/js/main-js.js"></script>
 
 <script>
-$(document).ready(function() {
-    // Event listener for opening the modal 
-    $('#paymentModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Button that triggered the modal
+    $(document).ready(function () {
+        // Generate initials for profile image
+        const firstName = $('#firstName').text();
+        const lastName = $('#lastName').text();
+        const initials = firstName.charAt(0) + lastName.charAt(0);
+        $('#profileImage').text(initials);
 
-        // Extract the data-* attributes from the button
-        
-        var controlNo = button.data('control-no');
-        var totalamount = button.data('total-amount');
-        var documentName = button.data('document-name');
-
-        // Fetch the modal
-        var modal = $(this);
-
-        // Populate the modal's input fields with the data
-        
-        modal.find('#control_no').val(controlNo);
-        modal.find('#total_amount').val(totalamount);
-        modal.find('#document_name').val(documentName);
-        
-        // Set the current date in the hidden "date_ofpayment" field
-        var today = new Date();
-        var formattedDate = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
-        modal.find('#date_ofpayment').val(formattedDate);  // Assuming the 'Name' field holds the date
-    });
-
-    // Handle form submission
-    // Handle form submission
-$('#paymentForm').on('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    // Create FormData object to hold form data
-    var formData = new FormData(this);
-
-    $.ajax({
-        url: '../init/controllers/add_payment.php', // URL to your backend script
-        type: 'POST',
-        data: formData,
-        contentType: false, // Important for file upload
-        processData: false, // Important for file upload
-        success: function(response) {
-            $('#message').html(response); // Display the response message
-            $('#paymentModal').modal('hide'); // Hide the modal after submission
-            load_data(); // Reload data if necessary
-        },
-        error: function(xhr, status, error) {
-            console.error("Error: " + error); // Log error for debugging
-            console.error("Response: " + xhr.responseText); // Log response for debugging
-        }
-    });
-});
-
-
-    // Load data function for handling deletions
-    load_data();
-    function load_data() {
-        $(document).on('click', '.delete', function() {
-            var request_id = $(this).attr("data-id");
+        // Delete request
+        $('.delete').on('click', function () {
+            const request_id = $(this).data('id');
             if (confirm("Are you sure you want to remove this data?")) {
-                $.ajax({
-                    url: "../init/controllers/delete_request.php",
-                    method: "POST",
-                    data: {
-                        request_id: request_id
-                    },
-                    success: function(response) {
-                        $("#message").html(response);
-                        load_data(); // Reload data after deletion
-                    },
-                    error: function(response) {
-                        console.log("Failed");
-                    }
+                $.post("../init/controllers/delete_request.php", { request_id }, function (response) {
+                    $("#message").html(response);
+                }).fail(function () {
+                    console.error("Failed to delete request.");
                 });
             }
         });
-    }
 
-    // Load unseen notifications
-    function load_unseen_notification(view = '') {
-        $.ajax({
-            url: "../init/controllers/fetch.php",
-            method: "POST",
-            data: {
-                view: view
-            },
-            dataType: "json",
-            success: function(data) {
+        // Load unseen notifications
+        function loadUnseenNotifications(view = '') {
+            $.post("../init/controllers/fetch.php", { view }, function (data) {
                 $('.dropdown-menu_1').html(data.notification);
                 if (data.unseen_notification > 0) {
                     $('.count').html(data.unseen_notification);
                 }
-            }
+            }, 'json');
+        }
+
+        loadUnseenNotifications();
+        $('.dropdown-toggle').on('click', function () {
+            $('.count').html('');
+            loadUnseenNotifications('yes');
         });
-    }
 
-    // Initial load for unseen notifications
-    load_unseen_notification();
-
-    $(document).on('click', '.dropdown-toggle', function() {
-        $('.count').html(''); // Clear notification count
-        load_unseen_notification('yes'); // Load notifications
+        setInterval(loadUnseenNotifications, 4000);
     });
-
-    // ref_noresh notifications every 5 seconds
-    setInterval(function() {
-        load_unseen_notification();
-    }, 5000); // 5 seconds interval
-});
 </script>
 
-
 </body>
- 
 </html>
