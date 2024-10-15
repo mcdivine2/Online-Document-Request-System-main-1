@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $custodian_status = "Received";
     $dean_status = "Received";
     $library_status = "Received";
-    $accounting_status = "Received";
+    $accounting_status = "Waiting for Payment";
 
     // Input validation
     $errors = []; // Store validation errors

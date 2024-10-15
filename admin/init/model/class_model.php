@@ -327,8 +327,8 @@
 
 		  }
 
-		  public function fetchAll_processing(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Processing' ";
+		  public function fetchAll_verified(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE registrar_status = 'Verified' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -413,6 +413,20 @@
 		         return $data;
 
 		  }
+		  public function fetch_document_by_id($student_id, $request_id) {
+			$sql = "SELECT * FROM tbl_documentrequest WHERE student_id = ? AND request_id = ?";
+			$stmt = $this->conn->prepare($sql);
+			
+			if (!$stmt) {
+				die("SQL Error: " . $this->conn->error);
+			}
+		
+			$stmt->bind_param("ii", $student_id, $request_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			
+			return $result->fetch_assoc();  // Fetch a single row
+		}
 
 		  public function edit_payment($control_no, $total_amount, $amount_paid, $date_ofpayment, $proof_ofpayment, $status, $payment_id){
 			$sql = "UPDATE `tbl_payment` SET  `control_no` = ?, `total_amount` = ?, `amount_paid` = ?, `date_ofpayment` = ?, `proof_ofpayment` = ?, `status` = ?  WHERE payment_id = ?";
@@ -607,8 +621,8 @@
 
 		  }
 
-		  public function count_numberofprocessing(){ 
-            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE registrar_status = 'Processing'";
+		  public function count_numberofverified(){ 
+            $sql = "SELECT COUNT(request_id) as count_verified FROM tbl_documentrequest WHERE registrar_status = 'Verified'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

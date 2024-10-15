@@ -47,7 +47,7 @@
                                             <thead>
                                                 <tr>
                                                     <th scope="col">Control No.</th>
-                                                    <th scope="col">Studemt ID</th>
+                                                    <th scope="col">Student ID</th>
                                                     <th scope="col">Student Name</th>
                                                     <th scope="col">Document Name</th>
                                                     <th scope="col">Trace No.</th>
@@ -75,9 +75,8 @@
                                                     }
                                                     return $number;
                                                 } 
-                                                $student_id = $_SESSION['student_id'];
                                                 $conn = new class_model();
-                                                $payment = $conn->fetchAll_payments($student_id);
+                                                $payment = $conn->fetchAll_payments();
                                                ?>
                                                <?php foreach ($payment as $row) { ?>
                                                 <tr>

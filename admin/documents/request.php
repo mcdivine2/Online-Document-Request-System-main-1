@@ -49,6 +49,7 @@
                                         <th scope="col">Date Requested</th>
                                         <th scope="col">Control No.</th>
                                         <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
                                         <th scope="col">Document Name</th>
                                         <th scope="col">Mode Request</th>
                                         <th scope="col">Date Releasing</th>
@@ -67,6 +68,7 @@
                                             <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
                                             <td><?= $row['control_no']; ?></td>
                                             <td><?= $row['student_id']; ?></td>
+                                            <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
                                             <td><?= $row['document_name']; ?></td>
                                             <td><?= $row['mode_request']; ?></td>
                                             <td>
@@ -81,8 +83,8 @@
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
-                                                  if ($row['registrar_status'] === "Processing") {
-                                                      echo '<span class="badge bg-primary text-white">Processing</span>'; // Blue for pending
+                                                  if ($row['registrar_status'] === "Verified") {
+                                                      echo '<span class="badge bg-primary text-white">Verified</span>'; // Blue for pending
                                                   } else if ($row['registrar_status'] === "Received") {
                                                       echo '<span class="badge bg-info text-white">Received</span>'; // Light blue for received
                                                   } else if ($row['registrar_status'] === "Waiting for Payment") {

@@ -49,11 +49,13 @@
                                         <th scope="col">Date Requested</th>
                                         <th scope="col">Control No.</th>
                                         <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
                                         <th scope="col">Document Name</th>
                                         <th scope="col">Mode Request</th>
                                         <th scope="col">Date Releasing</th>
                                         <th scope="col">Processing Officer</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Clearance</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -64,9 +66,10 @@
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>
-                                            <td><?= date("M d, Y", strtotime($row['date_releasing'])); ?></td>
+                                            <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
                                             <td><?= $row['control_no']; ?></td>
                                             <td><?= $row['student_id']; ?></td>
+                                            <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
                                             <td><?= $row['document_name']; ?></td>
                                             <td><?= $row['mode_request']; ?></td>
                                             <td>
@@ -81,30 +84,38 @@
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
-                                                  if ($row['accounting_status'] === "Pending") {
+                                                  if ($row['registrar_status'] === "Pending") {
                                                       echo '<span class="badge bg-primary text-white">Pending</span>'; // Blue for pending
-                                                  } else if ($row['accounting_status'] === "Received") {
-                                                      echo '<span class="badge bg-info text-white">Received</span>'; // Light blue for received
-                                                  } else if ($row['accounting_status'] === "Waiting for Payment") {
+                                                  } else if ($row['registrar_status'] === "Received") {
+                                                    echo '<span class="badge bg-info text-white">Verified</span>'; // Light blue for received
+                                                  } else if ($row['registrar_status'] === "Waiting for Payment") {
                                                       echo '<span class="badge bg-warning text-dark">Waiting for Payment</span>'; // Yellow for waiting, dark text for contrast
-                                                  } else if ($row['accounting_status'] === "Verified") {
-                                                      echo '<span class="badge bg-success text-white">Verified</span>'; // Green for verified
-                                                  } else if ($row['accounting_status'] === "Declined") {
+                                                  } else if ($row['registrar_status'] === "Released") {
+                                                      echo '<span class="badge bg-success text-white">Released</span>'; // Green for verified
+                                                  } else if ($row['registrar_status'] === "Declined") {
                                                       echo '<span class="badge bg-danger text-white">Declined</span>'; // Red for declined
                                                   }
                                                 ?> 
                                             </td>
+                                            <!-- clearance -->
                                             <td class="align-right">
-                                            <?php if ($row['registrar_status'] !== "Released") { ?>
+                                                <div class="box">
+                                                    <div class="four">
+                                                    <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
+                                                        Clearance
+                                                    </a>
+                                                    </div> 
+                                                </div>
+                                            </td>
+                                            <td class="align-right">
                                                     <!-- Show the edit option only if the status is not Released -->
-                                                    <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" 
+                                                    <!-- <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" 
                                                     class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
                                                         <i class="fa fa-edit"></i>
                                                     </a> |
-                                                <?php } ?>
                                                 <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
                                                     <i class="fa fa-eye"></i>
-                                                </a> |
+                                                </a> | -->
                                                 <!-- <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Delete request">
                                                     <i class="fa fa-trash-alt"></i>
                                                 </a> | -->

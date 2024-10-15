@@ -68,6 +68,12 @@
                                                         <input data-parsley-type="alphanum" value="<?= $row['student_id']; ?>" name="student_id" type="text" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Student Name</label>
+                                                    <div class="col-12 col-sm-8 col-lg-6">
+                                                        <input data-parsley-type="alphanum" value="<?= $row['first_name']; ?> <?= $row['last_name']; ?>" name="student_id" type="text" required="" placeholder="" class="form-control" readonly>
+                                                    </div>
+                                                </div>
 
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Document Name</label>
@@ -115,13 +121,8 @@
                                                            <option value="<?= $row['status']; ?>" hidden><?= $row['status']; ?></option>
 
                                                            <option value="Received" >Pending Request</option>
-                                                           <option value="Processing" >Processing</option>
-
-                                                           <!-- <option value="Pending" >Pending</option> -->
-                                                           <!-- <option value="Waiting for Payment" >Waiting for Payment</option> -->
-
                                                            <option value="Declined">Declined</option>
-                                                           <option value="Releasing">Verified</option>
+                                                           <option value="Verified">Verified</option>
                                                            <option value="Released">Released</option>
                                                        </select>
                                                     </div>
