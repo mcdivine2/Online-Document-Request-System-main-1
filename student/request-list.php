@@ -50,15 +50,14 @@
                         <thead>
                             <tr>
                                 <th scope="col">Control No.</th>
+                                <th scope="col">Student ID</th>
                                 <th scope="col">Student Name</th>
                                 <th scope="col">Document Name</th>
-                                <th scope="col">Total total_amount</th>
                                 <th scope="col">Date Request</th>
                                 <th scope="col">Date Releasing</th>
                                 <th scope="col">Processing Officer</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Action</th>
-                                <th scope="col">Pay</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -70,9 +69,9 @@
                             <?php foreach ($docrequest as $row) { ?>
                                 <tr>
                                     <td><?= $row['control_no']; ?></td>
+                                    <td><?= $row['student_id']; ?></td>
                                     <td><?= $row['first_name'] .' '. $row['last_name']; ?></td>
                                     <td><?= $row['document_name']; ?></td>
-                                    <td><?= $row['price']; ?></td>
                                     <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
                                     <td>
                                         <?php 
@@ -86,12 +85,12 @@
                                     <td><?= $row['processing_officer']; ?></td>
                                     <td>
                                         <?php 
-                                            if ($row['registrar_status'] === "Pending") {
-                                                echo '<span class="badge bg-warning text-white">Pending</span>';
+                                            if ($row['registrar_status'] === "Released") {
+                                                echo '<span class="badge bg-success text-white">Released</span>';
                                             } elseif ($row['registrar_status'] === "Waiting for Payment") {
                                                 echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
                                             } elseif ($row['registrar_status'] === "Releasing") {
-                                                echo '<span class="badge bg-success text-white">Verified</span>';
+                                                echo '<span class="badge bg-success text-white">Processing</span>';
                                             } elseif ($row['registrar_status'] === "Received") {
                                                 echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                             } elseif ($row['registrar_status'] === "Declined") {
@@ -107,14 +106,6 @@
                                             View
                                             </a>
                                         </div>
-                                    </td>
-                                    <td>
-                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
-                                        data-control-no="<?= $row['control_no']; ?>"
-                                         data-document-name="<?= $row['document_name']; ?>"
-                                        data-total-amount="<?= $row['price']; ?>">
-                                        <i class="fa fa-credit-card"></i> Pay
-                                    </button>
                                     </td>
                                 </tr>
                             <?php } ?>

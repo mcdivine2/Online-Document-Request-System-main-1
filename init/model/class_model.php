@@ -219,7 +219,7 @@
 		  }
 
 		  public function fetchAll_processing($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Processing' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Verified' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -247,7 +247,7 @@
 		  }
 
 		  public function fetchAll_releaseddocument($student_id){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Releasing' ";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE `student_id` = ? AND registrar_status = 'Released' ";
 				$stmt = $this->conn->prepare($sql);
 			    $stmt->bind_param("i", $student_id); 
 				$stmt->execute();
@@ -378,8 +378,8 @@
 
 		  }
 
-		  public function processing_status($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_processing FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Processing'";
+		  public function count_verified($student_id){ 
+            $sql = "SELECT COUNT(request_id) as count_verified FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Verified'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();
@@ -393,7 +393,7 @@
 		  }
 
 		  public function count_numberofreleased($student_id){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE student_id = ? AND registrar_status = 'Released'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->bind_param("i", $student_id);
 				$stmt->execute();

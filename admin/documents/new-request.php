@@ -51,7 +51,6 @@
                                         <th scope="col">Student ID</th>
                                         <th scope="col">Document Name</th>
                                         <th scope="col">Mode Request</th>
-                                        <th scope="col">Date Releasing</th>
                                         <th scope="col">Processing Officer</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
@@ -64,20 +63,11 @@
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>
-                                            <td><?= date("M d, Y", strtotime($row['date_releasing'])); ?></td>
+                                            <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
                                             <td><?= $row['control_no']; ?></td>
                                             <td><?= $row['student_id']; ?></td>
                                             <td><?= $row['document_name']; ?></td>
                                             <td><?= $row['mode_request']; ?></td>
-                                            <td>
-                                                <?php 
-                                                    if ($row['date_releasing'] === "") {
-                                                        echo "";
-                                                    } else if ($row['date_releasing'] === $row['date_releasing']) {
-                                                        echo date("M d, Y", strtotime($row['date_releasing']));
-                                                    }
-                                                ?>
-                                            </td>
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
