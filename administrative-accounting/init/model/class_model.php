@@ -63,6 +63,7 @@
 		         return $data;
 
 		  }
+		  
 
 		public function add_course($course_name, $course_decription){
 	       $stmt = $this->conn->prepare("INSERT INTO `tbl_course` (course_name, course_decription) VALUES(?, ?)") or die($this->conn->error);

@@ -49,11 +49,13 @@
                                     <tr>
                                         <th scope="col">Control No.</th>
                                         <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
                                         <th scope="col">Document Name</th>
                                         <th scope="col">Date Request</th>
-                                        <th scope="col">Date Declined</th>
+                                        <th scope="col">Date Releasing</th>
                                         <th scope="col">Processing Officer</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Payment</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -61,11 +63,12 @@
                                     <?php 
                                     $student_id = $_SESSION['student_id'];
                                     $conn = new class_model();
-                                    $docrequest = $conn->fetchAll_declined($student_id);
+                                    $docrequest = $conn->fetchAll_documentrequest($student_id);
                                     foreach ($docrequest as $row) { ?>
                                         <tr>
                                             <td><?= $row['control_no']; ?></td>
                                             <td><?= $row['student_id']; ?></td>
+                                            <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
                                             <td><?= $row['document_name']; ?></td>
                                             <td><?= date("M d, Y", strtotime($row['date_request'])); ?></td>
                                             <td><?= !empty($row['date_releasing']) ? date("M d, Y", strtotime($row['date_releasing'])) : ""; ?></td>
@@ -75,12 +78,20 @@
                                                 $statusClasses = [
                                                     "Pending Request" => "bg-info",
                                                     "Processing" => "bg-danger",
-                                                    "Releasing" => "bg-success",
+                                                    "Released" => "bg-success",
                                                     "Received" => "bg-warning"
                                                 ];
                                                 echo '<span class="badge ' . ($statusClasses[$row['registrar_status']] ?? 'bg-secondary') . ' text-white">' . $row['registrar_status'] . '</span>'; 
                                                 ?> 
                                             </td>
+                                            <td>
+                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
+                                        data-control-no="<?= $row['control_no']; ?>"
+                                         data-document-name="<?= $row['document_name']; ?>"
+                                        data-total-amount="<?= $row['price']; ?>">
+                                        <i class="fa fa-credit-card"></i> Pay
+                                    </button>
+                                    </td>
                                             <td class="align-right">
                                                 <div class="box">
                                                     <div class="four">

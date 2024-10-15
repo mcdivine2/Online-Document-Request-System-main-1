@@ -57,11 +57,11 @@
                                         <th scope="col">Date Requested</th>
                                         <th scope="col">Control No.</th>
                                         <th scope="col">Student ID</th>
+                                        <th scope="col">Student Name</th>
                                         <th scope="col">Document Name</th>
-                                        <th scope="col">Mode Request</th>
-                                        <th scope="col">Date Releasing</th>
                                         <th scope="col">Processing Officer</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Clearance</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -75,17 +75,8 @@
                                             <td><?= date("M d, Y", strtotime($row['date_releasing'])); ?></td>
                                             <td><?= $row['control_no']; ?></td>
                                             <td><?= $row['student_id']; ?></td>
+                                            <td><?= $row['first_name']; ?> <?= $row['first_name']; ?></td>
                                             <td><?= $row['document_name']; ?></td>
-                                            <td><?= $row['mode_request']; ?></td>
-                                            <td>
-                                                <?php 
-                                                    if ($row['date_releasing'] === "") {
-                                                        echo "";
-                                                    } else if ($row['date_releasing'] === $row['date_releasing']) {
-                                                        echo date("M d, Y", strtotime($row['date_releasing']));
-                                                    }
-                                                ?>
-                                            </td>
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
                                                 <?php 
@@ -100,16 +91,20 @@
                                                     }
                                                 ?> 
                                             </td>
+                                            <!-- clearance -->
+                                            <td class="align-right">
+                                                <div class="box">
+                                                    <div class="four">
+                                                    <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
+                                                        Clearance
+                                                    </a>
+                                                    </div> 
+                                                </div>
+                                            </td>
                                             <td class="align-right">
                                                 <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
                                                     <i class="fa fa-edit"></i>
                                                 </a> |
-                                                <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
-                                                    <i class="fa fa-eye"></i>
-                                                </a> |
-                                                <!-- <a href="javascript:;" data-id="<?= $row['request_id']; ?>" class="text-secondary font-weight-bold text-xs delete" data-toggle="tooltip" data-original-title="Delete request">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </a> | -->
                                                 <a href="email-form-r.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Send email">
                                                     <i class="fa fa-envelope"></i>
                                                 </a>
