@@ -730,11 +730,21 @@ class class_model
 		}
 		return $data;
 	}
-	public function count_requests_per_course()
+	public function get_top_courses()
 	{
-		$query = "SELECT course, COUNT(*) as request_count FROM tbl_documentrequest GROUP BY course";
-		$result = $this->conn->query($query);
-		return $result->fetch_all(MYSQLI_ASSOC); // Assuming MySQLi is being used
+		$sql = "SELECT course, COUNT(*) as count_coursename 
+				  FROM tbl_documentrequest 
+				  GROUP BY course 
+				  ORDER BY count_coursename DESC 
+				  LIMIT 3";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
 	}
 }
 ?>

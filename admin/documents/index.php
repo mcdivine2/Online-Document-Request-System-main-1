@@ -265,18 +265,21 @@
                                            <div class="card">
                                                <?php
                                                 $conn = new class_model();
-                                                $requestData = $conn->count_groupbycourse(); // Fetching data from database
+                                                $requestData = $conn->count_groupbycourse(); // Fetching data from database for pie chart
+                                                $topCourses = $conn->get_top_courses(); // Fetching top 3 courses
 
-                                                if (empty($requestData)) {
+                                                if (empty($requestData) && empty($topCourses)) {
                                                     echo "<p>No requests found.</p>";
                                                 } else {
                                                 ?>
                                                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
                                                    <script type="text/javascript">
                                                        google.charts.load('current', {
                                                            'packages': ['corechart']
                                                        });
                                                        google.charts.setOnLoadCallback(drawChart);
+                                                       google.charts.setOnLoadCallback(drawColumnChart);
 
                                                        function drawChart() {
                                                            var data = google.visualization.arrayToDataTable([
@@ -297,11 +300,43 @@
                                                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
                                                            chart.draw(data, options);
                                                        }
+
+                                                       function drawColumnChart() {
+                                                           var data = google.visualization.arrayToDataTable([
+                                                               ['Course', 'Requests'],
+                                                               <?php
+                                                                // Assuming $topCourses is an array containing the top 3 courses and their request counts
+                                                                foreach ($topCourses as $row) {
+                                                                    echo "['" . addslashes($row['course']) . "', " . $row['count_coursename'] . "],";
+                                                                }
+                                                                ?>
+                                                           ]);
+
+                                                           var options = {
+                                                               title: 'Top 3 Most Frequently Requested Courses',
+                                                               hAxis: {
+                                                                   title: 'Courses',
+                                                               },
+                                                               vAxis: {
+                                                                   title: 'Number of Requests',
+                                                               },
+                                                               series: {
+                                                                   0: {
+                                                                       color: '#1b9e77'
+                                                                   },
+                                                               }
+                                                           };
+
+                                                           var chart = new google.visualization.ColumnChart(document.getElementById('columnchart'));
+                                                           chart.draw(data, options);
+                                                       }
                                                    </script>
 
                                                    <div id="piechart" style="width: 500px; height: 500px;"></div>
+                                                   <div id="columnchart" style="width: 800px; height: 500px;"></div>
                                                <?php } ?>
                                            </div>
+
                                        </div>
                                    </div>
                                </div>
