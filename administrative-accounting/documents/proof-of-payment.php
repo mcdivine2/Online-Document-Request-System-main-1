@@ -162,7 +162,7 @@
             
         </div>
     
-        !-- Payment Information Modal -->
+       <!-- Payment Information Modal -->
 <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
