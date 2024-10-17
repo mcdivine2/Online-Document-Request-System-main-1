@@ -124,6 +124,7 @@ class class_model
 			$this->conn->close();
 			return true;
 		}
+
 	}
 
 	public function fetchAll_student()
@@ -162,6 +163,30 @@ class class_model
 		$data = array();
 		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
+
+
+		public function edit_document($document_name, $description, $daysto_process, $price, $document_id) {
+			$sql = "UPDATE `tbl_document` SET `document_name` = ?, `description` = ?, `daysto_process` = ?, `price` = ? WHERE document_id = ?";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bind_param("ssssi", $document_name, $description, $daysto_process, $price, $document_id);
+			if($stmt->execute()) {
+				$stmt->close();
+				$this->conn->close();
+				return true;
+			} else {
+				return false; // Return false if execution fails
+			}
+		}
+
+		public function delete_course($course_id){
+			$sql = "DELETE FROM tbl_course WHERE course_id = ?";
+			 $stmt = $this->conn->prepare($sql);
+			$stmt->bind_param("i", $course_id);
+			if($stmt->execute()){
+				$stmt->close();
+				$this->conn->close();
+				return true;
+			}
 		}
 		return $data;
 	}

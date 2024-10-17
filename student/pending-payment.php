@@ -102,11 +102,11 @@
                                     </td>
                                     <td>
                                     <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal" 
-    data-control-no="<?= $row['control_no']; ?>"
-    data-document-name="<?= $row['document_name']; ?>"
-    data-total-amount="<?= $row['price']; ?>">
-    <i class="fa fa-credit-card"></i> Pay
-</button>
+                                        data-control-no="<?= $row['control_no']; ?>"
+                                        data-document-name="<?= $row['document_name']; ?>"
+                                        data-total-amount="<?= $row['price']; ?>">
+                                        <i class="fa fa-credit-card"></i> Pay
+                                    </button>
 
                                     </td>
                                 </tr>

@@ -49,26 +49,6 @@
                 </div>
             </div>
 
-            <!-- Processing -->
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <?php 
-                        $cstudent = $conn->count_verified($student_id); 
-                        foreach ($cstudent as $row): ?>
-                            <div class="d-inline-block">
-                                <h5 class="text-muted">Processing</h5>
-                                <h2 class="mb-0"><?= $row['count_verified']; ?></h2>
-                            </div>
-                            <div class="float-right icon-circle-medium icon-box-lg mt-1" style="background-color:#1269AF">
-                                <i class="fa fa-clock fa-fw fa-sm text-info" style="color: white;"></i>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <a href="processing.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
-                </div>
-            </div>
-
             <!-- Waiting for Payment -->
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
@@ -86,24 +66,6 @@
                         <?php endforeach; ?>
                     </div>
                     <a href="pending-payment.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
-                </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <?php 
-                        $cstudent = $conn->count_numberoftotalreceived($student_id); 
-                        foreach ($cstudent as $row): ?>
-                            <div class="d-inline-block">
-                                <h5 class="text-muted">All Request</h5>
-                                <h2 class="mb-0"><?= $row['count_received']; ?></h2>
-                            </div>
-                            <div class="float-right icon-circle-medium icon-box-lg mt-1" style="background-color:#1269AF">
-                                <i class="fa fa-calendar-check fa-fw fa-sm text-info" style="color: white;"></i>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
-                    <a href="allrequest.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
                 </div>
             </div>
 
