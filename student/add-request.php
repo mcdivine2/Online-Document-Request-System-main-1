@@ -1,531 +1,600 @@
-<?php include('main_header/header.php');?>
+<?php include('main_header/header.php'); ?>
+<!-- ============================================================== -->
+<!-- end navbar -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- left sidebar -->
+<!-- ============================================================== -->
+<?php include('left_sidebar/sidebar.php'); ?>
+<!-- ============================================================== -->
+<!-- end left sidebar -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- wrapper  -->
+<!-- ============================================================== -->
+<div class="dashboard-wrapper">
+    <div class="container-fluid  dashboard-content">
         <!-- ============================================================== -->
-        <!-- end navbar -->
+        <!-- pageheader -->
         <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- left sidebar -->
-        <!-- ============================================================== -->
-         <?php include('left_sidebar/sidebar.php');?>
-        <!-- ============================================================== -->
-        <!-- end left sidebar -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- wrapper  -->
-        <!-- ============================================================== -->
-        <div class="dashboard-wrapper">
-            <div class="container-fluid  dashboard-content">
-               <!-- ============================================================== -->
-                <!-- pageheader -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                             <h2 class="pageheader-title"><i class="fa fa-fw fa-file"></i> Add Request </h2>
-                            <div class="page-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Request</li>
-                                    </ol>
-                                </nav>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title"><i class="fa fa-fw fa-file"></i> Add Request </h2>
+                    <div class="page-breadcrumb">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Dashboard</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Request</li>
+                            </ol>
+                        </nav>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- end pageheader -->
-                <!-- ============================================================== -->
-                 <!-- CSS for Layout -->
-<style>
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    .section-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #1269AF;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
-
-    .card-body {
-        padding: 20px;
-    }
-
-    .form-control {
-        padding: 5px;
-        font-size: 14px;
-    }
-
-    .btn-primary {
-        background-color: #1269AF;
-        border-color: #1269AF;
-        color: white;
-    }
-
-    .row {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .row > .col-md-6 {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-
-    .text-right {
-        text-align: right;
-    }
-
-    .form-check-input {
-    display: inline-block !important;
-    visibility: visible !important;
-}
-</style>
-
-<div class="row justify-content-center">
-    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
-        <div class="card influencer-profile-data">
-            <div class="card-body">
-                <div id="message"></div>
-                <form id="validationform" name="docu_forms" data-parsley-validate="" novalidate="" method="POST">
-                    
-                    <!-- Applicant's Information Section -->
-                    <div class="form-group">
-                        <h4 class="section-title">Applicant's Information</h4>
-                        <div class="row">
-                            <div class="col-md-4">
-                                
-                            <?php
-                                $conn = new class_model();
-                                $getstudno = $conn->student_profile($student_id);
-                            ?>
-                                <label>Firstname</label>
-                                <input type="text" name="first_name" value="<?= $getstudno['first_name']; ?>" class="form-control" readonly>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Maiden Name</label>
-                                <input type="text" name="middle_name" value="<?= $getstudno['middle_name']; ?>" class="form-control" readonly>
-                            </div>
-                            <div class="col-md-4">
-                                <label>Lastname</label>
-                                <input type="text" name="last_name" value="<?= $getstudno['last_name']; ?>" class="form-control" readonly>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <label>Address</label>
-                                <input type="text" name="complete_address" value="<?= $getstudno['complete_address']; ?>" class="form-control" readonly>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Birthdate</label>
-                                <input type="text" name="birthdate" class="form-control" placeholder="dd/mm/yyyy">
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <label>Course</label>
-                                <select data-parsley-type="alphanum" type="text" id="course" required="" placeholder="" class="form-control">
-                                    <?php 
-                                        $conn = new class_model();  
-                                        $course = $conn->fetchAll_course();
-                                    ?>
-                                    <option value="">&larr;Select Course &rarr;</option>
-                                    <?php foreach ($course as $row) { ?>
-                                        <option value="<?= $row['course_name']; ?>"><?= $row['course_name']; ?></option>
-                                    <?php } ?>
-                                 </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Email Address</label>
-                                <input type="email" name="email_address" value="<?= $getstudno['email_address']; ?>" class="form-control" placeholder="">
-                            </div>
-                        </div>
-
-                        <!-- Control Number Section -->
-                          <?php 
-                        function createRandomcnumber() {
-                            $chars = "003232303232023232023456789";
-                            srand((double)microtime()*1000000);
-                            $i = 0;
-                            $control = '';
-                            while ($i <= 3) {
-                                $num = rand() % 33;
-                                $tmp = substr($chars, $num, 1);
-                                $control = $control . $tmp;
-                                $i++;
-                            }
-                            return $control;
-                        }
-                        $cNumber ='CTRL-'.createRandomcnumber();
-                        ?>
-                        <div class="row mt-2">
-                        <input type="hidden" value="<?= $cNumber . '' . $_SESSION['student_id']; ?>" name="control_no" class="form-control" readonly>
-                            <div class="col-md-3">
-                                <label>Date Request:</label>
-                                <input type="text" name="date_request" class="form-control" value="<?= date('M d Y'); ?>" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Request For Section -->
-                    <div class="form-group mt-4">
-                        <h4 class="section-title">Request For</h4>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Select Document</label>
-                                <br>
-                                <?php
-// Fetch all documents from the database
-$conn = new class_model();
-$doc = $conn->fetchAll_document(); 
-if ($doc && count($doc) > 0) {
-    foreach ($doc as $index => $document) {
-        // Check if the document is "Certification"
-        if ($document['document_name'] === 'Certification') {
-            // Specific rendering for the Certification document
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input document-checkbox" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" data-price="' . $document['price'] . '">';
-            echo '<label class="form-check-label">' . $document['document_name'] . ' (₱' . $document['price'] . ')</label>';
-            
-            // Render the specific Certification options
-            echo '<div id="certification_options_' . ($index + 1) . '" class="mt-2" style="display:none;">';
-            echo '<div class="form-group">';
-
-            // Option for "Units Earned" with additional input field
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="radio" name="certification_type' . ($index + 1) . '" id="certification_type1_' . ($index + 1) . '" value="Units Earned">';
-            echo '<label class="form-check-label" for="certification_type1_' . ($index + 1) . '">Units Earned</label>';
-            echo '<input type="text" name="units_earned" id="units_earned_' . ($index + 1) . '" class="form-control mt-2" placeholder="Enter Units Earned" style="display:none;">'; // Text input for Units Earned
-            echo '</div>';
-
-            // Option for "As Graduate" with additional input field
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="radio" name="certification_type' . ($index + 1) . '" id="certification_type2_' . ($index + 1) . '" value="As Graduate">';
-            echo '<label class="form-check-label" for="certification_type2_' . ($index + 1) . '">As Graduate</label>';
-            echo '<input type="text" name="graduate_details" id="graduate_details_' . ($index + 1) . '" class="form-control mt-2" placeholder="Enter Graduation Details" style="display:none;">'; // Text input for As Graduate
-            echo '</div>';
-
-            // Option for "Other" with additional input field
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input" type="radio" name="certification_type' . ($index + 1) . '" id="certification_type3_' . ($index + 1) . '" value="Other">';
-            echo '<label class="form-check-label" for="certification_type3_' . ($index + 1) . '">Other (Please Specify)</label>';
-            echo '<input type="text" name="other_certification" id="other_certification_' . ($index + 1) . '" class="form-control mt-2" placeholder="Please Specify" style="display:none;">';
-            echo '</div>';
-
-            echo '</div>';
-            echo '</div>'; // Close certification_options div
-            
-            echo '</div>'; // Close form-check div
-        } else {
-            // Render all other documents as before
-            echo '<div class="form-check">';
-            echo '<input class="form-check-input document-checkbox" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" data-price="' . $document['price'] . '">';
-            echo '<label class="form-check-label">' . $document['document_name'] . ' (₱' . $document['price'] . ')</label>';
-            
-            // Hidden quantity input associated with the document
-            echo '<div id="quantity' . ($index + 1) . '" class="mt-2" style="display:none;">';
-            
-            // Input for the number of copies and request type (as before)
-            echo '<div class="d-flex align-items-center">';
-            echo '<label for="no_ofcopies' . ($index + 1) . '" class="mr-2">Copies:</label>';
-            echo '<input type="number" name="no_ofcopies[]" value="1" class="form-control no-of-copies" min="1" id="no_ofcopies' . ($index + 1) . '" style="width: 80px;">';
-            
-            // Radio buttons for request type
-            echo '<div class="form-check col-md-6 ml-3">';
-            echo '<input class="form-check-input" type="radio" name="request_type' . ($index + 1) . '" id="request_type1_' . ($index + 1) . '" value="1st request" checked>';
-            echo '<label class="form-check-label" for="request_type1_' . ($index + 1) . '">1st Request</label>';
-            echo '</div>';
-            
-            echo '<div class="form-check col-md-7 ml-3">';
-            echo '<input class="form-check-input" type="radio" name="request_type' . ($index + 1) . '" id="request_type2_' . ($index + 1) . '" value="re-issuance">';
-            echo '<label class="form-check-label" for="request_type2_' . ($index + 1) . '">Re-Issuance</label>';
-            echo '</div>';
-            
-            echo '</div>';
-            echo '</div>';
-            echo '</div>'; // Close form-check div
-        }
-    }
-} else {
-    echo "No documents found.";
-}
-?>
-
-
-
-
-                            </div>
-                        </div>
-
-                        <!-- Request Date and Mode -->
-                        <div class="row mt-3">
-                            <div class="col-md-3">
-                                <label>Mode:</label>
-                                <select name="mode_request" id="mode_request" class="form-control" required>
-                                    <option value="">&larr; Select Mode &rarr;</option>
-                                    <option value="Pick Up">Pick-Up</option>
-                                    <option value="Delivery">Delivery</option>
-                                </select>
-                                <label id="deliveryFeeSection" style="display:none;">Delivery Fee: ₱50</label>
-                                <p id="deliveryFee" class="form-control-static"></p>
-                            </div>
-                            
-                            <div class="col-md-3">
-                                <label>Total Amount:</label>
-                                <input type="text" name="price" id="totalAmount" class="form-control" placeholder="₱0" value="" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                   <!-- Purpose Section -->
-                   <div class="form-group mt-4">
-                        <h4 class="section-title">Purpose</h4>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Select Purpose</label><br>
-                                <input type="checkbox" name="purpose[]" value="Evaluation"> Evaluation <br>
-                                <input type="checkbox" name="purpose[]" value="Employment"> Employment <br>
-                                <input type="checkbox" id="otherPurposeCheckbox" value="Other"> Other (specify) <br>
-                            </div>
-                        </div>
-                        <!-- Hidden input for "Other" -->
-                        <div class="col-lg-5">
-                        <input type="text" id="otherPurposeInput" name="purpose[]" placeholder="Enter purpose" style="display:none;">
-                        </div>
-                    </div>
-
-                    <!-- Submission Section -->
-                    <div class="form-group mt-4 text-right">
-                        <input type="hidden" name="student_id" value="<?= $_SESSION['student_id']; ?>" class="form-control">
-                        <button type="button" id="submitForm" class="btn btn-primary btn-block">Submit</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
-</div>
-
-
-<!-- Payment Details Modal (add this at the bottom of your main PHP file) -->
-<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Payment Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p><strong>Student Name: </strong> <span id="modalStudentName"></span></p>
-        <p><strong>Control No.: </strong> <span id="modalControlNo"></span></p>
-        <p><strong>Document Name: </strong> <span id="modalDocumentName"></span></p>
-        <p><strong>Mode: </strong> <span id="modalMode"></span></p>
-        <p><strong>Total Amount: </strong> <span id="modalTotalAmount"></span></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" id="confirmSubmit" class="btn btn-primary">Confirm</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-    <!-- ============================================================== -->
-    <!-- end main wrapper -->
-    <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
-    <script src="../asset/libs/js/main-js.js"></script>
-    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
-    <script src="../asset/vendor/datatables/js/data-table.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-          var firstName = $('#firstName').text();
-          var lastName = $('#lastName').text();
-          var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
-          var profileImage = $('#profileImage').text(intials);
-        });
-    </script>
-
-<script>
-$(document).ready(function () {
-    let formData = null;
-    const deliveryFee = 50;
-
-    // Toggle visibility of quantity input and recalculate total
-    $('input[name="document_name[]"]').change(function () {
-        const qtyDiv = `#quantity${this.id.replace('document_name', '')}`;
-        $(qtyDiv).toggle(this.checked).find('input').val(this.checked ? 1 : '');
-
-        // Check if the selected document is "Certification"
-        if ($(this).val() === 'Certification') {
-            const certOptionsDiv = `#certification_options_${this.id.replace('document_name', '')}`;
-            $(certOptionsDiv).toggle(this.checked);  // Show/Hide certification options
-
-            // If unchecked, reset the certification options
-            if (!this.checked) {
-                $(`#certification_options_${this.id.replace('document_name', '')} input[type="radio"]`).prop('checked', false);
-                $(`#units_earned_${this.id.replace('document_name', '')}`).hide().val('');
-                $(`#graduate_details_${this.id.replace('document_name', '')}`).hide().val('');
-                $(`#other_certification_${this.id.replace('document_name', '')}`).hide().val('');
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+        <!-- CSS for Layout -->
+        <style>
+            .form-group {
+                margin-bottom: 20px;
             }
-        }
 
-        calculateTotal();
-    });
-
-    // Show/Hide text inputs for certification options based on selected radio button
-    $('input[type="radio"]').change(function () {
-        const id = $(this).attr('id');
-        const index = id.split('_').pop(); // Extract the index from the radio button's ID
-
-        // Hide all certification-specific inputs initially
-        $(`#units_earned_${index}`).hide().val('');
-        $(`#graduate_details_${index}`).hide().val('');
-        $(`#other_certification_${index}`).hide().val('');
-
-        // Show the relevant input based on the selected option
-        if ($(this).val() === 'Units Earned') {
-            $(`#units_earned_${index}`).show(); // Show Units Earned field
-        } else if ($(this).val() === 'As Graduate') {
-            $(`#graduate_details_${index}`).show(); // Show As Graduate field
-        } else if ($(this).val() === 'Other') {
-            $(`#other_certification_${index}`).show(); // Show Other (Please Specify) field
-        }
-    });
-
-    // Toggle other purpose input visibility
-    $('#otherPurposeCheckbox').change(function () {
-        $('#otherPurposeInput').toggle(this.checked).val('');
-    });
-
-    // Show/hide delivery fee section and recalculate total
-    $('#mode_request').change(function () {
-        $('#deliveryFeeSection').toggle($(this).val() === 'Delivery');
-        calculateTotal();
-    });
-
-    // Calculate total amount
-    function calculateTotal() {
-        let total = $('input[name="document_name[]"]:checked').get().reduce((sum, doc) => {
-            const copies = +$(doc).closest('.form-check').find('input[name="no_ofcopies[]"]').val() || 1;
-            return sum + parseFloat($(doc).data('price')) * copies;
-        }, 0);
-
-        if ($('#mode_request').val() === 'Delivery') total += deliveryFee;
-        $('input[name="price"]').val(total.toFixed(2));
-        return total;
-    }
-
-    // Form submission logic
-    $('#submitForm').click(function (e) {
-        e.preventDefault();
-        formData = new FormData($('form[name="docu_forms"]')[0]);
-
-        const selectedDocs = $('input[name="document_name[]"]:checked');
-        if (!selectedDocs.length) return showError('Please select at least one document.');
-        if (!$('#course').val()) return showError('Please select a course.');
-
-        formData.delete('document_name[]');
-        formData.delete('no_ofcopies[]');
-        selectedDocs.each(function () {
-            formData.append('document_name[]', this.value);
-            const copies = $(this).closest('.form-check').find('input[name="no_ofcopies[]"]').val() || 1;
-            formData.append('no_ofcopies[]', copies);
-
-            // Collect additional certification info if selected
-            if (this.value === 'Certification') {
-                const index = this.id.replace('document_name', '');
-                const selectedCertType = $(`input[name="certification_type${index}"]:checked`).val();
-
-                if (selectedCertType === 'Units Earned') {
-                    formData.append('units_earned', $(`#units_earned_${index}`).val());
-                } else if (selectedCertType === 'As Graduate') {
-                    formData.append('graduate_details', $(`#graduate_details_${index}`).val());
-                } else if (selectedCertType === 'Other') {
-                    formData.append('other_certification', $(`#other_certification_${index}`).val());
-                }
+            .section-title {
+                font-size: 16px;
+                font-weight: bold;
+                color: #1269AF;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
             }
-        });
 
-        const total = calculateTotal();
-        formData.append('price', total);
-        formData.append('course', $('#course').val());
+            .card-body {
+                padding: 20px;
+            }
 
-        // Populate and show the modal
-        $('#modalStudentName').text(`${getField('first_name')} ${getField('middle_name')} ${getField('last_name')}`);
-        $('#modalControlNo').text(getField('control_no'));
-        $('#modalDocumentName').text(selectedDocs.map((i, el) => el.value).get().join(', '));
-        $('#modalMode').text($('#mode_request').val());
-        $('#modalTotalAmount').text(`₱${total.toFixed(2)}`);
-        $('#paymentModal').modal('show');
-    });
+            .form-control {
+                padding: 5px;
+                font-size: 14px;
+            }
 
-    $('#confirmSubmit').click(function () {
-        if (formData) {
-            $.ajax({
-                url: '../init/controllers/add_request.php',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success(response) {
-                    $('#message').html(response);
-                    $('#paymentModal').modal('hide');
-                    window.scrollTo(0, 0);
-                },
-                error() {
-                    console.error('Failed to submit the form.');
+            .btn-primary {
+                background-color: #1269AF;
+                border-color: #1269AF;
+                color: white;
+            }
+
+            .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .row>.col-md-6 {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+
+            .text-right {
+                text-align: right;
+            }
+
+            .form-check-input {
+                display: inline-block !important;
+                visibility: visible !important;
+            }
+        </style>
+
+        <div class="row justify-content-center">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12">
+                <div class="card influencer-profile-data">
+                    <div class="card-body">
+                        <div id="message"></div>
+                        <form id="validationform" name="docu_forms" data-parsley-validate="" novalidate="" method="POST">
+
+                            <!-- Applicant's Information Section -->
+                            <div class="form-group">
+                                <h4 class="section-title">Applicant's Information</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+
+                                        <?php
+                                        $conn = new class_model();
+                                        $getstudno = $conn->student_profile($student_id);
+                                        ?>
+                                        <label>Firstname</label>
+                                        <input type="text" name="first_name" value="<?= $getstudno['first_name']; ?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Maiden Name</label>
+                                        <input type="text" name="middle_name" value="<?= $getstudno['middle_name']; ?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Lastname</label>
+                                        <input type="text" name="last_name" value="<?= $getstudno['last_name']; ?>" class="form-control" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <label>Address</label>
+                                        <input type="text" name="complete_address" value="<?= $getstudno['complete_address']; ?>" class="form-control" readonly>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Birthdate</label>
+                                        <input type="text" name="birthdate" class="form-control" placeholder="dd/mm/yyyy">
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-md-6">
+                                        <label>Course</label>
+                                        <select data-parsley-type="alphanum" type="text" id="course" required="" placeholder="" class="form-control">
+                                            <?php
+                                            $conn = new class_model();
+                                            $course = $conn->fetchAll_course();
+                                            ?>
+                                            <option value="">&larr;Select Course &rarr;</option>
+                                            <?php foreach ($course as $row) { ?>
+                                                <option value="<?= $row['course_name']; ?>"><?= $row['course_name']; ?></option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Email Address</label>
+                                        <input type="email" name="email_address" value="<?= $getstudno['email_address']; ?>" class="form-control" placeholder="">
+                                    </div>
+                                </div>
+
+                                <!-- Control Number Section -->
+                                <?php
+                                function createRandomcnumber()
+                                {
+                                    $chars = "003232303232023232023456789";
+                                    srand((float)microtime() * 1000000);
+                                    $i = 0;
+                                    $control = '';
+                                    while ($i <= 3) {
+                                        $num = rand() % 33;
+                                        $tmp = substr($chars, $num, 1);
+                                        $control = $control . $tmp;
+                                        $i++;
+                                    }
+                                    return $control;
+                                }
+                                $cNumber = 'CTRL-' . createRandomcnumber();
+                                ?>
+                                <div class="row mt-2">
+                                    <input type="hidden" value="<?= $cNumber . '' . $_SESSION['student_id']; ?>" name="control_no" class="form-control" readonly>
+                                    <div class="col-md-3">
+                                        <label>Date Request:</label>
+                                        <input type="text" name="date_request" class="form-control" value="<?= date('M d Y'); ?>" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Request For Section -->
+                            <div class="form-group mt-4">
+                                <h4 class="section-title">Request For</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Select Document</label>
+                                        <br>
+                                        <?php
+                                        // Fetch all documents from the database
+                                        $conn = new class_model();
+                                        $doc = $conn->fetchAll_document();
+                                        if ($doc && count($doc) > 0) {
+                                            foreach ($doc as $index => $document) {
+                                                // Check if the document is "Certification"
+                                                if ($document['document_name'] === 'Certification') {
+                                                    // Specific rendering for the Certification document
+                                                    echo '<div class="form-check">';
+                                                    echo '<input class="form-check-input document-checkbox" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" data-price="' . $document['price'] . '">';
+                                                    echo '<label class="form-check-label">' . $document['document_name'] . ' (₱' . $document['price'] . ')</label>';
+
+                                                    // Render the specific Certification options
+                                                    echo '<div id="certification_options_' . ($index + 1) . '" class="mt-2" style="display:none;">';
+                                                    echo '<div class="form-group">';
+
+                                                    // Option for "Units Earned" with additional input field
+                                                    echo '<div class="form-check">';
+                                                    echo '<input class="form-check-input" type="radio" name="certification_type' . ($index + 1) . '" id="certification_type1_' . ($index + 1) . '" value="Units Earned">';
+                                                    echo '<label class="form-check-label" for="certification_type1_' . ($index + 1) . '">Units Earned</label>';
+                                                    echo '<input type="text" name="units_earned" id="units_earned_' . ($index + 1) . '" class="form-control mt-2" placeholder="Enter Units Earned" style="display:none;">'; // Text input for Units Earned
+                                                    echo '</div>';
+
+                                                    // Option for "As Graduate" with additional input field
+                                                    echo '<div class="form-check">';
+                                                    echo '<input class="form-check-input" type="radio" name="certification_type' . ($index + 1) . '" id="certification_type2_' . ($index + 1) . '" value="As Graduate">';
+                                                    echo '<label class="form-check-label" for="certification_type2_' . ($index + 1) . '">As Graduate</label>';
+                                                    echo '<input type="text" name="graduate_details" id="graduate_details_' . ($index + 1) . '" class="form-control mt-2" placeholder="Enter Graduation Details" style="display:none;">'; // Text input for As Graduate
+                                                    echo '</div>';
+
+                                                    // Option for "Other" with additional input field
+                                                    echo '<div class="form-check">';
+                                                    echo '<input class="form-check-input" type="radio" name="certification_type' . ($index + 1) . '" id="certification_type3_' . ($index + 1) . '" value="Other">';
+                                                    echo '<label class="form-check-label" for="certification_type3_' . ($index + 1) . '">Other (Please Specify)</label>';
+                                                    echo '<input type="text" name="other_certification" id="other_certification_' . ($index + 1) . '" class="form-control mt-2" placeholder="Please Specify" style="display:none;">';
+                                                    echo '</div>';
+
+                                                    echo '</div>';
+                                                    echo '</div>'; // Close certification_options div
+
+                                                    echo '</div>'; // Close form-check div
+                                                } else {
+                                                    // Render all other documents as before
+                                                    echo '<div class="form-check">';
+                                                    echo '<input class="form-check-input document-checkbox" type="checkbox" name="document_name[]" id="document_name' . ($index + 1) . '" value="' . $document['document_name'] . '" data-price="' . $document['price'] . '">';
+                                                    echo '<label class="form-check-label">' . $document['document_name'] . ' (₱' . $document['price'] . ')</label>';
+
+                                                    // Hidden quantity input associated with the document
+                                                    echo '<div id="quantity' . ($index + 1) . '" class="mt-2" style="display:none;">';
+
+                                                    // Input for the number of copies and request type (as before)
+                                                    echo '<div class="d-flex align-items-center">';
+                                                    echo '<label for="no_ofcopies' . ($index + 1) . '" class="mr-2">Copies:</label>';
+                                                    echo '<input type="number" name="no_ofcopies[]" value="1" class="form-control no-of-copies" min="1" id="no_ofcopies' . ($index + 1) . '" style="width: 80px;">';
+
+                                                    // Radio buttons for request type
+                                                    echo '<div class="form-check col-md-6 ml-3">';
+                                                    echo '<input class="form-check-input" type="radio" name="request_type' . ($index + 1) . '" id="request_type1_' . ($index + 1) . '" value="1st request" checked>';
+                                                    echo '<label class="form-check-label" for="request_type1_' . ($index + 1) . '">1st Request</label>';
+                                                    echo '</div>';
+
+                                                    echo '<div class="form-check col-md-7 ml-3">';
+                                                    echo '<input class="form-check-input" type="radio" name="request_type' . ($index + 1) . '" id="request_type2_' . ($index + 1) . '" value="re-issuance">';
+                                                    echo '<label class="form-check-label" for="request_type2_' . ($index + 1) . '">Re-Issuance</label>';
+                                                    echo '</div>';
+
+                                                    echo '</div>';
+                                                    echo '</div>';
+                                                    echo '</div>'; // Close form-check div
+                                                }
+                                            }
+                                        } else {
+                                            echo "No documents found.";
+                                        }
+                                        ?>
+
+
+
+
+                                    </div>
+                                </div>
+
+                                <!-- Request Date and Mode -->
+                                <div class="row mt-3">
+                                    <div class="col-md-3">
+                                        <label>Mode:</label>
+                                        <select name="mode_request" id="mode_request" class="form-control" required>
+                                            <option value="">&larr; Select Mode &rarr;</option>
+                                            <option value="Pick Up">Pick-Up</option>
+                                            <option value="Delivery">Delivery</option>
+                                        </select>
+                                        <label id="deliveryFeeSection" style="display:none;">Delivery Fee: ₱50</label>
+                                        <p id="deliveryFee" class="form-control-static"></p>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label>Total Amount:</label>
+                                        <input type="text" name="price" id="totalAmount" class="form-control" placeholder="₱0" value="" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Purpose Section -->
+                            <div class="form-group mt-4">
+                                <h4 class="section-title">Purpose</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Select Purpose</label><br>
+                                        <input type="checkbox" name="purpose[]" value="Evaluation"> Evaluation <br>
+                                        <input type="checkbox" name="purpose[]" value="Employment"> Employment <br>
+                                        <input type="checkbox" id="otherPurposeCheckbox" value="Other"> Other (specify) <br>
+                                    </div>
+                                </div>
+                                <!-- Hidden input for "Other" -->
+                                <div class="col-lg-5">
+                                    <input type="text" id="otherPurposeInput" name="purpose[]" placeholder="Enter purpose" style="display:none;">
+                                </div>
+                            </div>
+
+                            <!-- Submission Section -->
+                            <div class="form-group mt-4 text-right">
+                                <input type="hidden" name="student_id" value="<?= $_SESSION['student_id']; ?>" class="form-control">
+                                <button type="button" id="submitForm" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Payment Details Modal (add this at the bottom of your main PHP file) -->
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Payment Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p><strong>Student Name: </strong> <span id="modalStudentName"></span></p>
+                        <p><strong>Control No.: </strong> <span id="modalControlNo"></span></p>
+                        <p><strong>Document Name: </strong> <span id="modalDocumentName"></span></p>
+                        <p><strong>Mode: </strong> <span id="modalMode"></span></p>
+                        <p><strong>Total Amount: </strong> <span id="modalTotalAmount"></span></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="confirmSubmit" class="btn btn-primary">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                // Initialize an empty response message
+                $response = '';
+
+                // Collect and sanitize the incoming data
+                $student_name = filter_input(INPUT_POST, 'student_name', FILTER_SANITIZE_STRING);
+                $control_no = filter_input(INPUT_POST, 'control_no', FILTER_SANITIZE_STRING);
+                $course = filter_input(INPUT_POST, 'course', FILTER_SANITIZE_STRING);
+                $mode_request = filter_input(INPUT_POST, 'mode_request', FILTER_SANITIZE_STRING);
+                $price = filter_input(INPUT_POST, 'price', FILTER_VALIDATE_FLOAT);
+                $delivery_fee = ($mode_request === 'Delivery') ? 50 : 0;
+
+                // Arrays from the form (for multiple documents)
+                $document_names = $_POST['document_name'] ?? [];
+                $no_of_copies = $_POST['no_ofcopies'] ?? [];
+
+                // Prepare the SQL for inserting document requests
+                $stmt = $conn->prepare(
+                    "INSERT INTO tbl_documentrequest (
+                        student_name, control_no, course, mode_request, document_name, 
+                        no_ofcopies, price, delivery_fee, date_requested
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())"
+                );
+
+                // Loop through the selected documents and save each
+                foreach ($document_names as $index => $document_name) {
+                    $no_of_copy = intval($no_of_copies[$index] ?? 1); // Default to 1 copy if not set
+
+                    // Bind parameters to the SQL query
+                    $stmt->bind_param(
+                        'sssssiid',
+                        $student_name,
+                        $control_no,
+                        $course,
+                        $mode_request,
+                        $document_name,
+                        $no_of_copy,
+                        $price,
+                        $delivery_fee
+                    );
+
+                    // Execute the query for each document
+                    $stmt->execute();
                 }
+
+                // Check if the insertion was successful
+                if ($stmt->affected_rows > 0) {
+                    $response = '<div class="alert alert-success">Request submitted successfully.</div>';
+                } else {
+                    $response = '<div class="alert alert-danger">Failed to submit the request. Please try again.</div>';
+                }
+
+                // Close the statement and the connection
+                $stmt->close();
+                $conn->close();
+            } catch (Exception $e) {
+                // Handle any exceptions and display a user-friendly message
+                $response = '<div class="alert alert-danger">An error occurred: ' . htmlspecialchars($e->getMessage()) . '</div>';
+            }
+
+            // Display the response message
+            echo $response;
+        } else {
+            echo '<div class="alert alert-danger">Invalid request method.</div>';
+        }
+        ?>
+
+        <!-- ============================================================== -->
+        <!-- end main wrapper -->
+        <!-- ============================================================== -->
+        <!-- Optional JavaScript -->
+        <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
+        <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+        <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
+        <script src="../asset/libs/js/main-js.js"></script>
+        <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+        <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+        <script src="../asset/vendor/datatables/js/data-table.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var firstName = $('#firstName').text();
+                var lastName = $('#lastName').text();
+                var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
+                var profileImage = $('#profileImage').text(intials);
             });
-        }
-    });
+        </script>
 
-    function getField(name) {
-        return $(`input[name="${name}"]`).val();
-    }
+        <script>
+            $(document).ready(function() {
+                let formData = null;
+                const deliveryFee = 50;
 
-    function showError(msg) {
-        $('#message').html(`<div class="alert alert-danger">${msg}</div>`);
-    }
+                // Toggle visibility of quantity input and recalculate total
+                $('input[name="document_name[]"]').change(function() {
+                    const qtyDiv = `#quantity${this.id.replace('document_name', '')}`;
+                    $(qtyDiv).toggle(this.checked).find('input').val(this.checked ? 1 : '');
 
-    $('.btn-secondary').click(function () {
-        $('#paymentModal').modal('hide');
-    });
-});
+                    // Check if the selected document is "Certification"
+                    if ($(this).val() === 'Certification') {
+                        const certOptionsDiv = `#certification_options_${this.id.replace('document_name', '')}`;
+                        $(certOptionsDiv).toggle(this.checked); // Show/Hide certification options
 
+                        // If unchecked, reset the certification options
+                        if (!this.checked) {
+                            $(`#certification_options_${this.id.replace('document_name', '')} input[type="radio"]`).prop('checked', false);
+                            $(`#units_earned_${this.id.replace('document_name', '')}`).hide().val('');
+                            $(`#graduate_details_${this.id.replace('document_name', '')}`).hide().val('');
+                            $(`#other_certification_${this.id.replace('document_name', '')}`).hide().val('');
+                        }
+                    }
 
-// Example starter JavaScript for disabling form submissions if there are invalid fields
-(function() {
-    'use strict';
-    window.addEventListener('load', function() {
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        var forms = document.getElementsByClassName('needs-validation');
-        // Loop over them and prevent submission
-        Array.prototype.filter.call(forms, function(form) {
-            form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
+                    calculateTotal();
+                });
+
+                // Show/Hide text inputs for certification options based on selected radio button
+                $('input[type="radio"]').change(function() {
+                    const id = $(this).attr('id');
+                    const index = id.split('_').pop(); // Extract the index from the radio button's ID
+
+                    // Hide all certification-specific inputs initially
+                    $(`#units_earned_${index}`).hide().val('');
+                    $(`#graduate_details_${index}`).hide().val('');
+                    $(`#other_certification_${index}`).hide().val('');
+
+                    // Show the relevant input based on the selected option
+                    if ($(this).val() === 'Units Earned') {
+                        $(`#units_earned_${index}`).show(); // Show Units Earned field
+                    } else if ($(this).val() === 'As Graduate') {
+                        $(`#graduate_details_${index}`).show(); // Show As Graduate field
+                    } else if ($(this).val() === 'Other') {
+                        $(`#other_certification_${index}`).show(); // Show Other (Please Specify) field
+                    }
+                });
+
+                // Toggle other purpose input visibility
+                $('#otherPurposeCheckbox').change(function() {
+                    $('#otherPurposeInput').toggle(this.checked).val('');
+                });
+
+                // Show/hide delivery fee section and recalculate total
+                $('#mode_request').change(function() {
+                    $('#deliveryFeeSection').toggle($(this).val() === 'Delivery');
+                    calculateTotal();
+                });
+
+                // Calculate total amount
+                function calculateTotal() {
+                    let total = $('input[name="document_name[]"]:checked').get().reduce((sum, doc) => {
+                        const copies = +$(doc).closest('.form-check').find('input[name="no_ofcopies[]"]').val() || 1;
+                        return sum + parseFloat($(doc).data('price')) * copies;
+                    }, 0);
+
+                    if ($('#mode_request').val() === 'Delivery') total += deliveryFee;
+                    $('input[name="price"]').val(total.toFixed(2));
+                    return total;
                 }
-                form.classList.add('was-validated');
-            }, false);
-        });
-    }, false);
-})();
-print_r($_POST); // This will help you inspect the incoming data
-exit;
-</script>
+
+                // Form submission logic
+                $('#submitForm').click(function(e) {
+                    e.preventDefault();
+                    formData = new FormData($('form[name="docu_forms"]')[0]);
+
+                    const selectedDocs = $('input[name="document_name[]"]:checked');
+                    if (!selectedDocs.length) return showError('Please select at least one document.');
+                    if (!$('#course').val()) return showError('Please select a course.');
+
+                    formData.delete('document_name[]');
+                    formData.delete('no_ofcopies[]');
+                    selectedDocs.each(function() {
+                        formData.append('document_name[]', this.value);
+                        const copies = $(this).closest('.form-check').find('input[name="no_ofcopies[]"]').val() || 1;
+                        formData.append('no_ofcopies[]', copies);
+
+                        // Collect additional certification info if selected
+                        if (this.value === 'Certification') {
+                            const index = this.id.replace('document_name', '');
+                            const selectedCertType = $(`input[name="certification_type${index}"]:checked`).val();
+
+                            if (selectedCertType === 'Units Earned') {
+                                formData.append('units_earned', $(`#units_earned_${index}`).val());
+                            } else if (selectedCertType === 'As Graduate') {
+                                formData.append('graduate_details', $(`#graduate_details_${index}`).val());
+                            } else if (selectedCertType === 'Other') {
+                                formData.append('other_certification', $(`#other_certification_${index}`).val());
+                            }
+                        }
+                    });
+
+                    const total = calculateTotal();
+                    formData.append('price', total);
+                    formData.append('course', $('#course').val());
+
+                    // Populate and show the modal
+                    $('#modalStudentName').text(`${getField('first_name')} ${getField('middle_name')} ${getField('last_name')}`);
+                    $('#modalControlNo').text(getField('control_no'));
+                    $('#modalDocumentName').text(selectedDocs.map((i, el) => el.value).get().join(', '));
+                    $('#modalMode').text($('#mode_request').val());
+                    $('#modalTotalAmount').text(`₱${total.toFixed(2)}`);
+                    $('#paymentModal').modal('show');
+                });
+
+                $('#confirmSubmit').click(function() {
+                    if (formData) {
+                        $.ajax({
+                            url: '../init/controllers/add_request.php',
+                            type: 'POST',
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            success(response) {
+                                $('#message').html(response);
+                                $('#paymentModal').modal('hide');
+                                window.scrollTo(0, 0);
+                            },
+                            error() {
+                                console.error('Failed to submit the form.');
+                            }
+                        });
+                    }
+                });
+
+                function getField(name) {
+                    return $(`input[name="${name}"]`).val();
+                }
+
+                function showError(msg) {
+                    $('#message').html(`<div class="alert alert-danger">${msg}</div>`);
+                }
+
+                $('.btn-secondary').click(function() {
+                    $('#paymentModal').modal('hide');
+                });
+            });
 
 
-</body>
- 
-</html>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                        }, false);
+                    });
+                }, false);
+            })();
+            print_r($_POST); // This will help you inspect the incoming data
+            exit;
+        </script>
+
+
+        </body>
+
+        </html>
