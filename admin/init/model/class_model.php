@@ -172,10 +172,10 @@
 
 		
 
-		  public function edit_student($first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id) {
+		  public function edit_student($first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id) {
 			$sql = "UPDATE `tbl_students` 
-					SET `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, 
-						`date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, 
+					SET `first_name` = ?, `middle_name` = ?, `last_name` = ?, 
+						`complete_address` = ?, `email_address` = ?, 
 						`mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ? 
 					WHERE `student_id` = ?";
 		
@@ -183,9 +183,9 @@
 		
 			// Bind parameters correctly without trailing comma
 			$stmt->bind_param(
-				"sssssssssssssi", 
-				$first_name, $middle_name, $last_name, $course, $year_level, 
-				$date_ofbirth, $gender, $complete_address, $email_address, 
+				"sssssssssi", 
+				$first_name, $middle_name, $last_name,
+				$complete_address, $email_address, 
 				$mobile_number, $username, $password, $account_status, $student_id
 			);
 		
