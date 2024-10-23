@@ -67,49 +67,49 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php 
-                                        $conn = new class_model();
-                                        $docrequest = $conn->fetchAll_pendingpayment();
+                                    <?php
+                                    $conn = new class_model();
+                                    $docrequest = $conn->fetchAll_pendingpayment();
                                     ?>
                                     <?php foreach ($docrequest as $row) { ?>
                                         <tr>
                                             <td><?= date("M d, Y", strtotime($row['date_releasing'])); ?></td>
                                             <td><?= $row['control_no']; ?></td>
                                             <td><?= $row['student_id']; ?></td>
-                                            <td><?= $row['first_name']; ?> <?= $row['first_name']; ?></td>
+                                            <td><?= $row['first_name']; ?> <?= $row['last_name']; ?></td>
                                             <td><?= $row['document_name']; ?></td>
                                             <td><?= $row['processing_officer']; ?></td>
                                             <td>
-                                                <?php 
-                                                    if ($row['accounting_status'] === "Pending") {
-                                                        echo '<span class="badge bg-info text-white">Pending</span>';
-                                                    } else if ($row['accounting_status'] === "Received") {
-                                                        echo '<span class="badge bg-warning text-white">Received</span>';
-                                                    } else if ($row['accounting_status'] === "Waiting for Payment") {
-                                                        echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
-                                                    } else if ($row['accounting_status'] === "Verified") {
-                                                        echo '<span class="badge bg-success text-white">Verified</span>';
-                                                    }
-                                                ?> 
+                                                <?php
+                                                if ($row['accounting_status'] === "Pending") {
+                                                    echo '<span class="badge bg-info text-white">Pending</span>';
+                                                } else if ($row['accounting_status'] === "Received") {
+                                                    echo '<span class="badge bg-warning text-white">Received</span>';
+                                                } else if ($row['accounting_status'] === "Waiting for Payment") {
+                                                    echo '<span class="badge bg-danger text-white">Waiting for Payment</span>';
+                                                } else if ($row['accounting_status'] === "Verified") {
+                                                    echo '<span class="badge bg-success text-white">Verified</span>';
+                                                }
+                                                ?>
                                             </td>
                                             <!-- clearance -->
                                             <td class="align-right">
                                                 <div class="box">
                                                     <div class="four">
-                                                    <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
-                                                        Clearance
-                                                    </a>
-                                                    </div> 
+                                                        <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="btn btn-sm btn-primary text-xs" data-toggle="tooltip" data-original-title="Clearance">
+                                                            Clearance
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </td>
                                             <td>
-                                    <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
-                                        data-control-no="<?= $row['control_no']; ?>"
-                                         data-document-name="<?= $row['document_name']; ?>"
-                                        data-total-amount="<?= $row['price']; ?>">
-                                        <i class="fa fa-credit-card"></i> Pay
-                                    </button>
-                                    </td>
+                                                <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#paymentModal"
+                                                    data-control-no="<?= $row['control_no']; ?>"
+                                                    data-document-name="<?= $row['document_name']; ?>"
+                                                    data-total-amount="<?= $row['price']; ?>">
+                                                    <i class="fa fa-credit-card"></i> Pay
+                                                </button>
+                                            </td>
                                             <td class="align-right">
                                                 <a href="edit-request.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit request">
                                                     <i class="fa fa-edit"></i>
@@ -166,7 +166,7 @@
 <script src="../assets/vendor/datatables/js/data-table.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
         var firstName = $('#firstName').text();
         var lastName = $('#lastName').text();
         var initials = firstName.charAt(0) + lastName.charAt(0);
@@ -186,7 +186,9 @@
                     $.ajax({
                         url: "../init/controllers/delete_request.php",
                         method: "POST",
-                        data: { request_id: request_id },
+                        data: {
+                            request_id: request_id
+                        },
                         success: function(response) {
                             $("#message").html(response);
                         },
@@ -201,12 +203,14 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
         function load_unseen_notification(view = '') {
             $.ajax({
                 url: "../init/controllers/fetch.php",
                 method: "POST",
-                data: { view: view },
+                data: {
+                    view: view
+                },
                 dataType: "json",
                 success: function(data) {
                     $('.dropdown-menu_1').html(data.notification);
@@ -231,4 +235,5 @@
 </script>
 
 </body>
+
 </html>
