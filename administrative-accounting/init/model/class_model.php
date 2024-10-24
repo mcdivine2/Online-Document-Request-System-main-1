@@ -222,138 +222,13 @@ class class_model
 		}
 		return $data;
 	}
-
-	public function print_documentrequest()
+	public function fetchAll_paymentrequest()
 	{
-		$db = mysqli_connect("localhost", "root", "", "ords_new_db");
-
-		$result = mysqli_query($db, "SELECT * FROM tbl_documentrequest", MYSQLI_USE_RESULT);
-
-
-
-		$output = fopen('php://output', 'w');
-
-		fputcsv($output, array('request_id', 'control_no', 'student_id', 'document_name', 'no_ofcopies', 'date_request', 'date_releasing', 'processing_officer', 'status'));
-
-		while ($row = mysqli_fetch_assoc($result)) {
-			fputcsv($output, $row);
-		}
-
-		fclose($output);
-		mysqli_free_result($result);
-		mysqli_close($db);
-	}
-
-	public function fetchAll_newrequest()
-	{
-		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Received' ";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-
-	public function fetchAll_releasing()
-	{
-		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Releasing' ";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-
-	public function fetchAll_released()
-	{
-		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Released' ";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-	public function fetchAll_declined()
-	{
-		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Declined' ";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-
-	public function fetchAll_pendingpayment()
-	{
-		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Waiting for Payment'";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		$data = array();
-		while ($row = $result->fetch_assoc()) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-	public function fetch_document_by_id($control_no, $student_id)
-	{
-		$sql = "SELECT * FROM tbl_documentrequest WHERE control_no = ? AND student_id = ?";
-		$stmt = $this->conn->prepare($sql);
-
-		if (!$stmt) {
-			die("SQL Error: " . $this->conn->error);
-		}
-
-		$stmt->bind_param("ii", $control_no, $student_id);
-		$stmt->execute();
-		$result = $stmt->get_result();
-
-		return $result->fetch_assoc();  // Fetch a single row
-	}
-
-
-	public function edit_request($control_no, $student_id, $document_name, $date_request, $accounting_status, $request_id)
-	{
-		$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `date_request` = ?, `accounting_status` = ?  WHERE request_id = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("sssssi", $control_no, $student_id, $document_name,  $date_request, $accounting_status, $request_id);
-		if ($stmt->execute()) {
-			$stmt->close();
-			$this->conn->close();
-			return true;
-		}
-	}
-
-	public function delete_request($request_id)
-	{
-		$sql = "DELETE FROM tbl_documentrequest WHERE request_id = ?";
-		$stmt = $this->conn->prepare($sql);
-		$stmt->bind_param("i", $request_id);
-		if ($stmt->execute()) {
-			$stmt->close();
-			$this->conn->close();
-			return true;
-		}
-	}
-
-	public function fetchAll_payment()
-	{
+		// Modify the SQL query to only fetch rows where the status is 'Paid'
 		$sql = "SELECT *, CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name 
-						FROM tbl_payment 
-						INNER JOIN tbl_students ON tbl_students.student_id = tbl_payment.student_id 
-						ORDER BY tbl_payment.student_id DESC";
+            FROM tbl_payment 
+            INNER JOIN tbl_students ON tbl_students.student_id = tbl_payment.student_id 
+            ORDER BY tbl_payment.student_id DESC";
 
 		// Prepare the SQL statement
 		$stmt = $this->conn->prepare($sql);
@@ -382,6 +257,273 @@ class class_model
 			return array();
 		}
 	}
+
+	public function print_documentrequest()
+	{
+		$db = mysqli_connect("localhost", "root", "", "ords_new_db");
+
+		$result = mysqli_query($db, "SELECT * FROM tbl_documentrequest", MYSQLI_USE_RESULT);
+
+
+
+		$output = fopen('php://output', 'w');
+
+		fputcsv($output, array('request_id', 'control_no', 'student_id', 'document_name', 'no_ofcopies', 'date_request', 'date_releasing', 'processing_officer', 'status'));
+
+		while ($row = mysqli_fetch_assoc($result)) {
+			fputcsv($output, $row);
+		}
+
+		fclose($output);
+		mysqli_free_result($result);
+		mysqli_close($db);
+	}
+
+	public function fetchAll_newrequest()
+	{
+		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Received' ";
+
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+
+	public function fetchAll_verified()
+	{
+		// Modify the SQL query to only fetch rows where the status is 'Paid'
+		$sql = "SELECT *, CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name 
+            FROM tbl_payment 
+            INNER JOIN tbl_students ON tbl_students.student_id = tbl_payment.student_id 
+            WHERE tbl_payment.status = 'Verified' 
+            ORDER BY tbl_payment.student_id DESC";
+
+		// Prepare the SQL statement
+		$stmt = $this->conn->prepare($sql);
+
+		// Check if the statement was prepared successfully
+		if ($stmt) {
+			// Execute the statement
+			$stmt->execute();
+
+			// Get the result set
+			$result = $stmt->get_result();
+			$data = array();
+
+			// Fetch each row and add it to the data array
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+
+			// Close the statement
+			$stmt->close();
+
+			// Return the fetched data
+			return $data;
+		} else {
+			// If the statement failed, return an empty array or handle the error
+			return array();
+		}
+	}
+
+	public function fetchAll_released()
+	{
+		$sql = "SELECT * FROM  tbl_documentrequest WHERE accounting_status = 'Released' ";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+	public function fetchAll_declined()
+	{
+		// Modify the SQL query to only fetch rows where the status is 'Paid'
+		$sql = "SELECT *, CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name 
+            FROM tbl_payment 
+            INNER JOIN tbl_students ON tbl_students.student_id = tbl_payment.student_id 
+            WHERE tbl_payment.status = 'Declined' 
+            ORDER BY tbl_payment.student_id DESC";
+
+		// Prepare the SQL statement
+		$stmt = $this->conn->prepare($sql);
+
+		// Check if the statement was prepared successfully
+		if ($stmt) {
+			// Execute the statement
+			$stmt->execute();
+
+			// Get the result set
+			$result = $stmt->get_result();
+			$data = array();
+
+			// Fetch each row and add it to the data array
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+
+			// Close the statement
+			$stmt->close();
+
+			// Return the fetched data
+			return $data;
+		} else {
+			// If the statement failed, return an empty array or handle the error
+			return array();
+		}
+	}
+
+	public function fetchAll_pendingpayment()
+	{
+		// Modify the SQL query to only fetch rows where the status is 'Paid'
+		$sql = "SELECT *, CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name 
+            FROM tbl_payment 
+            INNER JOIN tbl_students ON tbl_students.student_id = tbl_payment.student_id 
+            WHERE tbl_payment.status = 'Paid' 
+            ORDER BY tbl_payment.student_id DESC";
+
+		// Prepare the SQL statement
+		$stmt = $this->conn->prepare($sql);
+
+		// Check if the statement was prepared successfully
+		if ($stmt) {
+			// Execute the statement
+			$stmt->execute();
+
+			// Get the result set
+			$result = $stmt->get_result();
+			$data = array();
+
+			// Fetch each row and add it to the data array
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+
+			// Close the statement
+			$stmt->close();
+
+			// Return the fetched data
+			return $data;
+		} else {
+			// If the statement failed, return an empty array or handle the error
+			return array();
+		}
+	}
+	public function fetch_document_by_id($control_no, $student_id)
+	{
+		$sql = "SELECT * FROM tbl_documentrequest WHERE control_no = ? AND student_id = ?";
+		$stmt = $this->conn->prepare($sql);
+
+		if (!$stmt) {
+			die("SQL Error: " . $this->conn->error);
+		}
+
+		$stmt->bind_param("ii", $control_no, $student_id);
+		$stmt->execute();
+		$result = $stmt->get_result();
+
+		return $result->fetch_assoc();  // Fetch a single row
+	}
+
+
+	public function edit_request($control_no, $student_id, $document_name, $date_request, $accounting_status, $request_id)
+	{
+		// Begin the transaction
+		$this->conn->begin_transaction();
+
+		try {
+			// First update the tbl_documentrequest
+			$sql = "UPDATE `tbl_documentrequest` SET `control_no` = ?, `student_id` = ?, `document_name` = ?, `date_request` = ?, `accounting_status` = ? WHERE `request_id` = ?";
+			$stmt = $this->conn->prepare($sql);
+			$stmt->bind_param("sssssi", $control_no, $student_id, $document_name, $date_request, $accounting_status, $request_id);
+
+			if (!$stmt->execute()) {
+				throw new Exception("Failed to update tbl_documentrequest");
+			}
+
+			$stmt->close();
+
+			// Now update the corresponding status in tbl_payment based on the control_no
+			$sql_payment = "UPDATE `tbl_payment` SET `status` = ? WHERE `control_no` = ?";
+			$stmt_payment = $this->conn->prepare($sql_payment);
+			$stmt_payment->bind_param("ss", $accounting_status, $control_no);
+
+			if (!$stmt_payment->execute()) {
+				throw new Exception("Failed to update tbl_payment");
+			}
+
+			$stmt_payment->close();
+
+			// If both queries succeed, commit the transaction
+			$this->conn->commit();
+			$this->conn->close();
+
+			return true;
+		} catch (Exception $e) {
+			// If there's any error, rollback the transaction
+			$this->conn->rollback();
+			$this->conn->close();
+
+			return false;
+		}
+	}
+
+
+	public function delete_request($request_id)
+	{
+		$sql = "DELETE FROM tbl_documentrequest WHERE request_id = ?";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->bind_param("i", $request_id);
+		if ($stmt->execute()) {
+			$stmt->close();
+			$this->conn->close();
+			return true;
+		}
+	}
+
+	public function fetchAll_payment()
+	{
+		// Modify the SQL query to only fetch rows where the status is 'Paid'
+		$sql = "SELECT *, CONCAT(tbl_students.first_name, ', ' ,tbl_students.middle_name, ' ' ,tbl_students.last_name) as student_name 
+            FROM tbl_payment 
+            INNER JOIN tbl_students ON tbl_students.student_id = tbl_payment.student_id 
+            WHERE tbl_payment.status = 'Paid' 
+            ORDER BY tbl_payment.student_id DESC";
+
+		// Prepare the SQL statement
+		$stmt = $this->conn->prepare($sql);
+
+		// Check if the statement was prepared successfully
+		if ($stmt) {
+			// Execute the statement
+			$stmt->execute();
+
+			// Get the result set
+			$result = $stmt->get_result();
+			$data = array();
+
+			// Fetch each row and add it to the data array
+			while ($row = $result->fetch_assoc()) {
+				$data[] = $row;
+			}
+
+			// Close the statement
+			$stmt->close();
+
+			// Return the fetched data
+			return $data;
+		} else {
+			// If the statement failed, return an empty array or handle the error
+			return array();
+		}
+	}
+
 
 	public function edit_payment($control_no, $total_amount, $amount_paid, $date_ofpayment, $proof_ofpayment, $status, $payment_id)
 	{
@@ -511,7 +653,7 @@ class class_model
 
 	public function count_numberoftotalrequest()
 	{
-		$sql = "SELECT COUNT(request_id) as count_request FROM tbl_documentrequest";
+		$sql = "SELECT COUNT(control_no) as count_request FROM tbl_payment";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -592,6 +734,18 @@ class class_model
 	public function count_decline()
 	{
 		$sql = "SELECT COUNT(request_id) as count_decline FROM tbl_documentrequest WHERE accounting_status = 'Declined'";
+		$stmt = $this->conn->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+	public function count_verified()
+	{
+		$sql = "SELECT COUNT(request_id) as count_verified FROM tbl_documentrequest WHERE accounting_status = 'Verified'";
 		$stmt = $this->conn->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->get_result();

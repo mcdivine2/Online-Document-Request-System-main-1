@@ -37,14 +37,18 @@
         <!-- ============================================================== -->
         <?php
         include '../init/model/config/connection2.php';
-        $GET_reqid = intval($_GET['request']);
+        $control_no = $_GET['request'];
         $student_number = $_GET['student-number'];
-        $sql = "SELECT * FROM `tbl_documentrequest` WHERE `control_no`= ? AND student_id = ?";
+
+        // Prepare and execute the query
+        $sql = "SELECT * FROM `tbl_documentrequest` WHERE `control_no` = ? AND `student_id` = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("is", $GET_reqid, $student_number);
+        $stmt->bind_param("ss", $control_no, $student_number); // Use "ss" for string parameters
         $stmt->execute();
         $result = $stmt->get_result();
-        while ($row = $result->fetch_assoc()) {
+
+        // Fetch the single record
+        if ($row = $result->fetch_assoc()) {
         ?>
 
             <div class="row">
@@ -59,42 +63,36 @@
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Control No.</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input data-parsley-type="alphanum" type="text" value="<?= $row['control_no']; ?>" name="control_no" required="" placeholder="" class="form-control" readonly>
+                                        <input data-parsley-type="alphanum" type="text" value="<?= $row['control_no']; ?>" name="control_no" required="" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Student ID</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input data-parsley-type="alphanum" value="<?= $row['student_id']; ?>" name="student_id" type="text" required="" placeholder="" class="form-control" readonly>
+                                        <input data-parsley-type="alphanum" value="<?= $row['student_id']; ?>" name="student_id" type="text" required="" class="form-control" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Student Name</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input data-parsley-type="alphanum" value="<?= $row['first_name']; ?> <?= $row['last_name']; ?>" name="student_id" type="text" required="" placeholder="" class="form-control" readonly>
+                                        <input data-parsley-type="alphanum" value="<?= $row['first_name']; ?> <?= $row['last_name']; ?>" name="student_name" type="text" required="" class="form-control" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Document Name</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input data-parsley-type="alphanum" value="<?= $row['document_name']; ?>" type="text" name="document_name" required="" placeholder="" class="form-control" readonly>
+                                        <input data-parsley-type="alphanum" value="<?= $row['document_name']; ?>" type="text" name="document_name" required="" class="form-control" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Date Request</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input data-parsley-type="alphanum" value="<?= strftime('%Y-%m-%d', strtotime($row['date_request'])); ?>" type="date" name="date_request" required="" placeholder="" class="form-control" readonly>
+                                        <input data-parsley-type="alphanum" value="<?= strftime('%Y-%m-%d', strtotime($row['date_request'])); ?>" type="date" name="date_request" required="" class="form-control" readonly>
                                     </div>
                                 </div>
 
-                                <!-- <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Date Releasing</label>
-                                                    <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" value="<?= $row['date_releasing']; ?>" type="date" name="date_releasing" required="" placeholder="" class="form-control">
-                                                    </div>
-                                                </div> -->
                                 <?php
                                 $user_id = $_SESSION['user_id'];
                                 $conn = new class_model();
@@ -103,23 +101,22 @@
                                 <div class="form-group row">
                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Processing Officer</label>
                                     <div class="col-12 col-sm-8 col-lg-6">
-                                        <input data-parsley-type="alphanum" value="<?= ucfirst($user['complete_name']); ?>" type="text" name="processing_officer" required="" placeholder="" class="form-control" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
-                                    <div class="col-12 col-sm-8 col-lg-6">
-                                        <select data-parsley-type="alphanum" type="text" value="<?= $row['accounting_status']; ?>" id="accounting_status" required="" placeholder="" class="form-control">
-                                            <option value="<?= $row['accounting_status']; ?>" hidden><?= $row['accounting_status']; ?></option>
-                                            <option value="Received" style="background-color: orange;color: #fff">Pending</option>
-                                            <option value="Waiting for Payment" style="background-color: skyblue;color: #fff">Waiting for Payment</option>
-                                            <option value="Declined" style="background-color: red;color: #fff">Declined</option>
-                                            <option value="Verified" style="background-color: green;color: #fff">Verified</option>
-                                            <!-- <option value="Released" style="background-color: blue;color: #fff">Released</option> -->
-                                        </select>
+                                        <input data-parsley-type="alphanum" value="<?= ucfirst($user['complete_name']); ?>" type="text" name="processing_officer" required="" class="form-control" readonly>
                                     </div>
                                 </div>
 
+                                <div class="form-group row">
+                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Status</label>
+                                    <div class="col-12 col-sm-8 col-lg-6">
+                                        <select data-parsley-type="alphanum" id="accounting_status" required="" class="form-control">
+                                            <option value="<?= $row['accounting_status']; ?>" hidden><?= $row['accounting_status']; ?></option>
+                                            <option value="Paid" style="background-color: orange;color: #fff">Pending Payment</option>
+                                            <!-- <option value="Waiting for Payment" style="background-color: skyblue;color: #fff">Waiting for Payment</option> -->
+                                            <option value="Declined" style="background-color: red;color: #fff">Declined</option>
+                                            <option value="Verified" style="background-color: green;color: #fff">Verified</option>
+                                        </select>
+                                    </div>
+                                </div>
                         </div>
                         <div class="form-group row text-right">
                             <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
@@ -130,13 +127,12 @@
                         </form>
                     </div>
                 </div>
-            <?php } ?>
             </div>
-    </div>
-</div>
 
-</div>
-</div>
+        <?php } else { ?>
+            <div class="alert alert-danger">No record found for this request.</div>
+        <?php } ?>
+    </div>
 </div>
 <!-- ============================================================== -->
 <!-- end main wrapper -->
@@ -146,14 +142,7 @@
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="../assets/vendor/parsley/parsley.js"></script>
 <script src="../assets/libs/js/main-js.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        var firstName = $('#firstName').text();
-        var lastName = $('#lastName').text();
-        var intials = $('#firstName').text().charAt(0) + $('#lastName').text().charAt(0);
-        var profileImage = $('#profileImage').text(intials);
-    });
-</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         let btn = document.querySelector('#edit-request');
@@ -167,8 +156,7 @@
             const accounting_status = $('#accounting_status option:selected').val();
             const request_id = document.querySelector('input[name=request_id]').value;
 
-            var data = new FormData(this.form);
-
+            var data = new FormData();
             data.append('control_no', control_no);
             data.append('student_id', student_id);
             data.append('document_name', document_name);
@@ -177,9 +165,8 @@
             data.append('accounting_status', accounting_status);
             data.append('request_id', request_id);
 
-
-            if (control_no === '' && student_id === '' && document_name === '' && date_request === '' && processing_officer === '' && accounting_status === '' && request_id === '') {
-                $('#message').html('<div class="alert alert-danger"> Required All Fields!</div>');
+            if (control_no === '' || student_id === '' || document_name === '' || date_request === '' || processing_officer === '' || accounting_status === '' || request_id === '') {
+                $('#message').html('<div class="alert alert-danger">All fields are required!</div>');
             } else {
                 $.ajax({
                     url: '../init/controllers/edit_request.php',
@@ -187,8 +174,6 @@
                     data: data,
                     processData: false,
                     contentType: false,
-                    async: false,
-                    cache: false,
                     success: function(response) {
                         $("#message").html(response);
                         window.scrollTo(0, 0);
@@ -201,32 +186,6 @@
 
         });
     });
-</script>
-
-
-
-<!--     <script>
-    $('#form').parsley();
-    </script> -->
-<script>
-    // Example starter JavaScript for disabling form submissions if there are invalid fields
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.getElementsByClassName('needs-validation');
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
 </script>
 
 </body>

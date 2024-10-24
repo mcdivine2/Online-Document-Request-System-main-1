@@ -82,8 +82,8 @@
                                             case "Waiting for Payment":
                                                 echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
                                                 break;
-                                            case "Processing":
-                                                echo '<span class="badge bg-success text-white">Processing</span>';
+                                            case "Paid":
+                                                echo '<span class="badge bg-success text-white">Paid</span>';
                                                 break;
                                             case "Verified":
                                                 echo '<span class="badge bg-success text-white">Verified</span>';
@@ -92,7 +92,7 @@
                                                 echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                 break;
                                             case "Declined":
-                                                echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                echo '<span class="badge bg-danger text-white">Reject</span>';
                                                 break;
                                             default:
                                                 echo '<span class="badge bg-secondary text-white">Unknown Status</span>';

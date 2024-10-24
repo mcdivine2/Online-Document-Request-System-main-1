@@ -14,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $total_amount = isset($_POST['total_amount']) ? trim($_POST['total_amount']) : '';
     $student_id = trim($_POST['student_id']);
 
+
+    // initialize variable
+    $accounting_status = "Paid";
+
     // Handle file upload for payment proof
     if (isset($_FILES["proof_ofpayment"]) && $_FILES["proof_ofpayment"]["error"] === UPLOAD_ERR_OK) {
         // Define the upload directory
@@ -35,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $proof_ofpayment = "student_uploads/" . $file_name;
 
                 // Call the add_payment method
-                if (method_exists($conn, 'add_payment') && $conn->add_payment($trace_no, $ref_no, $control_no, $document_name, $date_ofpayment, $total_amount, $proof_ofpayment, $student_id)) {
+                if (method_exists($conn, 'add_payment') && $conn->add_payment($trace_no, $ref_no, $control_no, $document_name, $date_ofpayment, $total_amount, $proof_ofpayment, $student_id, $accounting_status)) {
                     // Success message
                     echo '<div class="alert alert-success">Payment recorded successfully!</div>';
                     echo '<script>setTimeout(function() { window.history.go(-1); }, 1000);</script>';
@@ -60,4 +64,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     echo '<div class="alert alert-danger">Invalid request method.</div>';
     echo '<script>setTimeout(function() { window.history.go(-1); }, 1000);</script>';
 }
-?>

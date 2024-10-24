@@ -31,6 +31,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $library_status = "Received";
     $accounting_status = "Waiting for Payment";
 
+
+
     // Input validation
     $errors = []; // Store validation errors
 
@@ -129,4 +131,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo '<script>setTimeout(function() { window.history.go(-1); }, 1000);</script>';
     }
 }
-?>
