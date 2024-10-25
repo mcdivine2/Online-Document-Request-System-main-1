@@ -67,10 +67,7 @@
                                                                             </span>
                                                                   <!--   <span class=" mb-2 d-xl-inline-block d-block ml-xl-4">29 Year Old </span> -->
                                                                 </p>
-                                                                <p class="border-bottom pb-3">
-                                                                   
-                                                                   
-                                                                </p>
+
                                                                 <div class="mt-3">
                                                                     <a href="#" class="badge badge-light mr-1"><i class="fa fa-fw fa-envelope"></i> <?= ucfirst($user['email_address']); ?></a> <a href="#" class="badge badge-light mr-1"><i class="fa fa-fw fa-phone"></i> <?= ucfirst($user['mobile_number']); ?></a>
                                                                 </div>
@@ -86,7 +83,7 @@
                                                     </div>
                                                     <div class="" id="message"></div>
                                                     <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Username</label>
+                                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Email</label>
                                                         <div class="col-12 col-sm-8 col-lg-6">
                                                             <input data-parsley-type="alphanum" type="text" name="username" value="<?= $user['username']; ?>" required="" placeholder="" class="form-control">
                                                         </div>
@@ -104,13 +101,7 @@
                                                             <input data-parsley-type="alphanum" type="text" name="mobile_number" value="<?= $user['mobile_number']; ?>" required="" placeholder="" class="form-control">
                                                         </div>
                                                     </div>
-
-                                                    <div class="form-group row">
-                                                        <label class="col-12 col-sm-3 col-form-label text-sm-right">Email Address</label>
-                                                        <div class="col-12 col-sm-8 col-lg-6">
-                                                            <input data-parsley-type="alphanum" type="email" name="email_address" value="<?= $user['email_address']; ?>" required="" placeholder="" class="form-control">
-                                                        </div>  
-                                                    </div>   
+  
 
                                                     <div class="form-group row text-right">
                                                         <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
@@ -127,9 +118,7 @@
                         </div>
                     </div>
            
-            </div>
-        </div>
-    </div>
+           
     <!-- ============================================================== -->
     <!-- end main wrapper -->
     <!-- ============================================================== -->

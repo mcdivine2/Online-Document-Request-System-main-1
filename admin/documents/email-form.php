@@ -60,28 +60,25 @@
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right"><i class="fa fa-file"></i> Email Form</label>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Send to: </label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right" for="email">Send to: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" value="<?= $row['email_address']; ?>" name="email" required="" placeholder="" class="form-control" readonly>
+                                                        <input data-parsley-type="alphanum" type="email" value="<?= $row['email_address']; ?>" name="email" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Subject: </label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right" for="subject">Subject: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                         <input data-parsley-type="alphanum" type="text" value="Releasing of <?= $row['document_name']; ?>" name="subject" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Message: </label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right" for="body">Message: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                       
                                                     <textarea data-parsley-type="alphanum" type="text" name="body" required="" placeholder="" class="form-control" readonly> Hello, This is a test! Your <?= $row['document_name']; ?> is ready to release! Please claim it on the office of registrar on <?= $row['date_releasing']; ?>
-                                                </textarea>
-                                                   
-                                                
-                                                </div>
+                                                    </textarea>
+                                                    </div>
                                                 </div>
                                                 
                                            

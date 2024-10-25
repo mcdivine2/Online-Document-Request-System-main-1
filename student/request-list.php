@@ -202,7 +202,7 @@
                                         ?>
                                     </td>
                                     <td class="align-right">
-                                        <div class="box">   
+                                       
                                         <div class="three">
                                             <!-- Modal Trigger Button -->
                                             <button class="btn btn-sm btn-primary text-xs view-document" 
@@ -217,7 +217,7 @@
                             <?php } ?>
                         </tbody>
                     </table>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -313,9 +313,12 @@
 
 <!-- JavaScript -->
 <script src="../asset/vendor/jquery/jquery-3.3.1.min.js"></script>
-<script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-<script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../asset/vendor/custom-js/jquery.multi-select.html"></script>
+    <script src="../asset/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../asset/vendor/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/datatables/js/buttons.bootstrap4.min.js"></script>
+    <script src="../asset/vendor/datatables/js/data-table.js"></script>
 <script src="../asset/libs/js/main-js.js"></script>
 
 <script>

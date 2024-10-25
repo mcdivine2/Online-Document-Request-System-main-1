@@ -231,16 +231,29 @@
 		
 		
 
-		public function delete_student($student_id){
-				$sql = "DELETE FROM tbl_students WHERE student_id = ?";
-				 $stmt = $this->conn->prepare($sql);
-				$stmt->bind_param("i", $student_id);
-				if($stmt->execute()){
-					$stmt->close();
-					$this->conn->close();
-					return true;
-				}
-			}
+		public function delete_student($student_id) {
+    // Prepare the SQL statement
+    $sql = "DELETE FROM tbl_verification WHERE student_id = ?";
+    
+    // Use a prepared statement
+    $stmt = $this->conn->prepare($sql);
+    
+    // Bind the student_id parameter to the query
+    $stmt->bind_param("i", $student_id);
+
+    // Execute the query
+    if($stmt->execute()) {
+        $stmt->close();
+        // Optionally, don't close the connection here if you have multiple queries
+        $this->conn->close();
+        return true;
+    } else {
+        // Log error message if needed
+        error_log("Failed to delete student: " . $stmt->error);
+        return false;  // Return false if the execution failed
+    }
+}
+
 
 
 			public function add_document($document_name, $description, $daysto_process, $price){
