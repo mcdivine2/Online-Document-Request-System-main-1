@@ -51,12 +51,12 @@
                             <?php
                             // Check if request and student ID are passed in URL
                             if (isset($_GET['request']) && isset($_GET['student-number'])) {
-                                $request_id = $_GET['request'];
+                                $control_no = $_GET['request'];
                                 $student_id = $_GET['student-number'];
 
                                 // Instantiate the class and fetch the specific document request
                                 $conn = new class_model();
-                                $document = $conn->fetch_document_by_id($student_id, $request_id);
+                                $document = $conn->fetch_document_by_id($control_no, $student_id);
 
                                 // Check if data is retrieved
                                 if ($document) {
@@ -82,8 +82,8 @@
                                             case "Waiting for Payment":
                                                 echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
                                                 break;
-                                            case "Processing":
-                                                echo '<span class="badge bg-success text-white">Processing</span>';
+                                            case "Paid":
+                                                echo '<span class="badge bg-success text-white">Paid</span>';
                                                 break;
                                             case "Verified":
                                                 echo '<span class="badge bg-success text-white">Verified</span>';
@@ -92,7 +92,7 @@
                                                 echo '<span class="badge bg-warning text-white">Pending Request</span>';
                                                 break;
                                             case "Declined":
-                                                echo '<span class="badge bg-danger text-white">Declined</span>';
+                                                echo '<span class="badge bg-danger text-white">Reject</span>';
                                                 break;
                                             default:
                                                 echo '<span class="badge bg-secondary text-white">Unknown Status</span>';
@@ -123,4 +123,5 @@
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
 </body>
+
 </html>
