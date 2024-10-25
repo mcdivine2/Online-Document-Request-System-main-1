@@ -424,7 +424,7 @@ class class_model
 			die("SQL Error: " . $this->conn->error);
 		}
 
-		$stmt->bind_param("ii", $control_no, $student_id);
+		$stmt->bind_param("ss", $control_no, $student_id);
 		$stmt->execute();
 		$result = $stmt->get_result();
 

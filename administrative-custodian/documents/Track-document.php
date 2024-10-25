@@ -79,8 +79,8 @@
                                             case "Pending":
                                                 echo '<span class="badge bg-warning text-white">Pending</span>';
                                                 break;
-                                            case "Waiting for Payment":
-                                                echo '<span class="badge bg-info text-white">Waiting for Payment</span>';
+                                            case "Paid":
+                                                echo '<span class="badge bg-warning text-white">Paid</span>';
                                                 break;
                                             case "Processing":
                                                 echo '<span class="badge bg-success text-white">Processing</span>';
@@ -123,4 +123,5 @@
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
 </body>
+
 </html>
