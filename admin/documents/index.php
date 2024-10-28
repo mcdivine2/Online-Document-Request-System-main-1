@@ -38,6 +38,7 @@
         <div class="row">
             <!-- metric -->
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <!-- studentcard -->
                 <div class="card">
                     <div class="card-body">
                         <?php
@@ -61,6 +62,7 @@
             </div>
             <!-- metric -->
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <!-- decline -->
                 <div class="card">
                     <div class="card-body">
                         <?php
@@ -83,6 +85,7 @@
             </div>
             <!-- metric -->
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <!-- new request  -->
                 <div class="card">
                     <div class="card-body">
                         <?php
@@ -106,6 +109,7 @@
             <!-- /. metric -->
             <!-- metric -->
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <!-- total request  -->
                 <div class="card">
                     <div class="card-body">
                         <?php
@@ -128,6 +132,7 @@
             <!-- /. metric -->
             <!-- metric -->
             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
+                <!-- processing -->
                 <div class="card">
                     <div class="card-body">
                         <?php

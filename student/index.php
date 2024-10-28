@@ -21,20 +21,20 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Metrics -->
         <div class="row">
-            <?php 
+            <?php
             $student_id = $_SESSION['student_id'];
-            $conn = new class_model(); 
+            $conn = new class_model();
             ?>
-            
+
             <!-- Pending Request -->
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        <?php 
-                        $cstudent = $conn->count_numberoftotalreceived($student_id); 
+                        <?php
+                        $cstudent = $conn->count_numberoftotalreceived($student_id);
                         foreach ($cstudent as $row): ?>
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Pending Request</h5>
@@ -45,7 +45,7 @@
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <a href="pending-request.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
+                    <a href="request-list.php" class="btn btn-primary" style="background-color:#1269AF">View</a>
                 </div>
             </div>
 
@@ -53,8 +53,8 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        <?php 
-                        $cstudent = $conn->count_numberoftotalpending($student_id); 
+                        <?php
+                        $cstudent = $conn->count_numberoftotalpending($student_id);
                         foreach ($cstudent as $row): ?>
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Waiting for Payment</h5>
@@ -73,8 +73,8 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        <?php 
-                        $cstudent = $conn->count_numberofreleased($student_id); 
+                        <?php
+                        $cstudent = $conn->count_numberofreleased($student_id);
                         foreach ($cstudent as $row): ?>
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Completed</h5>
@@ -91,8 +91,8 @@
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card">
                     <div class="card-body">
-                        <?php 
-                        $cstudent = $conn->count_declined($student_id); 
+                        <?php
+                        $cstudent = $conn->count_declined($student_id);
                         foreach ($cstudent as $row): ?>
                             <div class="d-inline-block">
                                 <h5 class="text-muted">Declined</h5>
@@ -129,4 +129,5 @@
     });
 </script>
 </body>
+
 </html>
