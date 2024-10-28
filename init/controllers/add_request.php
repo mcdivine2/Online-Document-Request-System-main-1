@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($birthdate)) $errors[] = 'Birthdate is required!';
     if (empty($course)) $errors[] = 'Course is required!';
     if (empty($email_address)) $errors[] = 'Email address is required!';
+    if (empty($request_types)) $errors[] = 'Request type is required!';
     if (empty($control_no)) $errors[] = 'Control number is required!';
     if (empty($date_request)) $errors[] = 'Date request is required!';
     if (empty($mode_request)) $errors[] = 'Mode of request is required!';

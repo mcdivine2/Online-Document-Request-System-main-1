@@ -36,6 +36,112 @@
         <!-- end pageheader -->
         <!-- ============================================================== -->
 
+        <style>
+        /* General Modal Styles */
+.modal-dialog {
+    max-width: 800px;
+    margin: 1.75rem auto;
+}
+
+.modal-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #f9f9f9; /* Light background */
+}
+
+.modal-header {
+    background-color: #1269AF; /* Matching the button's color */
+    color: white;
+    border-bottom: none;
+    padding: 15px 20px;
+    border-radius: 10px 10px 0 0;
+}
+
+.modal-header .close {
+    color: white;
+    opacity: 0.8;
+    font-size: 1.0rem;
+}
+
+.modal-header .close:hover {
+    opacity: 1;
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+}
+
+.modal-body {
+    padding: 20px;
+    background-color: #fff; /* White background inside */
+}
+
+#document-status-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Button Styles */
+.btn-custom {
+    background-color: #1269AF;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #0b4f87;
+}
+
+/* Badge Styling */
+.badge-custom {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 12px;
+}
+
+.bg-warning {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.bg-info {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.bg-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.bg-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+    .modal-dialog {
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    .modal-content {
+        padding: 10px;
+    }
+
+    .modal-body {
+        padding: 10px;
+    }
+}
+
+    </style>
+
         <div class="row">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="card">
@@ -53,8 +159,8 @@
                                         <th scope="col">Document Name</th>
                                         <th scope="col">Mode Request</th>
                                         <th scope="col">Date Releasing</th>
-                                        <th scope="col">Processing Officer</th>
                                         <th scope="col">Status</th>
+                                        <th scope="col">Cleanrance status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -80,7 +186,7 @@
                                                     }
                                                 ?>
                                             </td>
-                                            <td><?= $row['processing_officer']; ?></td>
+                                            
                                             <td>
                                                 <?php 
                                                   if ($row['registrar_status'] === "Verified") {
@@ -96,6 +202,17 @@
                                                   }
                                                 ?> 
                                             </td>
+                                            <td>
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <!-- Modal Trigger Button -->
+                                                <button class="btn btn-sm btn-primary text-xs view-document" 
+                                                    data-request-id="<?= $row['request_id']; ?>" 
+                                                    data-student-id="<?= $row['student_id']; ?>" 
+                                                    data-toggle="modal" data-target="#documentStatusModal">
+                                                    View
+                                                </button>
+                                            </div>
+                                            </td>
                                             <td class="align-right">
                                                 <?php if ($row['registrar_status'] !== "Released") { ?>
                                                     <!-- Show the edit option only if the status is not Released -->
@@ -104,11 +221,6 @@
                                                         <i class="fa fa-edit"></i>
                                                     </a> |
                                                 <?php } ?>
-                                                
-                                                <a href="Track-document.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" 
-                                                class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="View request">
-                                                    <i class="fa fa-eye"></i>
-                                                </a> |
                                                 
                                                 <a href="email-form-r.php?request=<?= $row['request_id']; ?>&student-number=<?= $row['student_id']; ?>" 
                                                 class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Send email">
@@ -124,13 +236,30 @@
                 </div>
 
             </div>
-            <!-- ============================================================== -->
-            <!-- end responsive table -->
-            <!-- ============================================================== -->
         </div>
 
+<!-- Modal Structure -->
+<div class="modal fade" id="documentStatusModal" tabindex="-1" role="dialog" aria-labelledby="documentStatusModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="documentStatusModalLabel">Document Status Overview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="document-status-content">
+          <!-- Content will be dynamically loaded via JavaScript -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <p id="selected-department" class="text-muted"></p> <!-- This will show the selected department -->
+      </div>
     </div>
+  </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -223,6 +352,51 @@ $(document).ready(function() {
     setInterval(function() {
         load_unseen_notification();
     }, 5000);
+
+
+    // View document status
+    $('.view-document').on('click', function(){
+            var requestId = $(this).data('request-id');
+            var studentId = $(this).data('student-id');
+
+            // AJAX request to load document status
+            $.ajax({
+                url: '../init/controllers/fetch_document_status.php',
+                type: 'GET',
+                data: { 
+                    request: requestId, 
+                    student_number: studentId 
+                },
+                success: function(response){
+                    // Load response content into the modal
+                    $('#document-status-content').html(response);
+                },
+                error: function(){
+                    $('#document-status-content').html('<p class="text-danger">Unable to fetch document status.</p>');
+                }
+            });
+        });
+
+        // Track the currently open department
+        let currentOpenDepartment = null;
+
+        // Display department at the bottom of the modal and hide the previous department section
+        $(document).on('click', '.btn-custom', function () {
+            var departmentName = $(this).text(); // Get the department name from the button text
+            var departmentSection = $(this).data('target'); // Get the target collapse section ID
+
+            // Update the footer with the department name
+            $('#selected-department').text('Currently Viewing: ' + departmentName);
+
+            // Collapse or hide the previously open department
+            if (currentOpenDepartment && currentOpenDepartment !== departmentSection) {
+                $(currentOpenDepartment).collapse('hide'); // Collapse previous department section
+            }
+
+            // Update the current department to the new one
+            currentOpenDepartment = departmentSection;
+        });
+
 });
 </script>
 </body>

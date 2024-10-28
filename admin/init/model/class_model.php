@@ -172,10 +172,10 @@
 
 		
 
-		  public function edit_student($first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id) {
+		  public function edit_student($first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id) {
 			$sql = "UPDATE `tbl_students` 
-					SET `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, 
-						`date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, 
+					SET `first_name` = ?, `middle_name` = ?, `last_name` = ?, 
+						`complete_address` = ?, `email_address` = ?, 
 						`mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ? 
 					WHERE `student_id` = ?";
 		
@@ -183,9 +183,9 @@
 		
 			// Bind parameters correctly without trailing comma
 			$stmt->bind_param(
-				"sssssssssssssi", 
-				$first_name, $middle_name, $last_name, $course, $year_level, 
-				$date_ofbirth, $gender, $complete_address, $email_address, 
+				"sssssssssi", 
+				$first_name, $middle_name, $last_name,
+				$complete_address, $email_address, 
 				$mobile_number, $username, $password, $account_status, $student_id
 			);
 		
@@ -231,16 +231,29 @@
 		
 		
 
-		public function delete_student($student_id){
-				$sql = "DELETE FROM tbl_students WHERE student_id = ?";
-				 $stmt = $this->conn->prepare($sql);
-				$stmt->bind_param("i", $student_id);
-				if($stmt->execute()){
-					$stmt->close();
-					$this->conn->close();
-					return true;
-				}
-			}
+		public function delete_student($student_id) {
+    // Prepare the SQL statement
+    $sql = "DELETE FROM tbl_verification WHERE student_id = ?";
+    
+    // Use a prepared statement
+    $stmt = $this->conn->prepare($sql);
+    
+    // Bind the student_id parameter to the query
+    $stmt->bind_param("i", $student_id);
+
+    // Execute the query
+    if($stmt->execute()) {
+        $stmt->close();
+        // Optionally, don't close the connection here if you have multiple queries
+        $this->conn->close();
+        return true;
+    } else {
+        // Log error message if needed
+        error_log("Failed to delete student: " . $stmt->error);
+        return false;  // Return false if the execution failed
+    }
+}
+
 
 
 			public function add_document($document_name, $description, $daysto_process, $price){
