@@ -18,7 +18,7 @@ if ($query->num_rows > 0)
 
     while($row = $query->fetch_assoc())
     {
-        $lineData = array($row['request_id'], $row['control_no'], $row['studentID_no'], $row['email_address'], , $row['document_name'], $row['no_ofcopies'], $row['date_request'], $row['date_releasing'], $row['processing_officer'], $row['status']);
+        $lineData = array($row['request_id'], $row['control_no'], $row['student_id'], $row['email_address'], , $row['document_name'], $row['no_ofcopies'], $row['date_request'], $row['date_releasing'], $row['processing_officer'], $row['status']);
         fputcsv($f, $lineData, $delimiter);
     }
     fseek($f, 0);

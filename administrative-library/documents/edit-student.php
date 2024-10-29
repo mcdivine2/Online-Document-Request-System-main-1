@@ -40,14 +40,14 @@
                     include '../init/model/config/connection2.php';
                     $GET_studid = intval($_GET['student']);
                     $student_number = $_GET['student-number'];
-                    $sql = "SELECT * FROM `tbl_students` WHERE `student_id`= ? AND studentID_no = ?";
+                    $sql = "SELECT * FROM `tbl_students` WHERE `student_id`= ? AND student_id = ?";
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_studid, $student_number);
                     $stmt->execute();
                     $result = $stmt->get_result();
                     while ($row = $result->fetch_assoc()) {
                     
-                     $studentID_no = $row['studentID_no'];
+                     $student_id = $row['student_id'];
                      $first_name = $row['first_name'];
                      $middle_name = $row['middle_name'];
                      $last_name = $row['last_name'];
@@ -75,7 +75,7 @@
                                                 <div class="form-group row">
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right">Student Number</label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" name="studentID_no" value="<?= $studentID_no; ?>" required="" placeholder="" class="form-control">
+                                                        <input data-parsley-type="alphanum" type="text" name="student_id" value="<?= $student_id; ?>" required="" placeholder="" class="form-control">
                                                     </div>
                                                 </div>
 
@@ -203,7 +203,7 @@
        $('form[name="student_form"]').on('submit', function(e){
           e.preventDefault();
         
-          var a = $(this).find('input[name="studentID_no"]').val();
+          var a = $(this).find('input[name="student_id"]').val();
           var b = $(this).find('input[name="first_name"]').val();
           var c = $(this).find('input[name="middle_name"]').val();
           var d = $(this).find('input[name="last_name"]').val();
@@ -228,7 +228,7 @@
                 url: '../init/controllers/edit_student.php',
                 method: 'post',
                 data: {
-                  studentID_no: a,
+                  student_id: a,
                   first_name: b,
                   middle_name: c,
                   last_name: d,

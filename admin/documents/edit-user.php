@@ -66,9 +66,11 @@
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                         <select data-parsley-type="alphanum" type="text" value="<?= $row['desgination']; ?>" id="desgination2" required="" placeholder="" class="form-control">
                                                         <option value="<?= $row['desgination']; ?>" hidden><?= $row['desgination']; ?></option>   
-                                                           <option value="Administrator">Administrator</option>
-                                                           <option value="Administrative Assistant">Administrative Assistant</option>
-                                                           <option value="Administrative Aide">Administrative Aide</option>
+                                                           <option value="Registrar">Registrar</option>
+                                                           <option value="Library">Library</option>
+                                                           <option value="Custodian">Custodian</option>
+                                                           <option value="Dean">Dean</option>
+                                                           <option value="Accounting">Accounting</option>
                                                        </select>
                                                     </div>
                                                 </div>

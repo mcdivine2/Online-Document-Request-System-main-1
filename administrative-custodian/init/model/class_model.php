@@ -99,7 +99,7 @@
 
 
 		public function add_student($IDnumber, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status){
-			$stmt = $this->conn->prepare("INSERT INTO `tbl_students` (`studentID_no`, `first_name`, `middle_name`, `last_name`, `complete_address`, `email_address`, `mobile_number`, `username`, `password`, `account_status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
+			$stmt = $this->conn->prepare("INSERT INTO `tbl_students` (`student_id`, `first_name`, `middle_name`, `last_name`, `complete_address`, `email_address`, `mobile_number`, `username`, `password`, `account_status`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)") or die($this->conn->error);
 			$stmt->bind_param("ssssssssss", $IDnumber, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status);
 			if($stmt->execute()){
 				$stmt->close();
@@ -147,30 +147,6 @@
 		         return $data;
 
 		  }
-
-		
-
-		public function edit_student($studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id){
-			$sql = "UPDATE `tbl_student` SET   `studentID_no` = ?,   `first_name` = ?, `middle_name` = ?, `last_name` = ?, `course` = ?, `year_level` = ?, `date_ofbirth` = ?, `gender` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
-			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssssssssi", $studentID_no, $first_name, $middle_name, $last_name, $course, $year_level, $date_ofbirth, $gender, $complete_address, $email_address, $mobile_number, $username, $password, $account_status, $student_id);
-			if($stmt->execute()){
-				$stmt->close();
-				$this->conn->close();
-				return true;
-			}
-		}
-
-		public function add_account($studentID_no, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status, $student_id){
-			$sql = "UPDATE `tbl_students` SET   `studentID_no` = ?, `first_name` = ?, `middle_name` = ?, `last_name` = ?, `complete_address` = ?, `email_address` = ?, `mobile_number` = ?, `username` = ?, `password` = ?, `account_status` = ?  WHERE student_id = ?";
-			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssssi", $studentID_no, $first_name, $middle_name, $last_name, $complete_address, $email_address, $mobile_number, $username, $password, $status, $student_id);
-			if($stmt->execute()){
-				$stmt->close();
-				$this->conn->close();
-				return true;
-			}
-		}
 		
 
 		public function delete_student($student_id){
@@ -244,7 +220,7 @@
 
 				$output = fopen('php://output', 'w');
 
-					fputcsv($output, array('request_id','control_no','studentID_no','document_name','no_ofcopies','date_request','date_releasing','processing_officer','status'));
+					fputcsv($output, array('request_id','control_no','student_id','document_name','no_ofcopies','date_request','date_releasing','processing_officer','status'));
 
 				while ($row = mysqli_fetch_assoc($result))
 					{
@@ -259,7 +235,7 @@
 		  }
 
 		  public function fetchAll_newrequest(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Received' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Received' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -272,7 +248,7 @@
 		  }
 
 		  public function fetchAll_releasing(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Releasing' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Releasing' ";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -285,7 +261,31 @@
 		  }
 
 		  public function fetchAll_released(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Released' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Released' ";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function fetchAll_declined(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Declined'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function fetchAll_verified(){ 
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Verified'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -298,7 +298,7 @@
 		  }
 
 		  public function fetchAll_pendingpayment(){ 
-            $sql = "SELECT * FROM  tbl_documentrequest WHERE status = 'Waiting for Payment' ORDER BY time_stamp DESC";
+            $sql = "SELECT * FROM  tbl_documentrequest WHERE custodian_status = 'Waiting for Payment'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -309,19 +309,26 @@
 		         return $data;
 
 		  }
+		  public function fetch_document_by_id($student_id, $request_id) {
+			$sql = "SELECT * FROM tbl_documentrequest WHERE student_id = ? AND request_id = ?";
+			$stmt = $this->conn->prepare($sql);
+			
+			if (!$stmt) {
+				die("SQL Error: " . $this->conn->error);
+			}
+		
+			$stmt->bind_param("ii", $student_id, $request_id);
+			$stmt->execute();
+			$result = $stmt->get_result();
+			
+			return $result->fetch_assoc();  // Fetch a single row
+		}
 
 
-
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $custodian_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `custodian_status` = ?  WHERE request_id = ?";
+		public function edit_request($control_no, $student_id, $document_name, $date_request, $custodian_status, $request_id){
+			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `student_id` = ?, `document_name` = ?, `date_request` = ?, `custodian_status` = ?  WHERE request_id = ?";
 			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("sssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $custodian_status, $request_id);
-
-		public function edit_request($control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $custodian_status, $request_id){
-			$sql = "UPDATE `tbl_documentrequest` SET  `control_no` = ?, `studentID_no` = ?, `document_name` = ?, `no_ofcopies` = ?, `date_request` = ?, `date_releasing` = ?, `processing_officer` = ?, `custodian_status` = ?  WHERE request_id = ?";
-			 $stmt = $this->conn->prepare($sql);
-			$stmt->bind_param("ssssssssi", $control_no, $studentID_no, $document_name, $no_ofcopies, $date_request, $date_releasing, $processing_officer, $custodian_status, $request_id);
-
+			$stmt->bind_param("sssssi", $control_no, $student_id, $document_name, $date_request, $custodian_status, $request_id);
 			if($stmt->execute()){
 				$stmt->close();
 				$this->conn->close();
@@ -460,7 +467,7 @@
 		  
 
 		  public function count_allstudents(){ 
-            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_student) as count_students";
+            $sql = "SELECT (SELECT COUNT(student_id)  FROM tbl_students) as count_students";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -501,7 +508,7 @@
 		  
 
 		   public function count_numberoftotalpaid(){ 
-            $sql = "SELECT COUNT(request_id) as count_paid FROM tbl_documentrequest WHERE status = 'Paid'";
+            $sql = "SELECT COUNT(request_id) as count_paid FROM tbl_documentrequest WHERE custodian_status = 'Paid'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -514,7 +521,7 @@
 		  }
 
 		 public function count_numberoftotalreceived(){ 
-            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE status = 'Received'";
+            $sql = "SELECT COUNT(request_id) as count_received FROM tbl_documentrequest WHERE custodian_status = 'Received'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -527,7 +534,7 @@
 		  }
 
 		  public function count_numberofreleased(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE status = 'Releasing'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE custodian_status = 'Releasing'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();
@@ -540,7 +547,31 @@
 		  }
 
 		  public function count_released(){ 
-            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE status = 'Released'";
+            $sql = "SELECT COUNT(request_id) as count_released FROM tbl_documentrequest WHERE custodian_status = 'Released'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function count_declined(){ 
+            $sql = "SELECT COUNT(request_id) as count_declined FROM tbl_documentrequest WHERE custodian_status = 'Declined'";
+				$stmt = $this->conn->prepare($sql); 
+				$stmt->execute();
+				$result = $stmt->get_result();
+		        $data = array();
+		         while ($row = $result->fetch_assoc()) {
+		                   $data[] = $row;
+		            }
+		         return $data;
+
+		  }
+		  public function count_verified(){ 
+            $sql = "SELECT COUNT(request_id) as count_verified FROM tbl_documentrequest WHERE custodian_status = 'Verified'";
 				$stmt = $this->conn->prepare($sql); 
 				$stmt->execute();
 				$result = $stmt->get_result();

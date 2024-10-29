@@ -41,8 +41,8 @@
                     $student_number = $_GET['student-number'];
                     $sql = "SELECT tbl_documentrequest.*, tbl_student.email_address 
                     FROM `tbl_documentrequest` 
-                    INNER JOIN `tbl_student` ON tbl_documentrequest.studentID_no = tbl_student.studentID_no 
-                    WHERE `request_id` = ? AND tbl_documentrequest.studentID_no = ?";            
+                    INNER JOIN `tbl_student` ON tbl_documentrequest.student_id = tbl_student.student_id 
+                    WHERE `request_id` = ? AND tbl_documentrequest.student_id = ?";            
                     $stmt = $conn->prepare($sql); 
                     $stmt->bind_param("is", $GET_reqid, $student_number);
                     $stmt->execute();
@@ -60,28 +60,25 @@
                                                     <label class="col-12 col-sm-3 col-form-label text-sm-right"><i class="fa fa-file"></i> Email Form</label>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Send to: </label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right" for="email">Send to: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                        <input data-parsley-type="alphanum" type="text" value="<?= $row['email_address']; ?>" name="email" required="" placeholder="" class="form-control" readonly>
+                                                        <input data-parsley-type="alphanum" type="email" value="<?= $row['email_address']; ?>" name="email" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Subject: </label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right" for="subject">Subject: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
                                                         <input data-parsley-type="alphanum" type="text" value="Releasing of <?= $row['document_name']; ?>" name="subject" required="" placeholder="" class="form-control" readonly>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group row">
-                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right">Message: </label>
+                                                    <label class="col-12 col-sm-3 col-form-label text-sm-right" for="body">Message: </label>
                                                     <div class="col-12 col-sm-8 col-lg-6">
-                                                       
                                                     <textarea data-parsley-type="alphanum" type="text" name="body" required="" placeholder="" class="form-control" readonly> Hello, This is a test! Your <?= $row['document_name']; ?> is ready to release! Please claim it on the office of registrar on <?= $row['date_releasing']; ?>
-                                                </textarea>
-                                                   
-                                                
-                                                </div>
+                                                    </textarea>
+                                                    </div>
                                                 </div>
                                                 
                                            
@@ -124,7 +121,7 @@
               btn.addEventListener('click', () => {
 
                   const control_no = document.querySelector('input[name=control_no]').value;
-                  const studentID_no = document.querySelector('input[name=studentID_no]').value;
+                  const student_id = document.querySelector('input[name=student_id]').value;
                   const document_name = document.querySelector('input[name=document_name]').value;
                   const no_ofcopies = document.querySelector('input[name=no_ofcopies]').value;
                   const date_request = document.querySelector('input[name=date_request]').value;
@@ -136,7 +133,7 @@
                   var data = new FormData(this.form);
 
                   data.append('control_no', control_no);
-                  data.append('studentID_no', studentID_no);
+                  data.append('student_id', student_id);
                   data.append('document_name', document_name);
                   data.append('no_ofcopies', no_ofcopies);
                   data.append('date_request', date_request);
@@ -146,7 +143,7 @@
                   data.append('request_id', request_id);
 
 
-              if (control_no === '' &&  studentID_no ==='' &&  document_name ==='' &&  no_ofcopies ==='' &&  date_request ==='' &&  date_releasing ==='' &&  processing_officer ===''){
+              if (control_no === '' &&  student_id ==='' &&  document_name ==='' &&  no_ofcopies ==='' &&  date_request ==='' &&  date_releasing ==='' &&  processing_officer ===''){
                       $('#message').html('<div class="alert alert-danger"> Required All Fields!</div>');
                     }else{
                        $.ajax({
