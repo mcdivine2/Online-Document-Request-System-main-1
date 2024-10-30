@@ -152,7 +152,7 @@
                 } else {
                     $.ajax({
                             type: 'POST',
-                            url: 'init/controllers/login_process.php',
+                            url: 'https://ecolumbanodocz.com/init/controllers/login_process.php',
                             data: {
                                 username: u_username,
                                 password: p_password
